@@ -2,17 +2,21 @@
 price-parser
 ============
 
-.. image:: https://img.shields.io/travis/scrapinghub/price-parser/master.svg
-    :target: https://travis-ci.org/scrapinghub/price-parser
-    :alt: Build Status
-
-.. image:: https://img.shields.io/codecov/c/github/scrapinghub/price-parser/master.svg?maxAge=2592000
-    :target: https://codecov.io/gh/scrapinghub/price-parser
-    :alt: Coverage report
-
 .. image:: https://img.shields.io/pypi/v/price-parser.svg
    :target: https://pypi.python.org/pypi/price-parser
    :alt: PyPI Version
+
+.. image:: https://img.shields.io/pypi/pyversions/price-parser.svg
+   :target: https://pypi.python.org/pypi/price-parser
+   :alt: Supported Python Versions
+
+.. image:: https://travis-ci.org/scrapinghub/price-parser.svg?branch=master
+   :target: https://travis-ci.org/scrapinghub/price-parser
+   :alt: Build Status
+
+.. image:: https://codecov.io/github/scrapinghub/price-parser/coverage.svg?branch=master
+   :target: https://codecov.io/gh/scrapinghub/price-parser
+   :alt: Coverage report
 
 
 ``price-parser`` is a small library for extracting price and currency from
