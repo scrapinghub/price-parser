@@ -27,5 +27,5 @@ deploy:
     secure: JONxrnHRkRpIa9k60QSts9hiPdsBrh/zTL1uPNwPYN8U/wy2c1kg4tECB7CGPW+Ikxhb7uHG9FV23jexerqodyZkEqrGpkW58E9+8WJaXaz+8DzSxGTMOn+3OCc95Ao76ApiXNlmeVPD5dO0aV+/ITgjkedOxjGnpmAmwbp8GSwcQviZTlNovWe3/cAdxSFMSusMYHgkp7CXbyrvnHCxGPkt5AEY2AMqrhwTdSgKZCXkY7f3wAVxHj6iRSWFsLbMVkxRa905C6PwHusCdPY7V6MeEYJsrWn4VI5qI2NUwLoV/KtY4HUsZMCuT5qhaKx4DP3wf4pQyt/jhBsW3gZri1QWDZPKeaDxg+d3P5jLqQuYRxrLA3v/4N+n0GHfMyqnBuKly/aJReUBVblvjNjx0FFuSL0+Bty6RzbL6KtBdEFEVfRhOB/mU5PzLCMz+4NWlynC+gmzz9ubfVkQTAoeBK5vvjFeu25XTSr4yESdeUrhIB4E5YmOT2mgUrcA1b32mflEMQxsfj29Bo8XLJSOXzPMN1TjX96ta7+rwZrMm1Jwu44weIasCeZThqnq+2NRXT8h2PkHX9pXqJkh84QvqIUIv/pDRZOrh3pF7M5hrexxxaOwj1cECATA0RA3uk+UgbJo6FHubumL992ZtMj+v0BB9U1Z9i47q+VzdmcvXuE=
   on:
     tags: true
-    repo: scrapy/scrapy
+    repo: scrapinghub/price-parser
     condition: "$TOXENV == py36 && $TRAVIS_TAG =~ ^[0-9]+[.][0-9]+[.][0-9]+(rc[0-9]+|[.]dev[0-9]+)?$"
