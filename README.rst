@@ -15,7 +15,7 @@ price-parser
    :alt: PyPI Version
 
 
-*price-parser* is a small library for extracting price and currency from
+``price-parser`` is a small library for extracting price and currency from
 raw text strings.
 
 Features:
@@ -136,9 +136,6 @@ extraction.
 
 >>> Price.fromstring("34.99", currency_hint="руб. (шт)")
 Price(amount=Decimal('34.99'), currency='руб.')
-
-With a proper ``currency_hint`` we expect perfect price parsing results
-on 98-99% of websites.
 
 Note that currency mentioned in the main price string may be
 **preferred** over currency specified in ``currency_hint`` argument;
