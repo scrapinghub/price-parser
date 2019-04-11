@@ -28,4 +28,4 @@ deploy:
   on:
     tags: true
     repo: scrapinghub/price-parser
-    condition: "$TOXENV == py36 && $TRAVIS_TAG =~ ^[0-9]+[.][0-9]+[.][0-9]+(rc[0-9]+|[.]dev[0-9]+)?$"
+    condition: $TOXENV == py36
