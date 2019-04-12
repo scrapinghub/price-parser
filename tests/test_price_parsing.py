@@ -51,7 +51,9 @@ class Example(Price):
 
 PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
     Example(None, 'US$:12.99',
-            'US$', '12.99', 12.99)
+            'US$', '12.99', 12.99),
+    Example(None, 'PTE 120 000 000',
+            'PTE', '120 000 000', 120000000)
 ]
 
 

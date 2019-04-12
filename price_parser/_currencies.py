@@ -1550,6 +1550,17 @@ CURRENCIES["PLN"]["sn2"] = ["pln"]
 CURRENCIES["INR"]["sn2"] = ["₹", "र"]
 CURRENCIES["IRR"]["sn2"] = ["ریال"]
 
+CURRENCIES.update({
+    "PTE": {
+        "s": "$",
+        "n": "Portuguese escudo",
+        "sn": "$",
+        "d": 2,
+        "r": 0,
+        "np": "Portuguese escudos"
+    },
+})
+
 
 CURRENCY_CODES: List[str] = list(CURRENCIES.keys())
 CURRENCY_SYMBOLS: List[str] = list({c['s'] for c in CURRENCIES.values()})
