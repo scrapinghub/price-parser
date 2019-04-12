@@ -1550,6 +1550,7 @@ CURRENCIES["PLN"]["sn2"] = ["pln"]
 CURRENCIES["INR"]["sn2"] = ["₹", "र"]
 CURRENCIES["IRR"]["sn2"] = ["ریال"]
 
+# Historical currencies
 CURRENCIES.update({
     "PTE": {
         "s": "$",
@@ -1558,6 +1559,14 @@ CURRENCIES.update({
         "d": 2,
         "r": 0,
         "np": "Portuguese escudos"
+    },
+    "DEM": {
+        "s": "DM",
+        "n": "Deutsche Mark",
+        "sn": "D-Mark",
+        "d": 2,
+        "r": 0,
+        "np": "Deutsche marks"
     },
 })
 
