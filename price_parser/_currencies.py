@@ -10,7 +10,18 @@ which is supposed to provide combined data from
 * http://www.iotafinance.com/en/ISO-4217-Currency-Codes.html
 * http://www.xe.com/symbols.php
 
-Some extra abbreviations are added to the list (see below ``CURRENCIES``).
+Field meaning:
+
+* s - currency main symbol
+* n - currency name  (currently unused)
+* sn - currency native symbol
+* d - decimal digits (currently unused)
+* r - rounding (currently unused)
+* np - currency name, plural (currently unused)
+* sn2 - other currency symbols
+
+Some extra abbreviations are added to the list (they are set below
+``CURRENCIES`` variable, scroll to the bottom).
 """
 from typing import List, Dict
 from itertools import chain
