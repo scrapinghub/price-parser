@@ -8,7 +8,8 @@ and PRICE_PARSING_EXAMPLES_NO_CURRENCY.
 This data is collected from a random sample of pages from different domains.
 
 PRICE_PARSING_EXAMPLES_BUGS_CAUGHT are manually added examples for the bugs
-we've found in a wild. New tests should probably go there.
+we've found in a wild; PRICE_PARSING_EXAMPLES_NEW is a list of tests for
+new features. New tests should probably go these two lists.
 """
 from typing import Optional
 from decimal import Decimal
@@ -52,10 +53,18 @@ class Example(Price):
 PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
     Example(None, 'US$:12.99',
             'US$', '12.99', 12.99),
+]
+
+
+PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, 'PTE 120 000 000',
             'PTE', '120 000 000', 120000000),
     Example(None, 'DEM 170 000',
             'DEM', '170 000', 170000),
+    Example(None, '₤1700.',
+            '₤', '1700', 1700),
+    Example(None, '$ 1.144.000',
+            '$', '1.144.000', 1144000),
 ]
 
 
@@ -1937,12 +1946,13 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
 
 @pytest.mark.parametrize(
     ["example"],
+    [[e] for e in PRICE_PARSING_EXAMPLES_BUGS_CAUGHT] +
+    [[e] for e in PRICE_PARSING_EXAMPLES_NEW] +
     [[e] for e in PRICE_PARSING_EXAMPLES] +
     [[e] for e in PRICE_PARSING_EXAMPLES_2] +
     [[e] for e in PRICE_PARSING_EXAMPLES_3] +
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_PRICE] +
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_CURRENCY] +
-    [[e] for e in PRICE_PARSING_EXAMPLES_BUGS_CAUGHT] +
     [pytest.param(e, marks=pytest.mark.xfail())
      for e in PRICE_PARSING_EXAMPLES_XFAIL]
 )

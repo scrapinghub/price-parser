@@ -1542,23 +1542,30 @@ CURRENCIES: Dict[str, Dict] = {
     }
 }
 
-# updates
-CURRENCIES["VND"]["sn2"] = ["đ"]
-CURRENCIES["RON"]["sn2"] = ["lei", "leu", "Lei", "LEI"]
-CURRENCIES["CHF"]["sn2"] = ["Fr."]
-CURRENCIES["PLN"]["sn2"] = ["pln"]
-CURRENCIES["INR"]["sn2"] = ["₹", "र"]
-CURRENCIES["IRR"]["sn2"] = ["ریال"]
-
-# Historical currencies
-CURRENCIES.update({
-    "PTE": {
-        "s": "$",
-        "n": "Portuguese escudo",
-        "sn": "$",
+REPLACED_BY_EURO = {
+    "ATS": {
+        "s": "öS",
+        "n": "Austrian schilling",
+        "sn": "öS",
         "d": 2,
         "r": 0,
-        "np": "Portuguese escudos"
+        "np": "Austrian schilling"
+    },
+    "BEF": {
+        "s": "fr.",
+        "n": "Belgian franc",
+        "sn": "fr.",
+        "d": 2,
+        "r": 0,
+        "np": "Belgian francs"
+    },
+    "CYP": {
+        "s": "CYP",
+        "n": "Cypriot pound",
+        "sn": "£",
+        "d": 2,
+        "r": 0,
+        "np": "Cypriot pounds"
     },
     "DEM": {
         "s": "DM",
@@ -1568,7 +1575,148 @@ CURRENCIES.update({
         "r": 0,
         "np": "Deutsche marks"
     },
-})
+    "NLG": {
+        "s": "fl.",
+        "n": "Dutch guilder",
+        "sn": "ƒ",
+        "d": 2,
+        "r": 0,
+        "np": "Dutch guilders"
+    },
+    "EEK": {
+        "s": "kr",
+        "n": "Estonian kroon",
+        "sn": "kroon",
+        "d": 2,
+        "r": 0,
+        "np": "Estonian krooni"
+    },
+    "FIM": {
+        "s": "FIM",
+        "n": "Finnish markka",
+        "sn": "mk.",
+        "d": 2,
+        "r": 0,
+        "np": "Finnish markkaa"
+    },
+    "FRF": {
+        "s": "F",
+        "n": "French franc",
+        "sn": "₣",
+        "d": 2,
+        "r": 0,
+        "np": "French francs"
+    },
+    "GRD": {
+        "s": "GRD",
+        "n": "Greek drachma",
+        "sn": "Δρχ.",
+        "sn2": ["Δρ.", "₯"],
+        "d": 2,
+        "r": 0,
+        "np": "Greek drachmae"
+    },
+    "IEP": {
+        "s": "IR£",
+        "n": "Irish pound",
+        "sn": "£",
+        "d": 2,
+        "r": 0,
+        "np": "Irish pounds"
+    },
+    "ITL": {
+        "s": "L",
+        "n": "Italian lira",
+        "sn": "₤",
+        "d": 0,
+        "r": 0,
+        "np": "Italian lire"
+    },
+    "LVL": {
+        "s": "Ls",
+        "n": "Latvian lats",
+        "sn": "LVL",
+        "d": 2,
+        "r": 0,
+        "np": "Latvian lati"
+    },
+    "LTL": {
+        "s": "Lt",
+        "n": "Lithuanian litas",
+        "sn": "LTL",
+        "sn2": ["litų"],
+        "d": 2,
+        "r": 0,
+        "np": "Lithuanian litai"
+    },
+    "LUF": {
+        "s": "F",
+        "n": "Luxembourgish franc",
+        "sn": "LUF",
+        "d": 2,
+        "r": 0,
+        "np": "Luxembourgish francs"
+    },
+    "MTL": {
+        "s": "Lm",
+        "n": "Maltese lira",
+        "sn": "₤",
+        "d": 2,
+        "r": 0,
+        "np": "Maltese liri"
+    },
+    "PTE": {
+        "s": "$",
+        "n": "Portuguese escudo",
+        "sn": "$",
+        "d": 2,
+        "r": 0,
+        "np": "Portuguese escudos"
+    },
+    "SKK": {
+        "s": "SKK",
+        "n": "Slovak koruna",
+        "sn": "Sk",
+        "d": 2,
+        "r": 0,
+        "np": "Slovak Koruny"
+    },
+    "SIT": {
+        "s": "SIT",
+        "n": "Slovenian tolar",
+        "sn": "SIT",
+        "sn2": ["tolarjev"],
+        "d": 2,
+        "r": 0,
+        "np": "Slovenian tolar"
+    },
+    "ESP": {
+        "s": "Pta",
+        "n": "Spanish peseta",
+        "sn": "Ptas",
+        "sn2": ["₧", "Pts", "Pt"],
+        "d": 0,
+        "r": 0,
+        "np": "Spanish pesetas"
+    },
+    "VAL": {
+        "s": "£",
+        "n": "Vatican lira",
+        "sn": "₤",
+        "d": 0,
+        "r": 0,
+        "np": "Vatican liri"
+    },
+}
+
+# updates
+CURRENCIES.update(REPLACED_BY_EURO)
+CURRENCIES["VND"]["sn2"] = ["đ"]
+CURRENCIES["RON"]["sn2"] = ["lei", "leu", "Lei", "LEI"]
+CURRENCIES["CHF"]["sn2"] = ["Fr."]
+CURRENCIES["PLN"]["sn2"] = ["pln"]
+CURRENCIES["INR"]["sn2"] = ["₹", "र"]
+CURRENCIES["IRR"]["sn2"] = ["ریال"]
 
 
 CURRENCY_CODES: List[str] = list(CURRENCIES.keys())
