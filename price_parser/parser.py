@@ -64,7 +64,7 @@ SAFE_CURRENCY_SYMBOLS = [
     'Bds$', 'CUC$', 'MOP$',
     'AR$', 'AU$', 'BN$', 'BZ$', 'CA$', 'CL$', 'CO$', 'CV$', 'HK$', 'MX$',
     'NT$', 'NZ$', 'TT$', 'RD$', 'WS$', 'US$',
-    '$U', 'C$', 'J$', 'N$', 'R$', 'S$', 'T$', 'Z$',
+    '$U', 'C$', 'J$', 'N$', 'R$', 'S$', 'T$', 'Z$', 'A$',
     'SY£', 'LB£', 'CN¥', 'GH₵',
 
     # unique currency symbols
