@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='price-parser',
-    version='0.2.1',
+    version='0.2.2',
     description='Extract price and currency from a raw string',
     long_description=open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
     author='Mikhail Korobov',

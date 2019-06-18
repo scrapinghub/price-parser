@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.2.2 (2019-06-18)
+------------------
+
+* Fixed parsing of prices with 4+ digits after a decimal separator.
+
 0.2.1 (2019-04-19)
 ------------------
 
