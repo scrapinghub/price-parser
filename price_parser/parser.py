@@ -205,9 +205,9 @@ def extract_price_text(price: str) -> Optional[str]:
 _search_decimal_sep = re.compile(r"""
 \d           # at least one digit (there can be more before it)
 ([.,€])      # decimal separator
-(?:          # 1,2 or 4 digits. 3 digits is likely to be a thousand separator.
+(?:          # 1,2 or 4+ digits. 3 digits is likely to be a thousand separator.
    \d{1,2}|
-   \d{4}
+   \d{4,8}
 )
 $
 """, re.VERBOSE).search
