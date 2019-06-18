@@ -53,6 +53,10 @@ class Example(Price):
 PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
     Example(None, 'US$:12.99',
             'US$', '12.99', 12.99),
+    Example('GBP', '34.992001',
+            'GBP', '34.992001', 34.992001),
+    Example('GBP', '29.1583',
+            'GBP', '29.1583', 29.1583),
 ]
 
 
