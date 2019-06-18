@@ -207,7 +207,7 @@ _search_decimal_sep = re.compile(r"""
 ([.,€])      # decimal separator
 (?:          # 1,2 or 4+ digits. 3 digits is likely to be a thousand separator.
    \d{1,2}|
-   \d{4,8}
+   \d{4}\d*
 )
 $
 """, re.VERBOSE).search

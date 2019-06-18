@@ -11,7 +11,7 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT are manually added examples for the bugs
 we've found in a wild; PRICE_PARSING_EXAMPLES_NEW is a list of tests for
 new features. New tests should probably go these two lists.
 """
-from typing import Optional
+from typing import Optional, Union
 from decimal import Decimal
 
 import pytest
@@ -26,11 +26,13 @@ class Example(Price):
                  price_raw: Optional[str],
                  currency: Optional[str],
                  amount_text: Optional[str],
-                 amount_float: Optional[float]) -> None:
+                 amount_float: Optional[Union[float, Decimal]]) -> None:
         self.currency_raw = currency_raw
         self.price_raw = price_raw
         amount_decimal = None  # type: Optional[Decimal]
-        if amount_float is not None:
+        if isinstance(amount_float, Decimal):
+            amount_decimal = amount_float
+        elif amount_float is not None:
             # don't use Decimal(amount_float), as this is not what
             # one usually means, because of float precision
             amount_decimal = Decimal(str(amount_float))
@@ -57,6 +59,8 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
             'GBP', '34.992001', 34.992001),
     Example('GBP', '29.1583',
             'GBP', '29.1583', 29.1583),
+    Example(None, '1.11000000000000009770',
+            None, '1.11000000000000009770', Decimal('1.11000000000000009770')),
 ]
 
 
