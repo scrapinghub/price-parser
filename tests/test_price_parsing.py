@@ -1975,3 +1975,14 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
 def test_parsing(example: Example):
     parsed = Price.fromstring(example.price_raw, example.currency_raw)
     assert parsed == example
+
+
+@pytest.mark.parametrize(
+    "amount,amount_float",
+    (
+        (None, None),
+        (Decimal('1.23'), 1.23),
+    )
+)
+def test_price_amount_float(amount, amount_float):
+    assert Price(amount, None, None).amount_float == amount_float
