@@ -202,6 +202,7 @@ def extract_price_text(price: str) -> Optional[str]:
     return None
 
 
+# NOTE: Keep supported separators in sync with parse_number()
 _search_decimal_sep = re.compile(r"""
 \d           # at least one digit (there can be more before it)
 ([.,€])      # decimal separator
@@ -268,13 +269,15 @@ def parse_number(num: str) -> Optional[Decimal]:
         return None
     num = num.strip().replace(' ', '')
     decimal_separator = get_decimal_separator(num)
+    # NOTE: Keep supported separators in sync with _search_decimal_sep
     if decimal_separator is None:
         num = num.replace('.', '').replace(',', '')
     elif decimal_separator == '.':
         num = num.replace(',', '')
     elif decimal_separator == ',':
         num = num.replace('.', '').replace(',', '.')
-    elif decimal_separator == '€':
+    else:
+        assert decimal_separator == '€'
         num = num.replace('.', '').replace(',', '').replace('€', '.')
     try:
         return Decimal(num)
