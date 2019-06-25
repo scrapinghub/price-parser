@@ -11,9 +11,11 @@ setup(
     author_email='kmike84@gmail.com',
     url='https://github.com/scrapinghub/price-parser',
     packages=find_packages(exclude=['tests']),
+    package_data={"price_parser": ["py.typed"]},
     install_requires=[
         'attrs >= 17.3.0',
     ],
+    zip_safe=False,
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
