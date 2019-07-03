@@ -25,7 +25,8 @@ class Price:
 
     @classmethod
     def fromstring(cls, price: Optional[str],
-                   currency_hint: Optional[str] = None) -> 'Price':
+                   currency_hint: Optional[str] = None,
+                   locale: Optional[str] = None) -> 'Price':
         """
         Given price and currency text extracted from HTML elements, return
         ``Price`` instance, which provides a clean currency symbol and
