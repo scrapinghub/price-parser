@@ -1,6 +1,13 @@
 Changes
 =======
 
+0.2.4 (2019-07-03)
+------------------
+
+* Declare price-parser as providing type annotations (pep-561). This enables
+  better type checking for projects using price-parser.
+* improved test coverage
+
 0.2.3 (2019-06-18)
 ------------------
 
