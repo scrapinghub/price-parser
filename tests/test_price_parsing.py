@@ -1974,7 +1974,7 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
 )
 def test_parsing(example: Example):
     parsed = Price.fromstring(example.price_raw, example.currency_raw)
-    assert parsed == example
+    assert parsed == example, f"Failed scenario: price={example.price_raw}, currency_hint={example.currency_raw}"
 
 
 @pytest.mark.parametrize(
