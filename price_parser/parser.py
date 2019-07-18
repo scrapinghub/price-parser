@@ -25,7 +25,8 @@ class Price:
 
     @classmethod
     def fromstring(cls, price: Optional[str],
-                   currency_hint: Optional[str] = None) -> 'Price':
+                   currency_hint: Optional[str] = None,
+                   decimal_separator_hint: Optional[str] = None) -> 'Price':
         """
         Given price and currency text extracted from HTML elements, return
         ``Price`` instance, which provides a clean currency symbol and
@@ -37,7 +38,10 @@ class Price:
         from ``currency_hint`` string.
         """
         amount_text = extract_price_text(price) if price is not None else None
-        amount_num = parse_number(amount_text) if amount_text is not None else None
+        amount_num = (
+            parse_number(amount_text, decimal_separator_hint)
+            if amount_text is not None else None
+        )
         currency = extract_currency_symbol(price, currency_hint)
         if currency is not None:
             currency = currency.strip()
@@ -234,7 +238,8 @@ def get_decimal_separator(price: str) -> Optional[str]:
         return m.group(1)
 
 
-def parse_number(num: str) -> Optional[Decimal]:
+def parse_number(num: str,
+                 decimal_separator_hint: Optional[str]) -> Optional[Decimal]:
     """ Parse a string with a number to a Decimal, guessing its format:
     decimal separator, thousand separator. Return None if parsing fails.
 
@@ -268,7 +273,10 @@ def parse_number(num: str) -> Optional[Decimal]:
     if not num:
         return None
     num = num.strip().replace(' ', '')
-    decimal_separator = get_decimal_separator(num)
+    decimal_separator = (
+        get_decimal_separator(num)
+        if not decimal_separator_hint else decimal_separator_hint
+    )
     # NOTE: Keep supported separators in sync with _search_decimal_sep
     if decimal_separator is None:
         num = num.replace('.', '').replace(',', '')
