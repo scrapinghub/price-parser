@@ -1986,3 +1986,18 @@ def test_parsing(example: Example):
 )
 def test_price_amount_float(amount, amount_float):
     assert Price(amount, None, None).amount_float == amount_float
+
+
+@pytest.mark.parametrize(
+    "price_raw,decimal_separator_hint,expected_result",
+    (
+        ("140.000", ",", Decimal("140000")),
+        ("140.000", ".", Decimal("140.000")),
+    )
+)
+def test_price_decimal_separator_hint(price_raw, decimal_separator_hint, expected_result):
+    parsed = Price.fromstring(
+        price_raw,
+        decimal_separator_hint=decimal_separator_hint
+    )
+    assert parsed.amount == expected_result
