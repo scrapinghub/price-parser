@@ -18,6 +18,10 @@ price-parser
    :target: https://codecov.io/gh/scrapinghub/price-parser
    :alt: Coverage report
 
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/ambv/black
+   :alt: Code style: black
+
 
 ``price-parser`` is a small library for extracting price and currency from
 raw text strings.
