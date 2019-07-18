@@ -239,7 +239,7 @@ def get_decimal_separator(price: str) -> Optional[str]:
 
 
 def parse_number(num: str,
-                 decimal_separator_hint: Optional[str]) -> Optional[Decimal]:
+                 decimal_separator_hint: Optional[str] = None) -> Optional[Decimal]:
     """ Parse a string with a number to a Decimal, guessing its format:
     decimal separator, thousand separator. Return None if parsing fails.
 
