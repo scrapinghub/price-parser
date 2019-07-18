@@ -267,6 +267,10 @@ def parse_number(num: str,
     Decimal('1235.99')
     >>> parse_number("1.235€99")
     Decimal('1235.99')
+    >>> parse_number("140.000", decimal_separator_hint=",")
+    Decimal('140000')
+    >>> parse_number("140.000", decimal_separator_hint=".")
+    Decimal('140.000')
     >>> parse_number("")
     >>> parse_number("foo")
     """
