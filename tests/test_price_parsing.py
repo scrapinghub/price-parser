@@ -1991,8 +1991,12 @@ def test_price_amount_float(amount, amount_float):
 @pytest.mark.parametrize(
     "price_raw,decimal_separator_hint,expected_result",
     (
+        ("140.000", None, Decimal("140000")),
         ("140.000", ",", Decimal("140000")),
         ("140.000", ".", Decimal("140.000")),
+        ("140€33", "€", Decimal("140.33")),
+        ("140,000€33", "€", Decimal("140000.33")),
+        ("140.000€33", "€", Decimal("140000.33")),
     )
 )
 def test_price_decimal_separator_hint(price_raw, decimal_separator_hint, expected_result):
