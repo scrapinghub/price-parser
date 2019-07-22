@@ -26,9 +26,11 @@ class Example(Price):
                  price_raw: Optional[str],
                  currency: Optional[str],
                  amount_text: Optional[str],
-                 amount_float: Optional[Union[float, Decimal]]) -> None:
+                 amount_float: Optional[Union[float, Decimal]],
+                 decimal_separator: Optional[str] = None) -> None:
         self.currency_raw = currency_raw
         self.price_raw = price_raw
+        self.decimal_separator = decimal_separator
         amount_decimal = None  # type: Optional[Decimal]
         if isinstance(amount_float, Decimal):
             amount_decimal = amount_float
@@ -1960,6 +1962,23 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
 ]
 
 
+PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
+    Example(None, '1250€ 600',
+            '€', '1250', 1250, "€"),
+    Example(None, '1250€ 60',
+            '€', '1250€60', 1250.60, "€"),
+    Example(None, '1250€600',
+            '€', '1250€600', 1250.600, "€"),
+]
+
+PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES_XFAIL = [
+    Example(None, '1250€600',
+            '€', '1250€600', 1250.600, None),
+    Example(None, '1250€ 600',
+            '€', '1250€ 600', 1250.600, None),
+]
+
+
 @pytest.mark.parametrize(
     ["example"],
     [[e] for e in PRICE_PARSING_EXAMPLES_BUGS_CAUGHT] +
@@ -1969,11 +1988,14 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     [[e] for e in PRICE_PARSING_EXAMPLES_3] +
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_PRICE] +
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_CURRENCY] +
+    [[e] for e in PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES] +
+    [pytest.param(e, marks=pytest.mark.xfail())
+     for e in PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES_XFAIL] +
     [pytest.param(e, marks=pytest.mark.xfail())
      for e in PRICE_PARSING_EXAMPLES_XFAIL]
 )
 def test_parsing(example: Example):
-    parsed = Price.fromstring(example.price_raw, example.currency_raw)
+    parsed = Price.fromstring(example.price_raw, example.currency_raw, example.decimal_separator)
     assert parsed == example, f"Failed scenario: price={example.price_raw}, currency_hint={example.currency_raw}"
 
 
