@@ -1989,7 +1989,7 @@ def test_price_amount_float(amount, amount_float):
 
 
 @pytest.mark.parametrize(
-    "price_raw,decimal_separator_hint,expected_result",
+    "price_raw,decimal_separator,expected_result",
     (
         ("140.000", None, Decimal("140000")),
         ("140.000", ",", Decimal("140000")),
@@ -1999,9 +1999,9 @@ def test_price_amount_float(amount, amount_float):
         ("140.000€33", "€", Decimal("140000.33")),
     )
 )
-def test_price_decimal_separator_hint(price_raw, decimal_separator_hint, expected_result):
+def test_price_decimal_separator(price_raw, decimal_separator, expected_result):
     parsed = Price.fromstring(
         price_raw,
-        decimal_separator_hint=decimal_separator_hint
+        decimal_separator=decimal_separator
     )
     assert parsed.amount == expected_result

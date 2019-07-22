@@ -26,7 +26,7 @@ class Price:
     @classmethod
     def fromstring(cls, price: Optional[str],
                    currency_hint: Optional[str] = None,
-                   decimal_separator_hint: Optional[str] = None) -> 'Price':
+                   decimal_separator: Optional[str] = None) -> 'Price':
         """
         Given price and currency text extracted from HTML elements, return
         ``Price`` instance, which provides a clean currency symbol and
@@ -39,7 +39,7 @@ class Price:
         """
         amount_text = extract_price_text(price) if price is not None else None
         amount_num = (
-            parse_number(amount_text, decimal_separator_hint)
+            parse_number(amount_text, decimal_separator)
             if amount_text is not None else None
         )
         currency = extract_currency_symbol(price, currency_hint)
@@ -239,7 +239,7 @@ def get_decimal_separator(price: str) -> Optional[str]:
 
 
 def parse_number(num: str,
-                 decimal_separator_hint: Optional[str] = None) -> Optional[Decimal]:
+                 decimal_separator: Optional[str] = None) -> Optional[Decimal]:
     """ Parse a string with a number to a Decimal, guessing its format:
     decimal separator, thousand separator. Return None if parsing fails.
 
@@ -267,9 +267,9 @@ def parse_number(num: str,
     Decimal('1235.99')
     >>> parse_number("1.235€99")
     Decimal('1235.99')
-    >>> parse_number("140.000", decimal_separator_hint=",")
+    >>> parse_number("140.000", decimal_separator=",")
     Decimal('140000')
-    >>> parse_number("140.000", decimal_separator_hint=".")
+    >>> parse_number("140.000", decimal_separator=".")
     Decimal('140.000')
     >>> parse_number("")
     >>> parse_number("foo")
@@ -279,7 +279,7 @@ def parse_number(num: str,
     num = num.strip().replace(' ', '')
     decimal_separator = (
         get_decimal_separator(num)
-        if not decimal_separator_hint else decimal_separator_hint
+        if not decimal_separator else decimal_separator
     )
     # NOTE: Keep supported separators in sync with _search_decimal_sep
     if decimal_separator is None:
