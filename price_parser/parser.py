@@ -277,10 +277,7 @@ def parse_number(num: str,
     if not num:
         return None
     num = num.strip().replace(' ', '')
-    decimal_separator = (
-        get_decimal_separator(num)
-        if not decimal_separator else decimal_separator
-    )
+    decimal_separator = decimal_separator or get_decimal_separator(num)
     # NOTE: Keep supported separators in sync with _search_decimal_sep
     if decimal_separator is None:
         num = num.replace('.', '').replace(',', '')
