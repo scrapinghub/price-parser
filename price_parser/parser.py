@@ -186,16 +186,16 @@ def extract_price_text(price: str) -> Optional[str]:
     """
     if price.count('€') == 1:
         m = re.search(r"""
-        [\d\s.,]*\d    # number, probably with thousand separators
-        \s*€(\s*)?     # euro, probably separated by whitespace
-        \d(?(1)\d|\d*) # if separated by whitespace - search one digit, multiple digits othervise
-        (?:$|[^\d])    # something which is not a digit
+        [\d\s.,]*?\d    # number, probably with thousand separators
+        \s*?€(\s*?)?    # euro, probably separated by whitespace)
+        \d(?(1)\d|\d*)  # if separated by whitespace - search one digit, multiple digits othervise
+        (?:$|[^\d])     # something which is not a digit
         """, price, re.VERBOSE)
         if m:
             return m.group(0).replace(' ', '')
     m = re.search(r"""
         (\d[\d\s.,]*)  # number, probably with thousand separators
-        \s*            # skip whitespace
+        \s*?           # skip whitespace
         (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
         """, price, re.VERBOSE)
 
@@ -211,8 +211,8 @@ _search_decimal_sep = re.compile(r"""
 \d           # at least one digit (there can be more before it)
 ([.,€])      # decimal separator
 (?:          # 1,2 or 4+ digits. 3 digits is likely to be a thousand separator.
-   \d{1,2}|
-   \d{4}\d*
+   \d{1,2}?|
+   \d{4}\d*?
 )
 $
 """, re.VERBOSE).search
