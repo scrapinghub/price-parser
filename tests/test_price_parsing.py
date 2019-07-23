@@ -1971,13 +1971,6 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
             '€', '1250€600', 1250.600, "€"),
 ]
 
-PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES_XFAIL = [
-    Example(None, '1250€600',
-            '€', '1250€600', 1250.600, None),
-    Example(None, '1250€ 600',
-            '€', '1250€ 600', 1250.600, None),
-]
-
 
 @pytest.mark.parametrize(
     ["example"],
@@ -1989,8 +1982,6 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES_XFAIL = [
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_PRICE] +
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_CURRENCY] +
     [[e] for e in PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES] +
-    [pytest.param(e, marks=pytest.mark.xfail())
-     for e in PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES_XFAIL] +
     [pytest.param(e, marks=pytest.mark.xfail())
      for e in PRICE_PARSING_EXAMPLES_XFAIL]
 )
