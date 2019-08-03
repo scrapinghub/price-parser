@@ -155,7 +155,9 @@ Price(amount=Decimal('1000'), currency='EUR')
 Decimal separator
 -----------------
 
-``decimal_separator`` allows to customize it in specific cases if it is known beforehand.
+If you know which symbol is used as a decimal separator in the input string,
+pass that symbol in the ``decimal_separator`` argument to prevent price-parser
+from guessing the wrong decimal separator symbol.
 
 >>> Price.fromstring("Price: $140.600", decimal_separator=".")
 Price(amount=Decimal('140.600'), currency='$')
