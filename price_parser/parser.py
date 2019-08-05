@@ -188,7 +188,7 @@ def extract_price_text(price: str) -> Optional[str]:
         m = re.search(r"""
         [\d\s.,]*?\d    # number, probably with thousand separators
         \s*?€(\s*?)?    # euro, probably separated by whitespace
-        \d(?(1)\d|\d*?) # if separated by whitespace - search one digit, multiple digits othervise
+        \d(?(1)\d|\d*?) # if separated by whitespace - search one digit, multiple digits otherwise
         (?:$|[^\d])     # something which is not a digit
         """, price, re.VERBOSE)
         if m:
