@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+
 import re
 import string
-from typing import Callable, Optional, Pattern, List, Tuple
+from datetime import datetime
 from decimal import Decimal, InvalidOperation
+from typing import Callable, List, Optional, Pattern, Tuple
 
 import attr
+
 from ._currencies import (CURRENCY_CODES, CURRENCY_NATIONAL_SYMBOLS,
                           CURRENCY_SYMBOLS)
 
@@ -69,7 +72,7 @@ SAFE_CURRENCY_SYMBOLS = [
 
     # unique currency symbols
     '$', '€', '£', 'zł', 'Zł', 'Kč', '₽', '¥', '￥',
-    '฿', 'դր.', 'դր', '₦', '₴', '₱', '৳', '₭', '₪',  '﷼', '៛', '₩', '₫', '₡',
+    '฿', 'դր.', 'դր', '₦', '₴', '₱', '৳', '₭', '₪', '﷼', '៛', '₩', '₫', '₡',
     'টকা', 'ƒ', '₲', '؋', '₮', 'नेरू', '₨',
     '₶', '₾', '֏', 'ރ', '৲', '૱', '௹', '₠', '₢', '₣', '₤', '₧', '₯',
     '₰', '₳', '₷', '₸', '₹', '₺', '₼', '₾', '₿', 'ℳ',
@@ -82,7 +85,7 @@ SAFE_CURRENCY_SYMBOLS = [
 
     # other common symbols, which we consider unambiguous
     'EUR', 'euro', 'eur', 'CHF', 'DKK', 'Rp', 'lei',
-    'руб.', 'руб',  'грн.', 'грн', 'дин.', 'Dinara', 'динар', 'лв.', 'лв',
+    'руб.', 'руб', 'грн.', 'грн', 'дин.', 'Dinara', 'динар', 'лв.', 'лв',
     'р.', 'тңг', 'тңг.', 'ман.',
 ]
 
@@ -139,8 +142,8 @@ def extract_currency_symbol(price: Optional[str],
     if price and '$' in price:
         methods.insert(0, (_search_dollar_code, price))
 
-    for meth, attr in methods:
-        m = meth(attr) if attr else None
+    for meth, attrib in methods:
+        m = meth(attrib) if attrib else None
         if m:
             return m.group(0)
 
@@ -180,6 +183,11 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("50")
     '50'
     """
+
+    date_ftm = date_format(price)
+    if date_ftm:
+        return
+
     if price.count('€') == 1:
         m = re.search(r"""
         [\d\s.,]*?\d    # number, probably with thousand separators
@@ -282,4 +290,16 @@ def parse_number(num: str) -> Optional[Decimal]:
     try:
         return Decimal(num)
     except InvalidOperation:
+        return None
+
+
+def date_format(price):
+    for fmt in ['%d.%m.%Y', '%B, %Y']:
+        try:
+            date = datetime.strptime(price, fmt)
+            if isinstance(date, datetime):
+                return date
+        except (ValueError, TypeError):
+            continue
+
         return None
