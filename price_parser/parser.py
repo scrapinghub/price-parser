@@ -186,7 +186,7 @@ def extract_price_text(price: str) -> Optional[str]:
 
     date_ftm = date_format(price)
     if date_ftm:
-        return
+        return None
 
     if price.count('€') == 1:
         m = re.search(r"""
