@@ -11,12 +11,14 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT are manually added examples for the bugs
 we've found in a wild; PRICE_PARSING_EXAMPLES_NEW is a list of tests for
 new features. New tests should probably go these two lists.
 """
-from typing import Optional, Union
+from datetime import datetime
 from decimal import Decimal
+from typing import Optional, Union
 
 import pytest
 
 from price_parser import Price
+from price_parser.parser import date_format
 
 
 class Example(Price):
@@ -1986,3 +1988,18 @@ def test_parsing(example: Example):
 )
 def test_price_amount_float(amount, amount_float):
     assert Price(amount, None, None).amount_float == amount_float
+
+
+@pytest.mark.parametrize(
+    "price, result",
+    [
+        ('10.04.2004', datetime(2004, 4, 10, 0, 0)),
+        ('July, 2004', datetime(2004, 7, 1, 0, 0)),
+        ('200', None),
+        ('2004', None),
+        (2004, None),
+        (10.2014, None),
+    ]
+)
+def test_date_format(price, result):
+    assert date_format(price) == result
