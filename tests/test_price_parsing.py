@@ -1995,6 +1995,7 @@ def test_price_amount_float(amount, amount_float):
     [
         ('10.04.2004', datetime(2004, 4, 10, 0, 0)),
         ('July, 2004', datetime(2004, 7, 1, 0, 0)),
+        ('Jul, 2004', datetime(2004, 7, 1, 0, 0)),
         ('200', None),
         ('2004', None),
         (2004, None),

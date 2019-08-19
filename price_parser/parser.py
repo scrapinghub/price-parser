@@ -293,12 +293,11 @@ def parse_number(num: str) -> Optional[Decimal]:
 
 
 def date_format(price):
-    for fmt in ['%d.%m.%Y', '%B, %Y']:
+    for fmt in ['%d.%m.%Y', '%B, %Y', '%b, %Y']:
         try:
             date = datetime.strptime(price, fmt)
             if isinstance(date, datetime):
                 return date
-            else:
-                continue
         except (ValueError, TypeError):
             continue
+    return None
