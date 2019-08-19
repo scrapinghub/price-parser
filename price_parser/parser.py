@@ -302,4 +302,4 @@ def date_format(price):
         except (ValueError, TypeError):
             continue
 
-        return None
+    return None
