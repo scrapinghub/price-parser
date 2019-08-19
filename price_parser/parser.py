@@ -184,8 +184,7 @@ def extract_price_text(price: str) -> Optional[str]:
     '50'
     """
 
-    date_ftm = date_format(price)
-    if date_ftm:
+    if date_format(price):
         return None
 
     if price.count('€') == 1:
@@ -301,5 +300,3 @@ def date_format(price):
                 return date
         except (ValueError, TypeError):
             continue
-
-    return None
