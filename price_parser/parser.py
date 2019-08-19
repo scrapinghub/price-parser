@@ -298,5 +298,7 @@ def date_format(price):
             date = datetime.strptime(price, fmt)
             if isinstance(date, datetime):
                 return date
+            else:
+                continue
         except (ValueError, TypeError):
             continue
