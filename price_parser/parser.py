@@ -187,6 +187,8 @@ def extract_price_text(price: str) -> Optional[str]:
     if date_format(price):
         return None
 
+    price = strip_date(price)
+
     if price.count('€') == 1:
         m = re.search(r"""
         [\d\s.,]*?\d    # number, probably with thousand separators
@@ -293,11 +295,28 @@ def parse_number(num: str) -> Optional[Decimal]:
 
 
 def date_format(price):
-    for fmt in ['%d.%m.%Y', '%B, %Y', '%b, %Y']:
+    for fmt in ['%d.%m.%Y', '%B, %Y', '%b, %Y', '%Y-%m-%d']:
         try:
             date = datetime.strptime(price, fmt)
             if isinstance(date, datetime):
                 return date
         except (ValueError, TypeError):
             continue
+
     return None
+
+
+def strip_date(text):
+    # normalize whitspace
+    text = re.sub(r'\s+', ' ', text)
+    all_date_regexp = [
+        r'\d{1,4}-\d{1,2}-\d{2,4}',
+        r' \S{3,8},\s\d{4}',
+    ]
+    text_processed = text
+    for regexp in all_date_regexp:
+        for match in re.finditer(regexp, text):
+            if match and date_format(match.group(0).strip()):
+                text_processed = text_processed.replace(match.group(0), '')
+
+    return text_processed

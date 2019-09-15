@@ -18,7 +18,7 @@ from typing import Optional, Union
 import pytest
 
 from price_parser import Price
-from price_parser.parser import date_format
+from price_parser.parser import date_format, strip_date
 
 
 class Example(Price):
@@ -1946,6 +1946,21 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     Example(None, '15.08.2017',
             None, None, None),
 
+    Example(None, '0€ until May, 2005, 35€ afterwards',
+            '€', '0', 0),
+
+    Example(None, '2019-08-19: 22 USD',
+            'USD', '22', 22),
+
+    Example(None, '2105 EUR at July, 2004',
+            'EUR', '2105', 2105),
+
+    Example(None, '$10 EUR during March, 2016',
+            '$', '10', 10),
+
+    Example(None, '$10 EUR at March, 2016 or 2019-08-19',
+            '$', '10', 10),
+
     # other incorrectly extracted prices
     Example('8.5', '25-09',
             None, None, None),
@@ -2004,3 +2019,18 @@ def test_price_amount_float(amount, amount_float):
 )
 def test_date_format(price, result):
     assert date_format(price) == result
+
+
+@pytest.mark.parametrize(
+    "price, result",
+    [
+        ('0€ until May, 2005, 35€ afterwards', '0€ until, 35€ afterwards'),
+        ('2019-08-19: 22 USD', ': 22 USD'),
+        ('105 EUR at July, 2004', '105 EUR at'),
+        ('$10 EUR during March, 2016', '$10 EUR during'),
+        ('$10 EUR during March, 2016 -- March, 2020', '$10 EUR during --'),
+        ('$10', '$10'),
+    ]
+)
+def test_strip_date(price, result):
+    assert strip_date(price) == result
