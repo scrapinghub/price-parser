@@ -2030,6 +2030,8 @@ def test_date_format(price, result):
         ('$10 EUR during March, 2016', '$10 EUR during'),
         ('$10 EUR during March, 2016 -- March, 2020', '$10 EUR during --'),
         ('$10', '$10'),
+        ('sample text', 'sample text'),
+        ('$10 - 1-08-19', '$10 - 1-08-19'),
     ]
 )
 def test_strip_date(price, result):
