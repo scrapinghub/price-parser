@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import itertools
 import re
 import string
 from typing import Callable, Optional, Pattern, List, Tuple
@@ -56,8 +57,20 @@ parse_price = Price.fromstring
 
 
 def or_regex(symbols: List[str]) -> Pattern:
-    """ Return a regex which matches any of ``symbols`` """
-    return re.compile('|'.join(re.escape(s) for s in symbols))
+    """ Return a regex which matches any of ``symbols`` surrounded by some special characters """
+    left_tokens = [r"^", r"\s+", r"\d+"]
+    right_tokens = [r"$", r"\s+", r"\d+", r"[^a-zA-Z0-9]+"]
+
+    return re.compile(
+        "|".join(
+            [
+                left + "({})".format(re.escape(s)) + right
+                for left, right in itertools.product(left_tokens, right_tokens)
+                for s in symbols
+            ]
+        )
+    )
+
 
 
 # If one of these symbols is found either in price or in currency,
@@ -94,17 +107,12 @@ SAFE_CURRENCY_SYMBOLS = [
 # can be written as SGD$123 or NZD $123. Currency code should take priority
 # over $ symbol in this case.
 DOLLAR_CODES = [k for k in CURRENCY_CODES if k.endswith('D')]
-_DOLLAR_REGEX = re.compile(
-    r'''
-        \b
-        (?:{})  # currency code like NZD
-        (?=
-            \$?  # dollar sign to ignore if attached to the currency code
-            (?:[\W\d]|$)  # not a letter
-        )
-    '''.format('|'.join(re.escape(k) for k in DOLLAR_CODES)),
-    re.VERBOSE,
-)
+DOLLAR_REGEXES = [
+    r"""
+    (\b{}   # code like NZD
+    (?:[^\w]|$))  # not a letter
+    """.format(k) for k in DOLLAR_CODES
+]
 
 OTHER_PARTICULAR_REGEXES = [
     # HT is the French abbreviation for "Hors Tax" (tax not added to the price)
@@ -158,7 +166,9 @@ def extract_currency_symbol(price: Optional[str],
     for meth, attr in methods:
         m = meth(attr) if attr else None
         if m:
-            return m.group(0)
+            groups = [match for match in m.groups() if match is not None]
+            if groups:
+                return groups.pop()
 
     return None
 
