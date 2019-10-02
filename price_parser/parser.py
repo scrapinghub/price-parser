@@ -106,6 +106,11 @@ _DOLLAR_REGEX = re.compile(
     re.VERBOSE,
 )
 
+OTHER_PARTICULAR_REGEXES = [
+    # HT is the French abbreviation for "Hors Tax" (tax not added to the price)
+    # and it may appear after € currency symbol
+    r"(€)HT+",
+]
 
 # Other common currency symbols: 3-letter codes, less safe abbreviations
 OTHER_CURRENCY_SYMBOLS_SET = (
@@ -115,7 +120,7 @@ OTHER_CURRENCY_SYMBOLS_SET = (
         CURRENCY_NATIONAL_SYMBOLS +
 
         # even if they appear in text, currency is likely to be rouble
-        ['р', 'Р']
+        ['р', 'Р'],
     )
     - set(SAFE_CURRENCY_SYMBOLS)   # already handled
     - {'-', 'XXX'}                 # placeholder values
@@ -124,7 +129,8 @@ OTHER_CURRENCY_SYMBOLS_SET = (
 OTHER_CURRENCY_SYMBOLS = sorted(OTHER_CURRENCY_SYMBOLS_SET,
                                 key=len, reverse=True)
 
-_search_dollar_code = _DOLLAR_REGEX.search
+_search_dollar_code = re.compile("|".join(DOLLAR_REGEXES), re.VERBOSE).search
+_search_other_particular_regexes = re.compile("|".join(OTHER_PARTICULAR_REGEXES), re.VERBOSE).search
 _search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
 _search_unsafe_currency = or_regex(OTHER_CURRENCY_SYMBOLS).search
 
@@ -140,6 +146,7 @@ def extract_currency_symbol(price: Optional[str],
         (_search_safe_currency, currency_hint),
         (_search_unsafe_currency, price),
         (_search_unsafe_currency, currency_hint),
+        (_search_other_particular_regexes, price),
     ]
 
     if currency_hint and '$' in currency_hint:
