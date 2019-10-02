@@ -1929,6 +1929,10 @@ PRICE_PARSING_EXAMPLES_3 = [
             'CHF', '19.90', 19.90),
     Example('', '530,42 Zł',
             'Zł', '530,42', 530.42),
+    Example('>', 'См. цену в прайсе',
+            None, None, None),
+    Example('Купить', 'Печная труба',
+            None, None, None),
 ]
 
 
@@ -1950,12 +1954,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
             'R', '8,499', 8499),
     Example('Cuneo', '61.858 L',  # Romanian New Leu
             'L', '61.858', 61858),
-
-    # "р" / "руб" is detected as currency
-    Example('>', 'См. цену в прайсе',
-            None, None, None),
-    Example('Купить', 'Печная труба',
-            None, None, None),
 
     # dates
     Example(None, 'July, 2004',
