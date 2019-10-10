@@ -34,7 +34,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "د.إ.‏",
         "d": 2,
         "r": 0,
-        "np": "UAE dirhams"
+        "np": "UAE dirhams",
     },
     "AFN": {
         "s": "Af",
@@ -42,7 +42,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "؋",
         "d": 0,
         "r": 0,
-        "np": "Afghan Afghanis"
+        "np": "Afghan Afghanis",
     },
     "ALL": {
         "s": "ALL",
@@ -50,7 +50,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Lek",
         "d": 0,
         "r": 0,
-        "np": "Albanian lekë"
+        "np": "Albanian lekë",
     },
     "AMD": {
         "s": "AMD",
@@ -58,7 +58,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "դր.",
         "d": 0,
         "r": 0,
-        "np": "Armenian drams"
+        "np": "Armenian drams",
     },
     "ANG": {
         "s": "ƒ",
@@ -66,7 +66,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ƒ",
         "d": 2,
         "r": 0,
-        "np": "Netherlands Antilles Guilder"
+        "np": "Netherlands Antilles Guilder",
     },
     "AOA": {
         "s": "Kz",
@@ -74,7 +74,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Kz",
         "d": 2,
         "r": 0,
-        "np": "Angolan kwanza"
+        "np": "Angolan kwanza",
     },
     "ARS": {
         "s": "AR$",
@@ -82,7 +82,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Argentine pesos"
+        "np": "Argentine pesos",
     },
     "AUD": {
         "s": "AU$",
@@ -90,7 +90,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Australian dollars"
+        "np": "Australian dollars",
     },
     "AWG": {
         "s": "ƒ",
@@ -98,7 +98,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ƒ",
         "d": 2,
         "r": 0,
-        "np": "Aruban Guilders"
+        "np": "Aruban Guilders",
     },
     "AFL": {
         "s": "Afl.",
@@ -106,7 +106,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Afl.",
         "d": 2,
         "r": 0,
-        "np": "Aruban Florins"
+        "np": "Aruban Florins",
     },
     "AZN": {
         "s": "man.",
@@ -114,7 +114,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ман.",
         "d": 2,
         "r": 0,
-        "np": "Azerbaijani manats"
+        "np": "Azerbaijani manats",
     },
     "BAM": {
         "s": "KM",
@@ -122,7 +122,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "KM",
         "d": 2,
         "r": 0,
-        "np": "Bosnia-Herzegovina convertible marks"
+        "np": "Bosnia-Herzegovina convertible marks",
     },
     "BDT": {
         "s": "Tk",
@@ -130,7 +130,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "৳",
         "d": 2,
         "r": 0,
-        "np": "Bangladeshi takas"
+        "np": "Bangladeshi takas",
     },
     "BBD": {
         "s": "Bds$",
@@ -138,7 +138,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Barbados dollar"
+        "np": "Barbados dollar",
     },
     "BGN": {
         "s": "BGN",
@@ -146,7 +146,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "лв.",
         "d": 2,
         "r": 0,
-        "np": "Bulgarian leva"
+        "np": "Bulgarian leva",
     },
     "BHD": {
         "s": "BD",
@@ -154,7 +154,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "د.ب.‏",
         "d": 3,
         "r": 0,
-        "np": "Bahraini dinars"
+        "np": "Bahraini dinars",
     },
     "BIF": {
         "s": "FBu",
@@ -162,7 +162,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "FBu",
         "d": 0,
         "r": 0,
-        "np": "Burundian francs"
+        "np": "Burundian francs",
     },
     "BSD": {
         "s": "$",
@@ -170,7 +170,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Bahamas Dollar"
+        "np": "Bahamas Dollar",
     },
     "BMD": {
         "s": "$",
@@ -178,7 +178,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Bermuda Dollars"
+        "np": "Bermuda Dollars",
     },
     "BND": {
         "s": "BN$",
@@ -186,7 +186,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Brunei dollars"
+        "np": "Brunei dollars",
     },
     "BOB": {
         "s": "Bs",
@@ -194,7 +194,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Bs",
         "d": 2,
         "r": 0,
-        "np": "Bolivian bolivianos"
+        "np": "Bolivian bolivianos",
     },
     "BOV": {
         "s": "-",
@@ -202,7 +202,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "-",
         "d": 2,
         "r": 0,
-        "np": "Bolivian Mvdol"
+        "np": "Bolivian Mvdol",
     },
     "BRL": {
         "s": "R$",
@@ -210,7 +210,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "R$",
         "d": 2,
         "r": 0,
-        "np": "Brazilian reals"
+        "np": "Brazilian reals",
     },
     "BTN": {
         "s": "Nu.",
@@ -218,7 +218,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Nu.",
         "d": 2,
         "r": 0,
-        "np": "Bhutanese ngultrum"
+        "np": "Bhutanese ngultrum",
     },
     "BWP": {
         "s": "BWP",
@@ -226,7 +226,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "P",
         "d": 2,
         "r": 0,
-        "np": "Botswanan pulas"
+        "np": "Botswanan pulas",
     },
     "BYN": {
         "s": "Br",
@@ -234,7 +234,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Br",
         "d": 0,
         "r": 0,
-        "np": "Belarusian rubles"
+        "np": "Belarusian rubles",
     },
     "BZD": {
         "s": "BZ$",
@@ -242,7 +242,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Belize dollars"
+        "np": "Belize dollars",
     },
     "CAD": {
         "s": "CA$",
@@ -250,7 +250,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Canadian dollars"
+        "np": "Canadian dollars",
     },
     "CDF": {
         "s": "CDF",
@@ -258,7 +258,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "FrCD",
         "d": 2,
         "r": 0,
-        "np": "Congolese francs"
+        "np": "Congolese francs",
     },
     "CHE": {
         "s": "-",
@@ -266,7 +266,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "-",
         "d": 2,
         "r": 0,
-        "np": "WIR Euros (complementary currency)"
+        "np": "WIR Euros (complementary currency)",
     },
     "CHF": {
         "s": "CHF",
@@ -274,7 +274,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "CHF",
         "d": 2,
         "r": 0.05,
-        "np": "Swiss francs"
+        "np": "Swiss francs",
     },
     "CHW": {
         "s": "-",
@@ -282,7 +282,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "-",
         "d": 2,
         "r": 0,
-        "np": "WIR Franc (complementary currency)"
+        "np": "WIR Franc (complementary currency)",
     },
     "CLF": {
         "s": "UF",
@@ -290,7 +290,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "UF",
         "d": 4,
         "r": 0,
-        "np": "Unidad de Fomento (funds code)"
+        "np": "Unidad de Fomento (funds code)",
     },
     "CLP": {
         "s": "CL$",
@@ -298,7 +298,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 0,
         "r": 0,
-        "np": "Chilean pesos"
+        "np": "Chilean pesos",
     },
     "CNY": {
         "s": "CN¥",
@@ -306,7 +306,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "CN¥",
         "d": 2,
         "r": 0,
-        "np": "Chinese yuan"
+        "np": "Chinese yuan",
     },
     "COP": {
         "s": "CO$",
@@ -314,7 +314,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 0,
         "r": 0,
-        "np": "Colombian pesos"
+        "np": "Colombian pesos",
     },
     "COU": {
         "s": "-",
@@ -322,7 +322,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "-",
         "d": 2,
         "r": 0,
-        "np": "Unidad de Valor Real (UVR) (funds code)"
+        "np": "Unidad de Valor Real (UVR) (funds code)",
     },
     "CRC": {
         "s": "₡",
@@ -330,7 +330,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₡",
         "d": 0,
         "r": 0,
-        "np": "Costa Rican colóns"
+        "np": "Costa Rican colóns",
     },
     "CUC": {
         "s": "CUC$",
@@ -338,23 +338,16 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Cuban convertible pesos"
+        "np": "Cuban convertible pesos",
     },
-    "CUP": {
-        "s": "₱",
-        "n": "Cuba Peso",
-        "sn": "₱",
-        "d": 0,
-        "r": 0,
-        "np": "Cuba Pesos"
-    },
+    "CUP": {"s": "₱", "n": "Cuba Peso", "sn": "₱", "d": 0, "r": 0, "np": "Cuba Pesos"},
     "CVE": {
         "s": "CV$",
         "n": "Cape Verdean Escudo",
         "sn": "CV$",
         "d": 0,
         "r": 0,
-        "np": "Cape Verdean escudos"
+        "np": "Cape Verdean escudos",
     },
     "CZK": {
         "s": "Kč",
@@ -362,7 +355,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Kč",
         "d": 2,
         "r": 0,
-        "np": "Czech Republic korunas"
+        "np": "Czech Republic korunas",
     },
     "DJF": {
         "s": "Fdj",
@@ -370,7 +363,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Fdj",
         "d": 0,
         "r": 0,
-        "np": "Djiboutian francs"
+        "np": "Djiboutian francs",
     },
     "DKK": {
         "s": "Dkr",
@@ -378,7 +371,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "kr",
         "d": 2,
         "r": 0,
-        "np": "Danish kroner"
+        "np": "Danish kroner",
     },
     "DOP": {
         "s": "RD$",
@@ -386,7 +379,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "RD$",
         "d": 2,
         "r": 0,
-        "np": "Dominican pesos"
+        "np": "Dominican pesos",
     },
     "DZD": {
         "s": "DA",
@@ -394,7 +387,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "د.ج.‏",
         "d": 2,
         "r": 0,
-        "np": "Algerian dinars"
+        "np": "Algerian dinars",
     },
     "EEK": {
         "s": "Ekr",
@@ -402,7 +395,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "kr",
         "d": 2,
         "r": 0,
-        "np": "Estonian kroons"
+        "np": "Estonian kroons",
     },
     "EGP": {
         "s": "EGP",
@@ -410,7 +403,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ج.م.‏",
         "d": 2,
         "r": 0,
-        "np": "Egyptian pounds"
+        "np": "Egyptian pounds",
     },
     "ERN": {
         "s": "Nfk",
@@ -418,7 +411,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Nfk",
         "d": 2,
         "r": 0,
-        "np": "Eritrean nakfas"
+        "np": "Eritrean nakfas",
     },
     "ETB": {
         "s": "Br",
@@ -426,23 +419,16 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Br",
         "d": 2,
         "r": 0,
-        "np": "Ethiopian birrs"
+        "np": "Ethiopian birrs",
     },
-    "EUR": {
-        "s": "€",
-        "n": "Euro",
-        "sn": "€",
-        "d": 2,
-        "r": 0,
-        "np": "euros"
-    },
+    "EUR": {"s": "€", "n": "Euro", "sn": "€", "d": 2, "r": 0, "np": "euros"},
     "FJD": {
         "s": "$",
         "n": "Fiji Dollar",
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Fiji Dollars"
+        "np": "Fiji Dollars",
     },
     "FKP": {
         "s": "£",
@@ -450,7 +436,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "£",
         "d": 2,
         "r": 0,
-        "np": "Falkland Islands (Malvinas) Pound"
+        "np": "Falkland Islands (Malvinas) Pound",
     },
     "GBP": {
         "s": "£",
@@ -458,7 +444,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "£",
         "d": 2,
         "r": 0,
-        "np": "British pounds sterling"
+        "np": "British pounds sterling",
     },
     "GEL": {
         "s": "GEL",
@@ -466,7 +452,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "GEL",
         "d": 2,
         "r": 0,
-        "np": "Georgian laris"
+        "np": "Georgian laris",
     },
     "GGP": {
         "s": "£",
@@ -474,7 +460,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "£",
         "d": 2,
         "r": 0,
-        "np": "Guernsey Pounds"
+        "np": "Guernsey Pounds",
     },
     "GHS": {
         "s": "GH₵",
@@ -482,7 +468,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "GH₵",
         "d": 2,
         "r": 0,
-        "np": "Ghanaian cedis"
+        "np": "Ghanaian cedis",
     },
     "GIP": {
         "s": "£",
@@ -490,7 +476,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "£",
         "d": 2,
         "r": 0,
-        "np": "Gibraltar Pounds"
+        "np": "Gibraltar Pounds",
     },
     "GMD": {
         "s": "D",
@@ -498,7 +484,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "D",
         "d": 2,
         "r": 0,
-        "np": "Gambian dalasi"
+        "np": "Gambian dalasi",
     },
     "GNF": {
         "s": "FG",
@@ -506,7 +492,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "FG",
         "d": 0,
         "r": 0,
-        "np": "Guinean francs"
+        "np": "Guinean francs",
     },
     "GTQ": {
         "s": "GTQ",
@@ -514,7 +500,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Q",
         "d": 2,
         "r": 0,
-        "np": "Guatemalan quetzals"
+        "np": "Guatemalan quetzals",
     },
     "GYD": {
         "s": "$",
@@ -522,7 +508,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Guyana Dollars"
+        "np": "Guyana Dollars",
     },
     "HKD": {
         "s": "HK$",
@@ -530,7 +516,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Hong Kong dollars"
+        "np": "Hong Kong dollars",
     },
     "HNL": {
         "s": "HNL",
@@ -538,7 +524,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "L",
         "d": 2,
         "r": 0,
-        "np": "Honduran lempiras"
+        "np": "Honduran lempiras",
     },
     "HRK": {
         "s": "kn",
@@ -546,7 +532,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "kn",
         "d": 2,
         "r": 0,
-        "np": "Croatian kunas"
+        "np": "Croatian kunas",
     },
     "HTG": {
         "s": "G",
@@ -554,7 +540,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "G",
         "d": 2,
         "r": 0,
-        "np": "Haitian gourde"
+        "np": "Haitian gourde",
     },
     "HUF": {
         "s": "Ft",
@@ -562,7 +548,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Ft",
         "d": 0,
         "r": 0,
-        "np": "Hungarian forints"
+        "np": "Hungarian forints",
     },
     "IDR": {
         "s": "Rp",
@@ -570,7 +556,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Rp",
         "d": 0,
         "r": 0,
-        "np": "Indonesian rupiahs"
+        "np": "Indonesian rupiahs",
     },
     "ILS": {
         "s": "₪",
@@ -578,7 +564,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₪",
         "d": 2,
         "r": 0,
-        "np": "Israeli new sheqels"
+        "np": "Israeli new sheqels",
     },
     "IMP": {
         "s": "£",
@@ -586,7 +572,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "£",
         "d": 2,
         "r": 0,
-        "np": "Isle of Man Pounds"
+        "np": "Isle of Man Pounds",
     },
     "INR": {
         "s": "Rs",
@@ -594,7 +580,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "টকা",
         "d": 2,
         "r": 0,
-        "np": "Indian rupees"
+        "np": "Indian rupees",
     },
     "IQD": {
         "s": "IQD",
@@ -602,7 +588,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "د.ع.‏",
         "d": 3,
         "r": 0,
-        "np": "Iraqi dinars"
+        "np": "Iraqi dinars",
     },
     "IRR": {
         "s": "IRR",
@@ -610,7 +596,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "﷼",
         "d": 0,
         "r": 0,
-        "np": "Iranian rials"
+        "np": "Iranian rials",
     },
     "ISK": {
         "s": "Ikr",
@@ -618,7 +604,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "kr",
         "d": 0,
         "r": 0,
-        "np": "Icelandic krónur"
+        "np": "Icelandic krónur",
     },
     "JEP": {
         "s": "£",
@@ -626,7 +612,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "£",
         "d": 2,
         "r": 0,
-        "np": "Jersey Pounds"
+        "np": "Jersey Pounds",
     },
     "JMD": {
         "s": "J$",
@@ -634,7 +620,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Jamaican dollars"
+        "np": "Jamaican dollars",
     },
     "JOD": {
         "s": "JD",
@@ -642,7 +628,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "د.أ.‏",
         "d": 3,
         "r": 0,
-        "np": "Jordanian dinars"
+        "np": "Jordanian dinars",
     },
     "JPY": {
         "s": "¥",
@@ -650,7 +636,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "￥",
         "d": 0,
         "r": 0,
-        "np": "Japanese yen"
+        "np": "Japanese yen",
     },
     "KES": {
         "s": "Ksh",
@@ -658,7 +644,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Ksh",
         "d": 2,
         "r": 0,
-        "np": "Kenyan shillings"
+        "np": "Kenyan shillings",
     },
     "KGS": {
         "s": "лв",
@@ -666,7 +652,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "лв",
         "d": 2,
         "r": 0,
-        "np": "Kyrgyzstan Som"
+        "np": "Kyrgyzstan Som",
     },
     "KHR": {
         "s": "KHR",
@@ -674,7 +660,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "៛",
         "d": 2,
         "r": 0,
-        "np": "Cambodian riels"
+        "np": "Cambodian riels",
     },
     "KMF": {
         "s": "CF",
@@ -682,7 +668,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "FC",
         "d": 0,
         "r": 0,
-        "np": "Comorian francs"
+        "np": "Comorian francs",
     },
     "KPW": {
         "s": "₩",
@@ -690,7 +676,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₩",
         "d": 0,
         "r": 0,
-        "np": "North Korean Won"
+        "np": "North Korean Won",
     },
     "KRW": {
         "s": "₩",
@@ -698,7 +684,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₩",
         "d": 0,
         "r": 0,
-        "np": "South Korean won"
+        "np": "South Korean won",
     },
     "KWD": {
         "s": "KD",
@@ -706,7 +692,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "د.ك.‏",
         "d": 3,
         "r": 0,
-        "np": "Kuwaiti dinars"
+        "np": "Kuwaiti dinars",
     },
     "KYD": {
         "s": "$",
@@ -714,7 +700,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Cayman Islands Dollars"
+        "np": "Cayman Islands Dollars",
     },
     "KZT": {
         "s": "KZT",
@@ -722,23 +708,16 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "тңг.",
         "d": 2,
         "r": 0,
-        "np": "Kazakhstani tenges"
+        "np": "Kazakhstani tenges",
     },
-    "LAK": {
-        "s": "₭",
-        "n": "Laos Kip",
-        "sn": "₭",
-        "d": 2,
-        "r": 0,
-        "np": "Laos Kip"
-    },
+    "LAK": {"s": "₭", "n": "Laos Kip", "sn": "₭", "d": 2, "r": 0, "np": "Laos Kip"},
     "LBP": {
         "s": "LB£",
         "n": "Lebanese Pound",
         "sn": "ل.ل.‏",
         "d": 0,
         "r": 0,
-        "np": "Lebanese pounds"
+        "np": "Lebanese pounds",
     },
     "LKR": {
         "s": "SLRs",
@@ -746,7 +725,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "SL Re",
         "d": 2,
         "r": 0,
-        "np": "Sri Lankan rupees"
+        "np": "Sri Lankan rupees",
     },
     "LRD": {
         "s": "$",
@@ -754,7 +733,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Liberia Dollars"
+        "np": "Liberia Dollars",
     },
     "LSL": {
         "s": "L",
@@ -762,7 +741,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "L",
         "d": 2,
         "r": 0,
-        "np": "Lesotho loti"
+        "np": "Lesotho loti",
     },
     "LTL": {
         "s": "Lt",
@@ -770,7 +749,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Lt",
         "d": 2,
         "r": 0,
-        "np": "Lithuanian litai"
+        "np": "Lithuanian litai",
     },
     "LVL": {
         "s": "Ls",
@@ -778,7 +757,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Ls",
         "d": 2,
         "r": 0,
-        "np": "Latvian lati"
+        "np": "Latvian lati",
     },
     "LYD": {
         "s": "LD",
@@ -786,7 +765,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "د.ل.‏",
         "d": 3,
         "r": 0,
-        "np": "Libyan dinars"
+        "np": "Libyan dinars",
     },
     "MAD": {
         "s": "MAD",
@@ -794,7 +773,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "د.م.‏",
         "d": 2,
         "r": 0,
-        "np": "Moroccan dirhams"
+        "np": "Moroccan dirhams",
     },
     "MDL": {
         "s": "MDL",
@@ -802,7 +781,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "MDL",
         "d": 2,
         "r": 0,
-        "np": "Moldovan lei"
+        "np": "Moldovan lei",
     },
     "MGA": {
         "s": "MGA",
@@ -810,7 +789,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "MGA",
         "d": 0,
         "r": 0,
-        "np": "Malagasy Ariaries"
+        "np": "Malagasy Ariaries",
     },
     "MKD": {
         "s": "MKD",
@@ -818,7 +797,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "MKD",
         "d": 2,
         "r": 0,
-        "np": "Macedonian denari"
+        "np": "Macedonian denari",
     },
     "MMK": {
         "s": "MMK",
@@ -826,7 +805,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "K",
         "d": 0,
         "r": 0,
-        "np": "Myanma kyats"
+        "np": "Myanma kyats",
     },
     "MNT": {
         "s": "₮",
@@ -834,7 +813,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₮",
         "d": 2,
         "r": 0,
-        "np": "Mongolia Tughrik"
+        "np": "Mongolia Tughrik",
     },
     "MOP": {
         "s": "MOP$",
@@ -842,7 +821,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "MOP$",
         "d": 2,
         "r": 0,
-        "np": "Macanese patacas"
+        "np": "Macanese patacas",
     },
     "MRO": {
         "s": "UM",
@@ -850,7 +829,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "UM",
         "d": 1,
         "r": 0,
-        "np": "Mauritanian ouguiya"
+        "np": "Mauritanian ouguiya",
     },
     "MUR": {
         "s": "MURs",
@@ -858,7 +837,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "MURs",
         "d": 0,
         "r": 0,
-        "np": "Mauritian rupees"
+        "np": "Mauritian rupees",
     },
     "MVR": {
         "s": "MRf",
@@ -866,7 +845,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Rf",
         "d": 2,
         "r": 0,
-        "np": "Maldivian rufiyaa"
+        "np": "Maldivian rufiyaa",
     },
     "MWK": {
         "s": "MK",
@@ -874,7 +853,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "MK",
         "d": 2,
         "r": 0,
-        "np": "Malawian kwacha"
+        "np": "Malawian kwacha",
     },
     "MXN": {
         "s": "MX$",
@@ -882,7 +861,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Mexican pesos"
+        "np": "Mexican pesos",
     },
     "MXV": {
         "s": "-",
@@ -890,7 +869,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "-",
         "d": 2,
         "r": 0,
-        "np": "Mexican Unidad de Inversion (UDI) (funds code)"
+        "np": "Mexican Unidad de Inversion (UDI) (funds code)",
     },
     "MYR": {
         "s": "RM",
@@ -898,7 +877,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "RM",
         "d": 2,
         "r": 0,
-        "np": "Malaysian ringgits"
+        "np": "Malaysian ringgits",
     },
     "MZN": {
         "s": "MTn",
@@ -906,7 +885,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "MTn",
         "d": 2,
         "r": 0,
-        "np": "Mozambican meticals"
+        "np": "Mozambican meticals",
     },
     "NAD": {
         "s": "N$",
@@ -914,7 +893,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "N$",
         "d": 2,
         "r": 0,
-        "np": "Namibian dollars"
+        "np": "Namibian dollars",
     },
     "NGN": {
         "s": "₦",
@@ -922,7 +901,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₦",
         "d": 2,
         "r": 0,
-        "np": "Nigerian nairas"
+        "np": "Nigerian nairas",
     },
     "NIO": {
         "s": "C$",
@@ -930,7 +909,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "C$",
         "d": 2,
         "r": 0,
-        "np": "Nicaraguan córdobas"
+        "np": "Nicaraguan córdobas",
     },
     "NOK": {
         "s": "Nkr",
@@ -938,7 +917,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "kr",
         "d": 2,
         "r": 0,
-        "np": "Norwegian kroner"
+        "np": "Norwegian kroner",
     },
     "NPR": {
         "s": "NPRs",
@@ -946,7 +925,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "नेरू",
         "d": 2,
         "r": 0,
-        "np": "Nepalese rupees"
+        "np": "Nepalese rupees",
     },
     "PRB": {
         "s": "руб",
@@ -954,7 +933,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "руб",
         "d": 2,
         "r": 0,
-        "np": "Transnistrian rubles"
+        "np": "Transnistrian rubles",
     },
     "NZD": {
         "s": "NZ$",
@@ -962,7 +941,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "New Zealand dollars"
+        "np": "New Zealand dollars",
     },
     "OMR": {
         "s": "OMR",
@@ -970,7 +949,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ر.ع.‏",
         "d": 3,
         "r": 0,
-        "np": "Omani rials"
+        "np": "Omani rials",
     },
     "PAB": {
         "s": "B/.",
@@ -978,7 +957,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "B/.",
         "d": 2,
         "r": 0,
-        "np": "Panamanian balboas"
+        "np": "Panamanian balboas",
     },
     "PEN": {
         "s": "S/.",
@@ -986,7 +965,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "S/.",
         "d": 2,
         "r": 0,
-        "np": "Peruvian nuevos soles"
+        "np": "Peruvian nuevos soles",
     },
     "PGK": {
         "s": "K",
@@ -994,7 +973,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "K",
         "d": 2,
         "r": 0,
-        "np": "Papua New Guinean kina"
+        "np": "Papua New Guinean kina",
     },
     "PHP": {
         "s": "₱",
@@ -1002,7 +981,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₱",
         "d": 2,
         "r": 0,
-        "np": "Philippine pesos"
+        "np": "Philippine pesos",
     },
     "PKR": {
         "s": "PKRs",
@@ -1010,7 +989,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₨",
         "d": 0,
         "r": 0,
-        "np": "Pakistani rupees"
+        "np": "Pakistani rupees",
     },
     "PLN": {
         "s": "zł",
@@ -1018,7 +997,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "zł",
         "d": 2,
         "r": 0,
-        "np": "Polish zlotys"
+        "np": "Polish zlotys",
     },
     "PYG": {
         "s": "₲",
@@ -1026,7 +1005,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₲",
         "d": 0,
         "r": 0,
-        "np": "Paraguayan guaranis"
+        "np": "Paraguayan guaranis",
     },
     "QAR": {
         "s": "QR",
@@ -1034,7 +1013,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ر.ق.‏",
         "d": 2,
         "r": 0,
-        "np": "Qatari rials"
+        "np": "Qatari rials",
     },
     "RON": {
         "s": "RON",
@@ -1042,7 +1021,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "RON",
         "d": 2,
         "r": 0,
-        "np": "Romanian lei"
+        "np": "Romanian lei",
     },
     "RSD": {
         "s": "din.",
@@ -1050,7 +1029,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "дин.",
         "d": 0,
         "r": 0,
-        "np": "Serbian dinars"
+        "np": "Serbian dinars",
     },
     "RUB": {
         "s": "RUB",
@@ -1058,7 +1037,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "руб.",
         "d": 2,
         "r": 0,
-        "np": "Russian rubles"
+        "np": "Russian rubles",
     },
     "RWF": {
         "s": "RWF",
@@ -1066,7 +1045,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "FR",
         "d": 0,
         "r": 0,
-        "np": "Rwandan francs"
+        "np": "Rwandan francs",
     },
     "SAR": {
         "s": "SR",
@@ -1074,7 +1053,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ر.س.‏",
         "d": 2,
         "r": 0,
-        "np": "Saudi riyals"
+        "np": "Saudi riyals",
     },
     "SBD": {
         "s": "$",
@@ -1082,7 +1061,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Solomon Islands Dollars"
+        "np": "Solomon Islands Dollars",
     },
     "SCR": {
         "s": "₨",
@@ -1090,7 +1069,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₨",
         "d": 2,
         "r": 0,
-        "np": "Seychelles Rupees"
+        "np": "Seychelles Rupees",
     },
     "SDG": {
         "s": "SDG",
@@ -1098,7 +1077,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "SDG",
         "d": 2,
         "r": 0,
-        "np": "Sudanese pounds"
+        "np": "Sudanese pounds",
     },
     "SEK": {
         "s": "Skr",
@@ -1106,7 +1085,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "kr",
         "d": 2,
         "r": 0,
-        "np": "Swedish kronor"
+        "np": "Swedish kronor",
     },
     "SGD": {
         "s": "S$",
@@ -1114,7 +1093,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Singapore dollars"
+        "np": "Singapore dollars",
     },
     "SHP": {
         "s": "£",
@@ -1122,7 +1101,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "£",
         "d": 2,
         "r": 0,
-        "np": "Saint Helena Pounds"
+        "np": "Saint Helena Pounds",
     },
     "SLL": {
         "s": "Le",
@@ -1130,7 +1109,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Le",
         "d": 2,
         "r": 0,
-        "np": "Sierra Leonean leone"
+        "np": "Sierra Leonean leone",
     },
     "SOS": {
         "s": "Ssh",
@@ -1138,7 +1117,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Ssh",
         "d": 0,
         "r": 0,
-        "np": "Somali shillings"
+        "np": "Somali shillings",
     },
     "SRD": {
         "s": "$",
@@ -1146,7 +1125,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Suriname Dollars"
+        "np": "Suriname Dollars",
     },
     "SSP": {
         "s": "SSP",
@@ -1154,7 +1133,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "SSP",
         "d": 2,
         "r": 0,
-        "np": "South Sudanese pound"
+        "np": "South Sudanese pound",
     },
     "STD": {
         "s": "Db",
@@ -1162,7 +1141,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Db",
         "d": 2,
         "r": 0,
-        "np": "São Tomé and Príncipe dobra"
+        "np": "São Tomé and Príncipe dobra",
     },
     "SVC": {
         "s": "$",
@@ -1170,7 +1149,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 0,
         "r": 0,
-        "np": "El Salvador Colon"
+        "np": "El Salvador Colon",
     },
     "SYP": {
         "s": "SY£",
@@ -1178,7 +1157,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ل.س.‏",
         "d": 0,
         "r": 0,
-        "np": "Syrian pounds"
+        "np": "Syrian pounds",
     },
     "SZL": {
         "s": "L",
@@ -1186,23 +1165,16 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "L",
         "d": 2,
         "r": 0,
-        "np": "Swazi lilangeni"
+        "np": "Swazi lilangeni",
     },
-    "THB": {
-        "s": "฿",
-        "n": "Thai Baht",
-        "sn": "฿",
-        "d": 2,
-        "r": 0,
-        "np": "Thai baht"
-    },
+    "THB": {"s": "฿", "n": "Thai Baht", "sn": "฿", "d": 2, "r": 0, "np": "Thai baht"},
     "TJS": {
         "s": "-",
         "n": "Tajikistani somoni",
         "sn": "-",
         "d": 2,
         "r": 0,
-        "np": "Tajikistani somoni"
+        "np": "Tajikistani somoni",
     },
     "TMT": {
         "s": "T",
@@ -1210,7 +1182,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "T",
         "d": 2,
         "r": 0,
-        "np": "Turkmenistan manat"
+        "np": "Turkmenistan manat",
     },
     "TND": {
         "s": "DT",
@@ -1218,7 +1190,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "د.ت.‏",
         "d": 3,
         "r": 0,
-        "np": "Tunisian dinars"
+        "np": "Tunisian dinars",
     },
     "TOP": {
         "s": "T$",
@@ -1226,7 +1198,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "T$",
         "d": 2,
         "r": 0,
-        "np": "Tongan paʻanga"
+        "np": "Tongan paʻanga",
     },
     "TRY": {
         "s": "TL",
@@ -1234,7 +1206,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "TL",
         "d": 2,
         "r": 0,
-        "np": "Turkish Lira"
+        "np": "Turkish Lira",
     },
     "TTD": {
         "s": "TT$",
@@ -1242,7 +1214,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Trinidad and Tobago dollars"
+        "np": "Trinidad and Tobago dollars",
     },
     "TVD": {
         "s": "$",
@@ -1250,7 +1222,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Tuvalu Dollars"
+        "np": "Tuvalu Dollars",
     },
     "TWD": {
         "s": "NT$",
@@ -1258,7 +1230,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "NT$",
         "d": 2,
         "r": 0,
-        "np": "New Taiwan dollars"
+        "np": "New Taiwan dollars",
     },
     "TZS": {
         "s": "TSh",
@@ -1266,7 +1238,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "TSh",
         "d": 0,
         "r": 0,
-        "np": "Tanzanian shillings"
+        "np": "Tanzanian shillings",
     },
     "UAH": {
         "s": "₴",
@@ -1274,7 +1246,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₴",
         "d": 2,
         "r": 0,
-        "np": "Ukrainian hryvnias"
+        "np": "Ukrainian hryvnias",
     },
     "UGX": {
         "s": "USh",
@@ -1282,23 +1254,16 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "USh",
         "d": 0,
         "r": 0,
-        "np": "Ugandan shillings"
+        "np": "Ugandan shillings",
     },
-    "USD": {
-        "s": "$",
-        "n": "US Dollar",
-        "sn": "$",
-        "d": 2,
-        "r": 0,
-        "np": "US dollars"
-    },
+    "USD": {"s": "$", "n": "US Dollar", "sn": "$", "d": 2, "r": 0, "np": "US dollars"},
     "USN": {
         "s": "$",
         "n": "United States dollar (next day) (funds code)",
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "United States dollars (next day) (funds code)"
+        "np": "United States dollars (next day) (funds code)",
     },
     "UYI": {
         "s": "UYI",
@@ -1306,7 +1271,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "UYI",
         "d": 0,
         "r": 0,
-        "np": "Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)"
+        "np": "Uruguay Peso en Unidades Indexadas (URUIURUI) (funds code)",
     },
     "UYU": {
         "s": "$U",
@@ -1314,7 +1279,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Uruguayan pesos"
+        "np": "Uruguayan pesos",
     },
     "UZS": {
         "s": "UZS",
@@ -1322,7 +1287,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "UZS",
         "d": 0,
         "r": 0,
-        "np": "Uzbekistan som"
+        "np": "Uzbekistan som",
     },
     "VEF": {
         "s": "Bs.F.",
@@ -1330,7 +1295,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Bs.F.",
         "d": 2,
         "r": 0,
-        "np": "Venezuelan bolívars"
+        "np": "Venezuelan bolívars",
     },
     "VND": {
         "s": "₫",
@@ -1338,7 +1303,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "₫",
         "d": 0,
         "r": 0,
-        "np": "Vietnamese dong"
+        "np": "Vietnamese dong",
     },
     "VUV": {
         "s": "VT",
@@ -1346,7 +1311,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "VT",
         "d": 0,
         "r": 0,
-        "np": "Vanuatu vatu"
+        "np": "Vanuatu vatu",
     },
     "WST": {
         "s": "WS$",
@@ -1354,7 +1319,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Samoan tala"
+        "np": "Samoan tala",
     },
     "XAF": {
         "s": "FCFA",
@@ -1362,7 +1327,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "FCFA",
         "d": 0,
         "r": 0,
-        "np": "CFA francs BEAC"
+        "np": "CFA francs BEAC",
     },
     "XAG": {
         "s": "XAG",
@@ -1370,7 +1335,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XAG",
         "d": 0,
         "r": 0,
-        "np": "Silver (one troy ounce)"
+        "np": "Silver (one troy ounce)",
     },
     "XAU": {
         "s": "XAU",
@@ -1378,7 +1343,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XAU",
         "d": 0,
         "r": 0,
-        "np": "Gold (one troy ounce)"
+        "np": "Gold (one troy ounce)",
     },
     "XBA": {
         "s": "XBA",
@@ -1386,7 +1351,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XBA",
         "d": 0,
         "r": 0,
-        "np": "European Composite Unit (EURCO) (bond market unit)"
+        "np": "European Composite Unit (EURCO) (bond market unit)",
     },
     "XBB": {
         "s": "XBB",
@@ -1394,7 +1359,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XBB",
         "d": 0,
         "r": 0,
-        "np": "European Monetary Unit (E.M.U.-6) (bond market unit)"
+        "np": "European Monetary Unit (E.M.U.-6) (bond market unit)",
     },
     "XBC": {
         "s": "XBC",
@@ -1402,7 +1367,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XBC",
         "d": 0,
         "r": 0,
-        "np": "European Unit of Account 9 (E.U.A.-9) (bond market unit)"
+        "np": "European Unit of Account 9 (E.U.A.-9) (bond market unit)",
     },
     "XBD": {
         "s": "XBD",
@@ -1410,7 +1375,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XBD",
         "d": 0,
         "r": 0,
-        "np": "European Unit of Account 17 (E.U.A.-17) (bond market unit)"
+        "np": "European Unit of Account 17 (E.U.A.-17) (bond market unit)",
     },
     "XCD": {
         "s": "$",
@@ -1418,7 +1383,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 0,
         "r": 0,
-        "np": "East Caribbean Dollars"
+        "np": "East Caribbean Dollars",
     },
     "XDR": {
         "s": "XDR",
@@ -1426,7 +1391,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XDR",
         "d": 0,
         "r": 0,
-        "np": "Special drawing rights"
+        "np": "Special drawing rights",
     },
     "XOF": {
         "s": "CFA",
@@ -1434,7 +1399,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "CFA",
         "d": 0,
         "r": 0,
-        "np": "CFA francs BCEAO"
+        "np": "CFA francs BCEAO",
     },
     "XPD": {
         "s": "XPD",
@@ -1442,7 +1407,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XPD",
         "d": 0,
         "r": 0,
-        "np": "Palladium (one troy ounce)"
+        "np": "Palladium (one troy ounce)",
     },
     "XPF": {
         "s": "CFP",
@@ -1450,7 +1415,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "CFP",
         "d": 0,
         "r": 0,
-        "np": "CFP franc (franc Pacifique)"
+        "np": "CFP franc (franc Pacifique)",
     },
     "XPT": {
         "s": "XPT",
@@ -1458,23 +1423,16 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XPT",
         "d": 0,
         "r": 0,
-        "np": "Platinum (one troy ounce)"
+        "np": "Platinum (one troy ounce)",
     },
-    "XSU": {
-        "s": "Sucre",
-        "n": "SUCRE",
-        "sn": "Sucre",
-        "d": 0,
-        "r": 0,
-        "np": "SUCRE"
-    },
+    "XSU": {"s": "Sucre", "n": "SUCRE", "sn": "Sucre", "d": 0, "r": 0, "np": "SUCRE"},
     "XTS": {
         "s": "XTS",
         "n": "Code reserved for testing purposes",
         "sn": "XTS",
         "d": 0,
         "r": 0,
-        "np": "Code reserved for testing purposes"
+        "np": "Code reserved for testing purposes",
     },
     "XUA": {
         "s": "XUA",
@@ -1482,7 +1440,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XUA",
         "d": 0,
         "r": 0,
-        "np": "ADB Unit of Account"
+        "np": "ADB Unit of Account",
     },
     "XXX": {
         "s": "XXX",
@@ -1490,7 +1448,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "XXX",
         "d": 0,
         "r": 0,
-        "np": "No currency"
+        "np": "No currency",
     },
     "YER": {
         "s": "YR",
@@ -1498,7 +1456,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ر.ي.‏",
         "d": 0,
         "r": 0,
-        "np": "Yemeni rials"
+        "np": "Yemeni rials",
     },
     "ZAR": {
         "s": "R",
@@ -1506,7 +1464,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "R",
         "d": 2,
         "r": 0,
-        "np": "South African rand"
+        "np": "South African rand",
     },
     "ZMK": {
         "s": "ZK",
@@ -1514,7 +1472,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ZK",
         "d": 0,
         "r": 0,
-        "np": "Zambian kwachas"
+        "np": "Zambian kwachas",
     },
     "ZMW": {
         "s": "ZK",
@@ -1522,7 +1480,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "ZK",
         "d": 2,
         "r": 0,
-        "np": "Zambian kwacha"
+        "np": "Zambian kwacha",
     },
     "ZWD": {
         "s": "Z$",
@@ -1530,7 +1488,7 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "Z$",
         "d": 2,
         "r": 0,
-        "np": "Zimbabwe Dollars"
+        "np": "Zimbabwe Dollars",
     },
     "ZWL": {
         "s": "$",
@@ -1538,8 +1496,8 @@ CURRENCIES: Dict[str, Dict] = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Zimbabwean dollars A/10"
-    }
+        "np": "Zimbabwean dollars A/10",
+    },
 }
 
 REPLACED_BY_EURO = {
@@ -1549,7 +1507,7 @@ REPLACED_BY_EURO = {
         "sn": "öS",
         "d": 2,
         "r": 0,
-        "np": "Austrian schilling"
+        "np": "Austrian schilling",
     },
     "BEF": {
         "s": "fr.",
@@ -1557,7 +1515,7 @@ REPLACED_BY_EURO = {
         "sn": "fr.",
         "d": 2,
         "r": 0,
-        "np": "Belgian francs"
+        "np": "Belgian francs",
     },
     "CYP": {
         "s": "CYP",
@@ -1565,7 +1523,7 @@ REPLACED_BY_EURO = {
         "sn": "£",
         "d": 2,
         "r": 0,
-        "np": "Cypriot pounds"
+        "np": "Cypriot pounds",
     },
     "DEM": {
         "s": "DM",
@@ -1573,7 +1531,7 @@ REPLACED_BY_EURO = {
         "sn": "D-Mark",
         "d": 2,
         "r": 0,
-        "np": "Deutsche marks"
+        "np": "Deutsche marks",
     },
     "NLG": {
         "s": "fl.",
@@ -1581,7 +1539,7 @@ REPLACED_BY_EURO = {
         "sn": "ƒ",
         "d": 2,
         "r": 0,
-        "np": "Dutch guilders"
+        "np": "Dutch guilders",
     },
     "EEK": {
         "s": "kr",
@@ -1589,7 +1547,7 @@ REPLACED_BY_EURO = {
         "sn": "kroon",
         "d": 2,
         "r": 0,
-        "np": "Estonian krooni"
+        "np": "Estonian krooni",
     },
     "FIM": {
         "s": "FIM",
@@ -1597,7 +1555,7 @@ REPLACED_BY_EURO = {
         "sn": "mk.",
         "d": 2,
         "r": 0,
-        "np": "Finnish markkaa"
+        "np": "Finnish markkaa",
     },
     "FRF": {
         "s": "F",
@@ -1605,7 +1563,7 @@ REPLACED_BY_EURO = {
         "sn": "₣",
         "d": 2,
         "r": 0,
-        "np": "French francs"
+        "np": "French francs",
     },
     "GRD": {
         "s": "GRD",
@@ -1614,7 +1572,7 @@ REPLACED_BY_EURO = {
         "sn2": ["Δρ.", "₯"],
         "d": 2,
         "r": 0,
-        "np": "Greek drachmae"
+        "np": "Greek drachmae",
     },
     "IEP": {
         "s": "IR£",
@@ -1622,7 +1580,7 @@ REPLACED_BY_EURO = {
         "sn": "£",
         "d": 2,
         "r": 0,
-        "np": "Irish pounds"
+        "np": "Irish pounds",
     },
     "ITL": {
         "s": "L",
@@ -1630,7 +1588,7 @@ REPLACED_BY_EURO = {
         "sn": "₤",
         "d": 0,
         "r": 0,
-        "np": "Italian lire"
+        "np": "Italian lire",
     },
     "LVL": {
         "s": "Ls",
@@ -1638,7 +1596,7 @@ REPLACED_BY_EURO = {
         "sn": "LVL",
         "d": 2,
         "r": 0,
-        "np": "Latvian lati"
+        "np": "Latvian lati",
     },
     "LTL": {
         "s": "Lt",
@@ -1647,7 +1605,7 @@ REPLACED_BY_EURO = {
         "sn2": ["litų"],
         "d": 2,
         "r": 0,
-        "np": "Lithuanian litai"
+        "np": "Lithuanian litai",
     },
     "LUF": {
         "s": "F",
@@ -1655,7 +1613,7 @@ REPLACED_BY_EURO = {
         "sn": "LUF",
         "d": 2,
         "r": 0,
-        "np": "Luxembourgish francs"
+        "np": "Luxembourgish francs",
     },
     "MTL": {
         "s": "Lm",
@@ -1663,7 +1621,7 @@ REPLACED_BY_EURO = {
         "sn": "₤",
         "d": 2,
         "r": 0,
-        "np": "Maltese liri"
+        "np": "Maltese liri",
     },
     "PTE": {
         "s": "$",
@@ -1671,7 +1629,7 @@ REPLACED_BY_EURO = {
         "sn": "$",
         "d": 2,
         "r": 0,
-        "np": "Portuguese escudos"
+        "np": "Portuguese escudos",
     },
     "SKK": {
         "s": "SKK",
@@ -1679,7 +1637,7 @@ REPLACED_BY_EURO = {
         "sn": "Sk",
         "d": 2,
         "r": 0,
-        "np": "Slovak Koruny"
+        "np": "Slovak Koruny",
     },
     "SIT": {
         "s": "SIT",
@@ -1688,7 +1646,7 @@ REPLACED_BY_EURO = {
         "sn2": ["tolarjev"],
         "d": 2,
         "r": 0,
-        "np": "Slovenian tolar"
+        "np": "Slovenian tolar",
     },
     "ESP": {
         "s": "Pta",
@@ -1697,7 +1655,7 @@ REPLACED_BY_EURO = {
         "sn2": ["₧", "Pts", "Pt"],
         "d": 0,
         "r": 0,
-        "np": "Spanish pesetas"
+        "np": "Spanish pesetas",
     },
     "VAL": {
         "s": "£",
@@ -1705,7 +1663,7 @@ REPLACED_BY_EURO = {
         "sn": "₤",
         "d": 0,
         "r": 0,
-        "np": "Vatican liri"
+        "np": "Vatican liri",
     },
 }
 
@@ -1720,9 +1678,8 @@ CURRENCIES["IRR"]["sn2"] = ["ریال"]
 
 
 CURRENCY_CODES: List[str] = list(CURRENCIES.keys())
-CURRENCY_SYMBOLS: List[str] = list({c['s'] for c in CURRENCIES.values()})
+CURRENCY_SYMBOLS: List[str] = list({c["s"] for c in CURRENCIES.values()})
 CURRENCY_NATIONAL_SYMBOLS: List[str] = list(
-    {c['sn'] for c in CURRENCIES.values()} |
-    set(chain.from_iterable(c['sn2'] for c in CURRENCIES.values()
-                            if 'sn2' in c))
+    {c["sn"] for c in CURRENCIES.values()}
+    | set(chain.from_iterable(c["sn2"] for c in CURRENCIES.values() if "sn2" in c))
 )
