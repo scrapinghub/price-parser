@@ -167,8 +167,9 @@ def extract_currency_symbol(price: Optional[str],
         m = meth(attr) if attr else None
         if m:
             groups = [match for match in m.groups() if match is not None]
-            if groups:
-                return groups.pop()
+            assert groups
+
+            return groups.pop()
 
     return None
 
