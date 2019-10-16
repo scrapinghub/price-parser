@@ -58,8 +58,8 @@ parse_price = Price.fromstring
 
 def or_regex(symbols: List[str]) -> Pattern:
     """ Return a regex which matches any of ``symbols`` surrounded by some special characters """
-    left_tokens = [r"^", r"\s+", r"\d+"]
-    right_tokens = [r"$", r"\s+", r"\d+", r"[^a-zA-Z0-9]+"]
+    left_tokens = [r"^", r"\s+?", r"\d+?"]
+    right_tokens = [r"$", r"\s+?", r"\d+?", r"[^a-zA-Z0-9]+?"]
 
     return re.compile(
         "|".join(
@@ -117,7 +117,7 @@ DOLLAR_REGEXES = [
 OTHER_PARTICULAR_REGEXES = [
     # HT is the French abbreviation for "Hors Tax" (tax not added to the price)
     # and it may appear after € currency symbol
-    r"(€)HT+",
+    r"(€)HT+?",
 ]
 
 # Other common currency symbols: 3-letter codes, less safe abbreviations
