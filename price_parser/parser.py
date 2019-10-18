@@ -90,12 +90,11 @@ SAFE_CURRENCY_SYMBOLS = [
 # can be written as SGD$123 or NZD $123. Currency code should take priority
 # over $ symbol in this case.
 DOLLAR_CODES = [k for k in CURRENCY_CODES if k.endswith('D')]
-DOLLAR_REGEXES = [
-    r"""
-    \b{}   # code like NZD
-    (?:[^\w]|$)  # not a letter
-    """.format(k) for k in DOLLAR_CODES
-]
+_DOLLAR_REGEX = re.compile(
+    r'\b(?:{})(?=\$?)\b'.format(
+        '|'.join(re.escape(k) for k in DOLLAR_CODES)
+    )
+)
 
 
 # Other common currency symbols: 3-letter codes, less safe abbreviations
@@ -115,7 +114,7 @@ OTHER_CURRENCY_SYMBOLS_SET = (
 OTHER_CURRENCY_SYMBOLS = sorted(OTHER_CURRENCY_SYMBOLS_SET,
                                 key=len, reverse=True)
 
-_search_dollar_code = re.compile("|".join(DOLLAR_REGEXES), re.VERBOSE).search
+_search_dollar_code = _DOLLAR_REGEX.search
 _search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
 _search_unsafe_currency = or_regex(OTHER_CURRENCY_SYMBOLS).search
 
