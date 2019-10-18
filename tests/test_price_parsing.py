@@ -26,9 +26,11 @@ class Example(Price):
                  price_raw: Optional[str],
                  currency: Optional[str],
                  amount_text: Optional[str],
-                 amount_float: Optional[Union[float, Decimal]]) -> None:
+                 amount_float: Optional[Union[float, Decimal]],
+                 decimal_separator: Optional[str] = None) -> None:
         self.currency_raw = currency_raw
         self.price_raw = price_raw
+        self.decimal_separator = decimal_separator
         amount_decimal = None  # type: Optional[Decimal]
         if isinstance(amount_float, Decimal):
             amount_decimal = amount_float
@@ -1960,6 +1962,16 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
 ]
 
 
+PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
+    Example(None, '1250€ 600',
+            '€', '1250', 1250, "€"),
+    Example(None, '1250€ 60',
+            '€', '1250€60', 1250.60, "€"),
+    Example(None, '1250€600',
+            '€', '1250€600', 1250.600, "€"),
+]
+
+
 @pytest.mark.parametrize(
     ["example"],
     [[e] for e in PRICE_PARSING_EXAMPLES_BUGS_CAUGHT] +
@@ -1969,11 +1981,12 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     [[e] for e in PRICE_PARSING_EXAMPLES_3] +
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_PRICE] +
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_CURRENCY] +
+    [[e] for e in PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES] +
     [pytest.param(e, marks=pytest.mark.xfail())
      for e in PRICE_PARSING_EXAMPLES_XFAIL]
 )
 def test_parsing(example: Example):
-    parsed = Price.fromstring(example.price_raw, example.currency_raw)
+    parsed = Price.fromstring(example.price_raw, example.currency_raw, example.decimal_separator)
     assert parsed == example, f"Failed scenario: price={example.price_raw}, currency_hint={example.currency_raw}"
 
 
@@ -1986,3 +1999,22 @@ def test_parsing(example: Example):
 )
 def test_price_amount_float(amount, amount_float):
     assert Price(amount, None, None).amount_float == amount_float
+
+
+@pytest.mark.parametrize(
+    "price_raw,decimal_separator,expected_result",
+    (
+        ("140.000", None, Decimal("140000")),
+        ("140.000", ",", Decimal("140000")),
+        ("140.000", ".", Decimal("140.000")),
+        ("140€33", "€", Decimal("140.33")),
+        ("140,000€33", "€", Decimal("140000.33")),
+        ("140.000€33", "€", Decimal("140000.33")),
+    )
+)
+def test_price_decimal_separator(price_raw, decimal_separator, expected_result):
+    parsed = Price.fromstring(
+        price_raw,
+        decimal_separator=decimal_separator
+    )
+    assert parsed.amount == expected_result

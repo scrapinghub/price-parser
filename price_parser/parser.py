@@ -25,7 +25,8 @@ class Price:
 
     @classmethod
     def fromstring(cls, price: Optional[str],
-                   currency_hint: Optional[str] = None) -> 'Price':
+                   currency_hint: Optional[str] = None,
+                   decimal_separator: Optional[str] = None) -> 'Price':
         """
         Given price and currency text extracted from HTML elements, return
         ``Price`` instance, which provides a clean currency symbol and
@@ -37,7 +38,10 @@ class Price:
         from ``currency_hint`` string.
         """
         amount_text = extract_price_text(price) if price is not None else None
-        amount_num = parse_number(amount_text) if amount_text is not None else None
+        amount_num = (
+            parse_number(amount_text, decimal_separator)
+            if amount_text is not None else None
+        )
         currency = extract_currency_symbol(price, currency_hint)
         if currency is not None:
             currency = currency.strip()
@@ -183,15 +187,15 @@ def extract_price_text(price: str) -> Optional[str]:
     if price.count('€') == 1:
         m = re.search(r"""
         [\d\s.,]*?\d    # number, probably with thousand separators
-        \s*?€\s*?        # euro, probably separated by whitespace
-        \d\d
-        (?:$|[^\d])    # something which is not a digit
+        \s*?€(\s*?)?    # euro, probably separated by whitespace
+        \d(?(1)\d|\d*?) # if separated by whitespace - search one digit, multiple digits otherwise
+        (?:$|[^\d])     # something which is not a digit
         """, price, re.VERBOSE)
         if m:
             return m.group(0).replace(' ', '')
     m = re.search(r"""
         (\d[\d\s.,]*)  # number, probably with thousand separators
-        \s*?            # skip whitespace
+        \s*?           # skip whitespace
         (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
         """, price, re.VERBOSE)
 
@@ -234,7 +238,8 @@ def get_decimal_separator(price: str) -> Optional[str]:
         return m.group(1)
 
 
-def parse_number(num: str) -> Optional[Decimal]:
+def parse_number(num: str,
+                 decimal_separator: Optional[str] = None) -> Optional[Decimal]:
     """ Parse a string with a number to a Decimal, guessing its format:
     decimal separator, thousand separator. Return None if parsing fails.
 
@@ -262,13 +267,17 @@ def parse_number(num: str) -> Optional[Decimal]:
     Decimal('1235.99')
     >>> parse_number("1.235€99")
     Decimal('1235.99')
+    >>> parse_number("140.000", decimal_separator=",")
+    Decimal('140000')
+    >>> parse_number("140.000", decimal_separator=".")
+    Decimal('140.000')
     >>> parse_number("")
     >>> parse_number("foo")
     """
     if not num:
         return None
     num = num.strip().replace(' ', '')
-    decimal_separator = get_decimal_separator(num)
+    decimal_separator = decimal_separator or get_decimal_separator(num)
     # NOTE: Keep supported separators in sync with _search_decimal_sep
     if decimal_separator is None:
         num = num.replace('.', '').replace(',', '')
