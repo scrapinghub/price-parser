@@ -63,6 +63,22 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
             'GBP', '29.1583', 29.1583),
     Example(None, '1.11000000000000009770',
             None, '1.11000000000000009770', Decimal('1.11000000000000009770')),
+
+    # dates
+    Example(None, 'July, 2004',
+            None, None, None),
+    Example(None, '15.08.2017',
+            None, None, None),
+    Example(None, '0€ until May, 2005, 35€ afterwards',
+            '€', '0', 0),
+    Example(None, '2019-08-19: 22 USD',
+            'USD', '22', 22),
+    Example(None, '2105 EUR at July, 2004',
+            'EUR', '2105', 2105),
+    Example(None, '$10 EUR during March, 2016',
+            '$', '10', 10),
+    Example(None, '$10 EUR at March, 2016 or 2019-08-19',
+            '$', '10', 10),
 ]
 
 
@@ -1938,28 +1954,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
             None, None, None),
     Example('Купить', 'Печная труба',
             None, None, None),
-
-    # dates
-    Example(None, 'July, 2004',
-            None, None, None),
-
-    Example(None, '15.08.2017',
-            None, None, None),
-
-    Example(None, '0€ until May, 2005, 35€ afterwards',
-            '€', '0', 0),
-
-    Example(None, '2019-08-19: 22 USD',
-            'USD', '22', 22),
-
-    Example(None, '2105 EUR at July, 2004',
-            'EUR', '2105', 2105),
-
-    Example(None, '$10 EUR during March, 2016',
-            '$', '10', 10),
-
-    Example(None, '$10 EUR at March, 2016 or 2019-08-19',
-            '$', '10', 10),
 
     # other incorrectly extracted prices
     Example('8.5', '25-09',
