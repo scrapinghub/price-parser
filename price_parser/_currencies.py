@@ -1542,6 +1542,13 @@ CURRENCIES: Dict[str, Dict] = {
     }
 }
 
+
+# Commonly used unofficial names.
+# See also: https://en.wikipedia.org/wiki/ISO_4217#Unofficial_currency_codes
+CURRENCIES['NTD'] = CURRENCIES['TWD']
+CURRENCIES['RMB'] = CURRENCIES['CNY']
+
+
 REPLACED_BY_EURO = {
     "ATS": {
         "s": "öS",

@@ -1,6 +1,17 @@
 Changes
 =======
 
+0.3.0 (2019-10-19)
+------------------
+
+* New ``Price.fromstring`` argument ``decimal_separator`` allows to override
+  decimal separator for the cases where it is known
+  (i.e. disable decimal separator detection);
+* NTD and RBM unofficial currency names are added;
+* quantifiers in regular expressions are made non-greedy, which provides
+  a small speedup;
+* test improvements.
+
 0.2.4 (2019-07-03)
 ------------------
 
