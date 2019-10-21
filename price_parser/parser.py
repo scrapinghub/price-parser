@@ -91,9 +91,15 @@ SAFE_CURRENCY_SYMBOLS = [
 # over $ symbol in this case.
 DOLLAR_CODES = [k for k in CURRENCY_CODES if k.endswith('D')]
 _DOLLAR_REGEX = re.compile(
-    r'\b(?:{})(?=\$?)\b'.format(
-        '|'.join(re.escape(k) for k in DOLLAR_CODES)
-    )
+    r'''
+        \b
+        (?:{})  # currency code like NZD
+        (?=
+            \$?  # dollar sign to ignore if attached to the currency code
+            (?:[\W\d]|$)  # not a letter
+        )
+    '''.format('|'.join(re.escape(k) for k in DOLLAR_CODES)),
+    re.VERBOSE,
 )
 
 

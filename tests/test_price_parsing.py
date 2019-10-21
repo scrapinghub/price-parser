@@ -847,6 +847,10 @@ PRICE_PARSING_EXAMPLES_2 = [
             '$', '39.99', 39.99),
     Example('SGD$4.90', 'SGD$4.90',
             'SGD', '4.90', 4.9),
+    Example('SGD4.90 $', 'SGD4.90 $',
+            'SGD', '4.90', 4.9),
+    Example('$ SGD4.90', '$ SGD4.90',
+            'SGD', '4.90', 4.9),
 ]
 
 
