@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.3.1 (2019-10-21)
+------------------
+
+* Redundant $ signs are no longer returned as a part of currency, e.g.
+  for ``SGD$ 100`` currency would be ``SGD``, not ``SGD$``.
+
 0.3.0 (2019-10-19)
 ------------------
 
