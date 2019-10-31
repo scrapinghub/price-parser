@@ -97,6 +97,10 @@ PRICE_PARSING_EXAMPLES_NEW = [
             'EUR', None, None),
     Example(None, 'EUR is the selected currency',
             'EUR', None, None),
+    Example(None, '  Prices   in   EUR  ',
+            'EUR', None, None),
+    Example(None, '13800   ₶  ',
+            '₶', '13800', 13800)
 ]
 
 
