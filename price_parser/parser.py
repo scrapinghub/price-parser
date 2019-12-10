@@ -158,43 +158,46 @@ def extract_currency_symbol(price: Optional[str],
 
 # word: (scale, increment)
 _NUMBER_WORDS = {
-    'zero': (1, 0),
-    'one': (1, 1),
-    'two': (1, 2),
-    'three': (1, 3),
-    'four': (1, 4),
-    'five': (1, 5),
-    'six': (1, 6),
-    'seven': (1, 7),
-    'eight': (1, 8),
-    'nine': (1, 9),
-    'ten': (1, 10),
-    'eleven': (1, 11),
-    'twelve': (1, 12),
-    'thirteen': (1, 13),
-    'fourteen': (1, 14),
-    'fifteen': (1, 15),
-    'sixteen': (1, 16),
-    'seventeen': (1, 17),
-    'eighteen': (1, 18),
-    'nineteen': (1, 19),
-    'twenty': (1, 20),
+    word: (Decimal(scale), Decimal(increment)) for word, scale, increment in
+    (
+        ('zero', 1, 0),
+        ('one', 1, 1),
+        ('two', 1, 2),
+        ('three', 1, 3),
+        ('four', 1, 4),
+        ('five', 1, 5),
+        ('six', 1, 6),
+        ('seven', 1, 7),
+        ('eight', 1, 8),
+        ('nine', 1, 9),
+        ('ten', 1, 10),
+        ('eleven', 1, 11),
+        ('twelve', 1, 12),
+        ('thirteen', 1, 13),
+        ('fourteen', 1, 14),
+        ('fifteen', 1, 15),
+        ('sixteen', 1, 16),
+        ('seventeen', 1, 17),
+        ('eighteen', 1, 18),
+        ('nineteen', 1, 19),
+        ('twenty', 1, 20),
 
-    'thirty': (1, 30),
-    'forty': (1, 40),
-    'fifty': (1, 50),
-    'sixty': (1, 60),
-    'seventy': (1, 70),
-    'eighty': (1, 80),
-    'ninety': (1, 90),
+        ('thirty', 1, 30),
+        ('forty', 1, 40),
+        ('fifty', 1, 50),
+        ('sixty', 1, 60),
+        ('seventy', 1, 70),
+        ('eighty', 1, 80),
+        ('ninety', 1, 90),
 
-    'hundred': (100, 0),
-    'thousand': (10 ** 3, 0),
-    'million': (10 ** 6, 0),
-    'billion': (10 ** 9, 0),
-    'trillion': (10 ** 12, 0),
+        ('hundred', 100, 0),
+        ('thousand', 10 ** 3, 0),
+        ('million', 10 ** 6, 0),
+        ('billion', 10 ** 9, 0),
+        ('trillion', 10 ** 12, 0),
 
-    'and': (1, 0),
+        ('and', 1, 0),
+    )
 }
 _NUMBER_WORDS_PATTERN = r'(?:{})'.format('|'.join(_NUMBER_WORDS))
 
@@ -369,7 +372,7 @@ def parse_number(num: str,
         num = num.replace('.', '').replace(',', '').replace('€', '.')
 
     # Based on https://stackoverflow.com/a/493788/939364
-    current = result = 0
+    current = result = Decimal(0)
     for word in num.split():
         try:
             scale, increment = _NUMBER_WORDS[word]
@@ -379,20 +382,15 @@ def parse_number(num: str,
                 increment = Decimal(word)
             except InvalidOperation:
                 return None
-            scale = 10 ** len(re.match(r'\d+', word)[0])
+            match = re.match(r'\d+', word)
+            if not match:
+                return None
+            scale = Decimal(10) ** len(match[0])
             is_word = False
 
         current = current * scale + increment
-        if scale > 100 and is_word:
+        if scale > Decimal(100) and is_word:
             result += current
-            current = 0
-        from logging import getLogger
-        logger = getLogger(__name__)
-        logger.error('{} {} {} {}'.format(result, current, scale, word))
+            current = Decimal(0)
 
-    num = result + current
-
-    try:
-        return Decimal(num)
-    except InvalidOperation:
-        return None
+    return result + current
