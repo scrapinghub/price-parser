@@ -383,8 +383,7 @@ def parse_number(num: str,
             except InvalidOperation:
                 return None
             match = re.match(r'\d+', word)
-            if not match:
-                return None
+            assert match is not None
             scale = Decimal(10) ** len(match[0])
             is_word = False
 
