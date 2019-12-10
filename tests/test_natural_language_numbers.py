@@ -10,6 +10,7 @@ from price_parser import parse_price
     [
         ('$ 4 million', '4 million', 4000000),
         ('$ four million', 'four million', 4000000),
+        ('$ 1 thousand 999 € 99', '1 thousand 999 € 99', '1999.99'),
     ],
 )
 def test_price_parsing(input_text, amount_text, amount):

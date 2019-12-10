@@ -195,38 +195,44 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("1 thousand 35€ 99")
     '1 thousand 35€99'
     """
+    m = None
+
     if price.count('€') == 1:
         m = re.search(r"""
-        (?:
-             [\d\s.,]| # number, probably with thousand separators
-             {}        # numeric English words
-        )*
-        \d             # there must be a a digit before €
-        \s*€\s*        # euro, probably separated by whitespace
-        \d\d
-        (?:$|[^\d])    # something which is not a digit
-        """.format(_NUMBER_WORDS), price, re.VERBOSE)
-        if m:
-            return m.group(0).replace(' ', '')
-    m = re.search(r"""
         (
             (?:
-                 \d|        # number, as a digit
-                 {0}        # numeric English words
-            )
-            (?:
-                 [\d\s.,]|  # number, probably with thousand separators
-                 {0}        # numeric English words
+                [\d\s.,]| # number, probably with thousand separators
+                {}        # numeric English words
             )*
+            \d             # there must be a a digit before €
+            \s*€\s*        # euro, probably separated by whitespace
+            \d\d
         )
-        \s*            # skip whitespace
-        (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
+        (?:$|[^\d])    # something which is not a digit
         """.format(_NUMBER_WORDS), price, re.VERBOSE)
+
+    if not m:
+        m = re.search(r"""
+            (
+                (?:
+                    \d|        # number, as a digit
+                    {0}        # numeric English words
+                )
+                (?:
+                    [\d\s.,]|  # number, probably with thousand separators
+                    {0}        # numeric English words
+                )*
+            )
+            \s*            # skip whitespace
+            (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
+            """.format(_NUMBER_WORDS), price, re.VERBOSE)
 
     if m:
         return m.group(1).strip(',.').strip()
+
     if 'free' in price.lower():
         return '0'
+
     return None
 
 
@@ -289,6 +295,10 @@ def parse_number(num: str) -> Optional[Decimal]:
     Decimal('1235.99')
     >>> parse_number("1.235€99")
     Decimal('1235.99')
+    >>> parse_number("4 million")
+    Decimal('4000000')
+    >>> parse_number("four million")
+    Decimal('4000000')
     >>> parse_number("")
     >>> parse_number("foo")
     """
