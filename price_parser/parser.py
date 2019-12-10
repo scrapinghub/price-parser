@@ -25,7 +25,8 @@ class Price:
 
     @classmethod
     def fromstring(cls, price: Optional[str],
-                   currency_hint: Optional[str] = None) -> 'Price':
+                   currency_hint: Optional[str] = None,
+                   decimal_separator: Optional[str] = None) -> 'Price':
         """
         Given price and currency text extracted from HTML elements, return
         ``Price`` instance, which provides a clean currency symbol and
@@ -42,7 +43,10 @@ class Price:
             amount_text = extract_price_text(price, _currency_match)
         else:
             amount_text = None
-        amount_num = parse_number(amount_text) if amount_text is not None else None
+        amount_num = (
+            parse_number(amount_text, decimal_separator)
+            if amount_text is not None else None
+        )
         if currency_match is not None:
             currency = currency_match.group(0).strip()
         else:
@@ -96,12 +100,17 @@ SAFE_CURRENCY_SYMBOLS = [
 # can be written as SGD$123 or NZD $123. Currency code should take priority
 # over $ symbol in this case.
 DOLLAR_CODES = [k for k in CURRENCY_CODES if k.endswith('D')]
-DOLLAR_REGEXES = [
-    r"""
-    \b{}   # code like NZD
-    (?:[^\w]|$)  # not a letter
-    """.format(k) for k in DOLLAR_CODES
-]
+_DOLLAR_REGEX = re.compile(
+    r'''
+        \b
+        (?:{})  # currency code like NZD
+        (?=
+            \$?  # dollar sign to ignore if attached to the currency code
+            (?:[\W\d]|$)  # not a letter
+        )
+    '''.format('|'.join(re.escape(k) for k in DOLLAR_CODES)),
+    re.VERBOSE,
+)
 
 
 # Other common currency symbols: 3-letter codes, less safe abbreviations
@@ -121,7 +130,7 @@ OTHER_CURRENCY_SYMBOLS_SET = (
 OTHER_CURRENCY_SYMBOLS = sorted(OTHER_CURRENCY_SYMBOLS_SET,
                                 key=len, reverse=True)
 
-_search_dollar_code = re.compile("|".join(DOLLAR_REGEXES), re.VERBOSE).search
+_search_dollar_code = _DOLLAR_REGEX.search
 _search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
 _search_unsafe_currency = or_regex(OTHER_CURRENCY_SYMBOLS).search
 
@@ -203,10 +212,10 @@ def extract_price_text(price: str, currency_match: Optional[Match] = None) -> Op
     """
     if price.count('€') == 1:
         m = re.search(r"""
-        [\d\s.,]*\d    # number, probably with thousand separators
-        \s*€\s*        # euro, probably separated by whitespace
-        \d\d
-        (?:$|[^\d])    # something which is not a digit
+        [\d\s.,]*?\d    # number, probably with thousand separators
+        \s*?€(\s*?)?    # euro, probably separated by whitespace
+        \d(?(1)\d|\d*?) # if separated by whitespace - search one digit, multiple digits otherwise
+        (?:$|[^\d])     # something which is not a digit
         """, price, re.VERBOSE)
         if m:
             return m.group(0).replace(' ', '')
@@ -234,7 +243,7 @@ def extract_price_text(price: str, currency_match: Optional[Match] = None) -> Op
 
     m = re.search(r"""
         (\d[\d\s.,]*)  # number, probably with thousand separators
-        \s*            # skip whitespace
+        \s*?           # skip whitespace
         (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
         """, price, re.VERBOSE)
     if m:
@@ -251,8 +260,8 @@ _search_decimal_sep = re.compile(r"""
 \d           # at least one digit (there can be more before it)
 ([.,€])      # decimal separator
 (?:          # 1,2 or 4+ digits. 3 digits is likely to be a thousand separator.
-   \d{1,2}|
-   \d{4}\d*
+   \d{1,2}?|
+   \d{4}\d*?
 )
 $
 """, re.VERBOSE).search
@@ -278,7 +287,8 @@ def get_decimal_separator(price: str) -> Optional[str]:
         return m.group(1)
 
 
-def parse_number(num: str) -> Optional[Decimal]:
+def parse_number(num: str,
+                 decimal_separator: Optional[str] = None) -> Optional[Decimal]:
     """ Parse a string with a number to a Decimal, guessing its format:
     decimal separator, thousand separator. Return None if parsing fails.
 
@@ -306,13 +316,17 @@ def parse_number(num: str) -> Optional[Decimal]:
     Decimal('1235.99')
     >>> parse_number("1.235€99")
     Decimal('1235.99')
+    >>> parse_number("140.000", decimal_separator=",")
+    Decimal('140000')
+    >>> parse_number("140.000", decimal_separator=".")
+    Decimal('140.000')
     >>> parse_number("")
     >>> parse_number("foo")
     """
     if not num:
         return None
     num = num.strip().replace(' ', '')
-    decimal_separator = get_decimal_separator(num)
+    decimal_separator = decimal_separator or get_decimal_separator(num)
     # NOTE: Keep supported separators in sync with _search_decimal_sep
     if decimal_separator is None:
         num = num.replace('.', '').replace(',', '')

@@ -1,6 +1,30 @@
 Changes
 =======
 
+0.3.1 (2019-10-21)
+------------------
+
+* Redundant $ signs are no longer returned as a part of currency, e.g.
+  for ``SGD$ 100`` currency would be ``SGD``, not ``SGD$``.
+
+0.3.0 (2019-10-19)
+------------------
+
+* New ``Price.fromstring`` argument ``decimal_separator`` allows to override
+  decimal separator for the cases where it is known
+  (i.e. disable decimal separator detection);
+* NTD and RBM unofficial currency names are added;
+* quantifiers in regular expressions are made non-greedy, which provides
+  a small speedup;
+* test improvements.
+
+0.2.4 (2019-07-03)
+------------------
+
+* Declare price-parser as providing type annotations (pep-561). This enables
+  better type checking for projects using price-parser.
+* improved test coverage
+
 0.2.3 (2019-06-18)
 ------------------
 
