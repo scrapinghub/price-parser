@@ -10,6 +10,8 @@ from price_parser import parse_price
     [
         ('$ 4 million', '4 million', 4000000),
         ('$ four million', 'four million', 4000000),
+        ('$ four million dollars', 'four million', 4000000),
+        ('$ 400 thousand', '400 thousand', 400000),
         ('$ 1 thousand 999 € 99', '1 thousand 999 € 99', '1999.99'),
     ],
 )

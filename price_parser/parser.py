@@ -147,13 +147,47 @@ def extract_currency_symbol(price: Optional[str],
     return None
 
 
-_NUMBER_WORDS = r'(?:{})'.format('|'.join((
-    'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
-    'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen',
-    'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'thirty',
-    'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety', 'hundred',
-    'thousand', 'million', 'billion', 'trillion',
-)))
+# word: (scale, increment)
+_NUMBER_WORDS = {
+    'zero': (1, 0),
+    'one': (1, 1),
+    'two': (1, 2),
+    'three': (1, 3),
+    'four': (1, 4),
+    'five': (1, 5),
+    'six': (1, 6),
+    'seven': (1, 7),
+    'eight': (1, 8),
+    'nine': (1, 9),
+    'ten': (1, 10),
+    'eleven': (1, 11),
+    'twelve': (1, 12),
+    'thirteen': (1, 13),
+    'fourteen': (1, 14),
+    'fifteen': (1, 15),
+    'sixteen': (1, 16),
+    'seventeen': (1, 17),
+    'eighteen': (1, 18),
+    'nineteen': (1, 19),
+    'twenty': (1, 20),
+
+    'thirty': (1, 30),
+    'forty': (1, 40),
+    'fifty': (1, 50),
+    'sixty': (1, 60),
+    'seventy': (1, 70),
+    'eighty': (1, 80),
+    'ninety': (1, 90),
+
+    'hundred': (100, 0),
+    'thousand': (10 ** 3, 0),
+    'million': (10 ** 6, 0),
+    'billion': (10 ** 9, 0),
+    'trillion': (10 ** 12, 0),
+
+    'and': (1, 0),
+}
+_NUMBER_WORDS_PATTERN = r'(?:{})'.format('|'.join(_NUMBER_WORDS))
 
 
 def extract_price_text(price: str) -> Optional[str]:
@@ -179,11 +213,11 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("99 € 79 €")
     '99'
     >>> extract_price_text("35€ 99")
-    '35€99'
+    '35€ 99'
     >>> extract_price_text("35€ 999")
     '35'
     >>> extract_price_text("1,235€ 99")
-    '1,235€99'
+    '1,235€ 99'
     >>> extract_price_text("50% OFF")
     >>> extract_price_text("50%")
     >>> extract_price_text("50")
@@ -193,7 +227,7 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("four million")
     'four million'
     >>> extract_price_text("1 thousand 35€ 99")
-    '1 thousand 35€99'
+    '1 thousand 35€ 99'
     """
     m = None
 
@@ -209,7 +243,7 @@ def extract_price_text(price: str) -> Optional[str]:
             \d\d
         )
         (?:$|[^\d])    # something which is not a digit
-        """.format(_NUMBER_WORDS), price, re.VERBOSE)
+        """.format(_NUMBER_WORDS_PATTERN), price, re.VERBOSE)
 
     if not m:
         m = re.search(r"""
@@ -225,7 +259,7 @@ def extract_price_text(price: str) -> Optional[str]:
             )
             \s*            # skip whitespace
             (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
-            """.format(_NUMBER_WORDS), price, re.VERBOSE)
+            """.format(_NUMBER_WORDS_PATTERN), price, re.VERBOSE)
 
     if m:
         return m.group(1).strip(',.').strip()
@@ -304,7 +338,9 @@ def parse_number(num: str) -> Optional[Decimal]:
     """
     if not num:
         return None
-    num = num.strip().replace(' ', '')
+
+    num = num.strip()
+    num = re.sub(r'\s+(?=\W)|(?<=\W)\s+', '', num)
     decimal_separator = get_decimal_separator(num)
     if decimal_separator is None:
         num = num.replace('.', '').replace(',', '')
@@ -314,6 +350,31 @@ def parse_number(num: str) -> Optional[Decimal]:
         num = num.replace('.', '').replace(',', '.')
     elif decimal_separator == '€':
         num = num.replace('.', '').replace(',', '').replace('€', '.')
+
+    # Based on https://stackoverflow.com/a/493788/939364
+    current = result = 0
+    for word in num.split():
+        try:
+            scale, increment = _NUMBER_WORDS[word]
+            is_word = True
+        except KeyError:
+            try:
+                increment = Decimal(word)
+            except InvalidOperation:
+                return None
+            scale = 10 ** len(re.match(r'\d+', word)[0])
+            is_word = False
+
+        current = current * scale + increment
+        if scale > 100 and is_word:
+            result += current
+            current = 0
+        from logging import getLogger
+        logger = getLogger(__name__)
+        logger.error('{} {} {} {}'.format(result, current, scale, word))
+
+    num = result + current
+
     try:
         return Decimal(num)
     except InvalidOperation:
