@@ -2051,10 +2051,10 @@ def test_parsing(example: Example):
         # fictional currency
         ('10 eddies', None),
 
-        # cyrrency code
+        # currency code
         ('5 CNY', 'CNY'),
 
-        # cyrrency name
+        # currency name
         ('5 euros', 'euro'),
 
         # currency symbol
