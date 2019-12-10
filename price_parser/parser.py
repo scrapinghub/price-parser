@@ -25,8 +25,7 @@ class Price:
 
     @classmethod
     def fromstring(cls, price: Optional[str],
-                   currency_hint: Optional[str] = None,
-                   locale: Optional[str] = None) -> 'Price':
+                   currency_hint: Optional[str] = None) -> 'Price':
         """
         Given price and currency text extracted from HTML elements, return
         ``Price`` instance, which provides a clean currency symbol and
@@ -148,6 +147,15 @@ def extract_currency_symbol(price: Optional[str],
     return None
 
 
+_NUMBER_WORDS = r'(?:{})'.format('|'.join((
+    'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
+    'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen',
+    'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'thirty',
+    'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety', 'hundred',
+    'thousand', 'million', 'billion', 'trillion',
+)))
+
+
 def extract_price_text(price: str) -> Optional[str]:
     """
     Extract text of a price from a string which contains price and
@@ -180,21 +188,40 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("50%")
     >>> extract_price_text("50")
     '50'
+    >>> extract_price_text("$ 4 million")
+    '4 million'
+    >>> extract_price_text("four million")
+    'four million'
+    >>> extract_price_text("1 thousand 35€ 99")
+    '1 thousand 35€99'
     """
     if price.count('€') == 1:
         m = re.search(r"""
-        [\d\s.,]*\d    # number, probably with thousand separators
+        (?:
+             [\d\s.,]| # number, probably with thousand separators
+             {}        # numeric English words
+        )*
+        \d             # there must be a a digit before €
         \s*€\s*        # euro, probably separated by whitespace
         \d\d
         (?:$|[^\d])    # something which is not a digit
-        """, price, re.VERBOSE)
+        """.format(_NUMBER_WORDS), price, re.VERBOSE)
         if m:
             return m.group(0).replace(' ', '')
     m = re.search(r"""
-        (\d[\d\s.,]*)  # number, probably with thousand separators
+        (
+            (?:
+                 \d|        # number, as a digit
+                 {0}        # numeric English words
+            )
+            (?:
+                 [\d\s.,]|  # number, probably with thousand separators
+                 {0}        # numeric English words
+            )*
+        )
         \s*            # skip whitespace
         (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
-        """, price, re.VERBOSE)
+        """.format(_NUMBER_WORDS), price, re.VERBOSE)
 
     if m:
         return m.group(1).strip(',.').strip()
