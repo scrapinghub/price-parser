@@ -314,6 +314,56 @@ def get_decimal_separator(price: str) -> Optional[str]:
         return m.group(1)
 
 
+# Based on https://stackoverflow.com/a/493788/939364
+def _words_to_digits(words):
+    """Given a string containing a number in English, or a combination of
+    English and digits (e.g. ‘3 million’), return the corresponding number as a
+    ``Decimal``.
+
+    In the input string, thousand separators must not exist, and if there are
+    decimals, a dot (.) must be used as decimal separator, and there must be
+    digits at either side of the decimal separator.
+
+    ``None`` is return on invalid input.
+
+    >>> parse_number("1234")
+    Decimal('1234')
+    >>> parse_number("12.34")
+    Decimal('12.34')
+    >>> parse_number("4 million")
+    Decimal('4000000')
+    >>> parse_number("four million")
+    Decimal('4000000')
+    >>> parse_number("")
+    >>> parse_number(" ")
+    >>> parse_number("foo")
+    """
+    if not words.strip():
+        return None
+
+    current = result = Decimal(0)
+    for word in words.split():
+        try:
+            scale, increment = _NUMBER_WORDS[word]
+            is_word = True
+        except KeyError:
+            try:
+                increment = Decimal(word)
+            except InvalidOperation:
+                return None
+            match = re.match(r'\d+', word)
+            assert match is not None
+            scale = Decimal(10) ** len(match[0])
+            is_word = False
+
+        current = current * scale + increment
+        if scale > Decimal(100) and is_word:
+            result += current
+            current = Decimal(0)
+
+    return result + current
+
+
 def parse_number(num: str,
                  decimal_separator: Optional[str] = None) -> Optional[Decimal]:
     """ Parse a string with a number to a Decimal, guessing its format:
@@ -371,25 +421,4 @@ def parse_number(num: str,
         assert decimal_separator == '€'
         num = num.replace('.', '').replace(',', '').replace('€', '.')
 
-    # Based on https://stackoverflow.com/a/493788/939364
-    current = result = Decimal(0)
-    for word in num.split():
-        try:
-            scale, increment = _NUMBER_WORDS[word]
-            is_word = True
-        except KeyError:
-            try:
-                increment = Decimal(word)
-            except InvalidOperation:
-                return None
-            match = re.match(r'\d+', word)
-            assert match is not None
-            scale = Decimal(10) ** len(match[0])
-            is_word = False
-
-        current = current * scale + increment
-        if scale > Decimal(100) and is_word:
-            result += current
-            current = Decimal(0)
-
-    return result + current
+    return _words_to_digits(num)
