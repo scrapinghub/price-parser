@@ -82,7 +82,9 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, 'AED 8000 (USD 2179)',
             'AED', '8000', 8000),
     Example(None, '13800 ₶',
-            '₶', '13800', 13800)
+            '₶', '13800', 13800),
+    Example(None, '99¢',
+            '¢', '99', 99)
 ]
 
 
