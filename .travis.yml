@@ -28,4 +28,4 @@ deploy:
   on:
     tags: true
     repo: scrapinghub/price-parser
-    condition: $TOXENV == py36
+    condition: $TOXENV == py37
