@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.3.2 (2020-01-28)
+------------------
+
+* Improved Korean and Japanese currency detection.
+* Declare Python 3.8 support.
+
 0.3.1 (2019-10-21)
 ------------------
 
