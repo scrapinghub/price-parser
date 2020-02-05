@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.3.3 (2020-02-05)
+------------------
+
+* Fixed installation issue on some Windows machines.
+
 0.3.2 (2020-01-28)
 ------------------
 
