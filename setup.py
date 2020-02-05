@@ -6,7 +6,7 @@ setup(
     name='price-parser',
     version='0.3.2',
     description='Extract price and currency from a raw string',
-    long_description=open('README.rst').read() + "\n\n" + open('CHANGES.rst').read(),
+    long_description=open('README.rst', encoding="utf8").read() + "\n\n" + open('CHANGES.rst').read(),
     author='Mikhail Korobov',
     author_email='kmike84@gmail.com',
     url='https://github.com/scrapinghub/price-parser',
