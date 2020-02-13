@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import string
+from collections import namedtuple
 from typing import Callable, Optional, Pattern, List, Tuple
 from decimal import Decimal, InvalidOperation
 
@@ -37,18 +38,21 @@ class Price:
         ``price`` string, it could be **preferred** over a value extracted
         from ``currency_hint`` string.
         """
-        amount_text = extract_price_text(price) if price is not None else None
-        amount_num = (
-            parse_number(amount_text, decimal_separator)
-            if amount_text is not None else None
-        )
         currency = extract_currency_symbol(price, currency_hint)
         if currency is not None:
             currency = currency.strip()
+
+        price_amount = extract_price_text(price, currency)
+
+        amount_num = (
+            parse_number(price_amount.text, decimal_separator, price_amount.negative)
+            if price_amount.text is not None else None
+        )
+
         return Price(
             amount=amount_num,
             currency=currency,
-            amount_text=amount_text,
+            amount_text=price_amount.text,
         )
 
 
@@ -156,7 +160,7 @@ def extract_currency_symbol(price: Optional[str],
     return None
 
 
-def extract_price_text(price: str) -> Optional[str]:
+def extract_price_text(price: str, currency: Optional[str] = "") -> Optional[str]:
     """
     Extract text of a price from a string which contains price and
     maybe some other text. If multiple price-looking substrings are present,
@@ -189,6 +193,24 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("50")
     '50'
     """
+    PriceAmount = namedtuple('PriceAmount', ['text', 'negative'])
+
+    if price is None:
+        return PriceAmount(text=None, negative=False)
+
+    negative_regexes = [
+        r"-\s*?\d[\d.,\d]*",
+        r"\d[\d.,\d]*\d-",
+    ]
+    if currency is not None:
+        negative_regexes.append(r"-{}\d[\d.,\d]*".format(re.escape(currency)))
+    negative_amount_search = re.search(
+        r"({})(?:[^%\d]|$)".format("|".join(negative_regexes)),
+        price,
+        re.VERBOSE
+    )
+    negative_amount = bool(negative_amount_search)
+
     if price.count('€') == 1:
         m = re.search(r"""
         [\d\s.,]*?\d    # number, probably with thousand separators
@@ -197,7 +219,8 @@ def extract_price_text(price: str) -> Optional[str]:
         (?:$|[^\d])     # something which is not a digit
         """, price, re.VERBOSE)
         if m:
-            return m.group(0).replace(' ', '')
+            return PriceAmount(text=m.group(0).replace(' ', ''), negative=negative_amount)
+
     m = re.search(r"""
         (\d[\d\s.,]*)  # number, probably with thousand separators
         \s*?           # skip whitespace
@@ -205,10 +228,12 @@ def extract_price_text(price: str) -> Optional[str]:
         """, price, re.VERBOSE)
 
     if m:
-        return m.group(1).strip(',.').strip()
+        return PriceAmount(text=m.group(1).strip(',.').strip(), negative=negative_amount)
+
     if 'free' in price.lower():
-        return '0'
-    return None
+        return PriceAmount(text="0", negative=negative_amount)
+
+    return PriceAmount(text=None, negative=negative_amount)
 
 
 # NOTE: Keep supported separators in sync with parse_number()
@@ -244,7 +269,8 @@ def get_decimal_separator(price: str) -> Optional[str]:
 
 
 def parse_number(num: str,
-                 decimal_separator: Optional[str] = None) -> Optional[Decimal]:
+                 decimal_separator: Optional[str] = None,
+                 is_negative: Optional[bool] = False) -> Optional[Decimal]:
     """ Parse a string with a number to a Decimal, guessing its format:
     decimal separator, thousand separator. Return None if parsing fails.
 
@@ -294,6 +320,7 @@ def parse_number(num: str,
         assert decimal_separator == '€'
         num = num.replace('.', '').replace(',', '').replace('€', '.')
     try:
-        return Decimal(num)
+        multiplier = -1 if is_negative else 1
+        return multiplier * Decimal(num)
     except InvalidOperation:
         return None
