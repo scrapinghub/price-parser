@@ -1976,6 +1976,28 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
 ]
 
 
+PRICE_PARSING_NEGATIVE_PRICE = [
+    Example(None, 'R$ -2,00',
+            'R$', '2,00', -2.0),
+    Example(None, '- 1.400,00',
+            None, '1.400,00', -1400),
+    Example(None, '-3,95',
+            None, '3,95', -3.95),
+    Example(None, '-1.649,69',
+            None, '1.649,69', -1649.69),
+    Example(None, '-£127.54',
+            "£", '127.54', -127.54),
+    Example(None, '-R$127.54',
+            "R$", '127.54', -127.54),
+    Example(None, '-127,54 €',
+            "€", '127,54', -127.54),
+    Example(None, 'kr-127,54',
+            "kr", '127,54', -127.54),
+    Example(None, '€ 127,54-',
+            "€", '127,54', -127.54),
+]
+
+
 @pytest.mark.parametrize(
     ["example"],
     [[e] for e in PRICE_PARSING_EXAMPLES_BUGS_CAUGHT] +
@@ -1986,6 +2008,7 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_PRICE] +
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_CURRENCY] +
     [[e] for e in PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES] +
+    [[e] for e in PRICE_PARSING_NEGATIVE_PRICE] +
     [pytest.param(e, marks=pytest.mark.xfail())
      for e in PRICE_PARSING_EXAMPLES_XFAIL]
 )
