@@ -3,11 +3,9 @@ import re
 import string
 from typing import Callable, Optional, Pattern, List, Tuple
 from decimal import Decimal, InvalidOperation
-
 import attr
 from ._currencies import (CURRENCY_CODES, CURRENCY_NATIONAL_SYMBOLS,
                           CURRENCY_SYMBOLS)
-
 
 @attr.s(auto_attribs=True)
 class Price:
@@ -51,9 +49,7 @@ class Price:
             amount_text=amount_text,
         )
 
-
 parse_price = Price.fromstring
-
 
 def or_regex(symbols: List[str]) -> Pattern:
     """ Return a regex which matches any of ``symbols`` """
@@ -201,13 +197,21 @@ def extract_price_text(price: str) -> Optional[str]:
     m = re.search(r"""
         (\d[\d\s.,]*)  # number, probably with thousand separators
         \s*?           # skip whitespace
+        ([m|M,b|B]il\w*)?  # check million* or billion* 
         (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
-        """, price, re.VERBOSE)
+          """, price, re.VERBOSE)
 
     if m:
-        return m.group(1).strip(',.').strip()
+        price = m.group(0).strip(',.').strip().lower()
+        if 'bil' in price:
+            price = price.split(' ')[0] + ' x 10\u2079'
+        elif 'mil' in price:
+            price = price.split(' ')[0] + ' x 10\u2076'
+
+        return price
     if 'free' in price.lower():
         return '0'
+
     return None
 
 
@@ -240,7 +244,7 @@ def get_decimal_separator(price: str) -> Optional[str]:
     """
     m = _search_decimal_sep(price)
     if m:
-        return m.group(1)
+        return m.group(0)
 
 
 def parse_number(num: str,
@@ -294,6 +298,7 @@ def parse_number(num: str,
         assert decimal_separator == '€'
         num = num.replace('.', '').replace(',', '').replace('€', '.')
     try:
-        return Decimal(num)
+        #return Decimal(num)
+        return num
     except InvalidOperation:
         return None
