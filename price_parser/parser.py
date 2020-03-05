@@ -3,9 +3,11 @@ import re
 import string
 from typing import Callable, Optional, Pattern, List, Tuple
 from decimal import Decimal, InvalidOperation
+
 import attr
 from ._currencies import (CURRENCY_CODES, CURRENCY_NATIONAL_SYMBOLS,
                           CURRENCY_SYMBOLS)
+
 
 @attr.s(auto_attribs=True)
 class Price:
@@ -29,7 +31,6 @@ class Price:
         Given price and currency text extracted from HTML elements, return
         ``Price`` instance, which provides a clean currency symbol and
         price amount as a Decimal number.
-
         ``currency_hint`` is optional; you can pass value of some element
         which may contain currency, as a hint. If currency is present in
         ``price`` string, it could be **preferred** over a value extracted
@@ -49,7 +50,9 @@ class Price:
             amount_text=amount_text,
         )
 
+
 parse_price = Price.fromstring
+
 
 def or_regex(symbols: List[str]) -> Pattern:
     """ Return a regex which matches any of ``symbols`` """
@@ -158,7 +161,6 @@ def extract_price_text(price: str) -> Optional[str]:
     maybe some other text. If multiple price-looking substrings are present,
     the first is returned (FIXME: it is better to return a number
     which is near a currency symbol).
-
     >>> extract_price_text("price: $12.99")
     '12.99'
     >>> extract_price_text("Free")
@@ -166,10 +168,8 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("Foo")
     >>> extract_price_text("1,235 USD")
     '1,235'
-
     In addition to numbers, it has a limited support for a case where
     currency symbol (currently only euro) is a decimal separator:
-
     >>> extract_price_text("99 €, 79 €")
     '99'
     >>> extract_price_text("99 € 79 €")
@@ -199,19 +199,18 @@ def extract_price_text(price: str) -> Optional[str]:
         \s*?           # skip whitespace
         ([m|M,b|B]il\w*)?  # check million* or billion* 
         (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
-          """, price, re.VERBOSE)
+        """, price, re.VERBOSE)
 
     if m:
-        price = m.group(0).strip(',.').strip().lower()
-        if 'bil' in price:
-            price = price.split(' ')[0] + ' x 10\u2079'
-        elif 'mil' in price:
-            price = price.split(' ')[0] + ' x 10\u2076'
-
+        subprice = m.group(2)
+        if 'bil' in subprice:
+            price = m.group(1).strip(',.').strip()+' x 10\u2079'
+        elif 'mil' in subprice:
+            price = m.group(1).strip(',.').strip()+' x 10\u2076'
         return price
+
     if 'free' in price.lower():
         return '0'
-
     return None
 
 
@@ -230,7 +229,6 @@ $
 def get_decimal_separator(price: str) -> Optional[str]:
     """ Return decimal separator symbol or None if there
     is no decimal separator.
-
     >>> get_decimal_separator("1000")
     >>> get_decimal_separator("12.99")
     '.'
@@ -244,14 +242,13 @@ def get_decimal_separator(price: str) -> Optional[str]:
     """
     m = _search_decimal_sep(price)
     if m:
-        return m.group(0)
+        return m.group(1)
 
 
 def parse_number(num: str,
                  decimal_separator: Optional[str] = None) -> Optional[Decimal]:
     """ Parse a string with a number to a Decimal, guessing its format:
     decimal separator, thousand separator. Return None if parsing fails.
-
     >>> parse_number("1,234")
     Decimal('1234')
     >>> parse_number("12,34")
@@ -285,7 +282,12 @@ def parse_number(num: str,
     """
     if not num:
         return None
-    num = num.strip().replace(' ', '')
+    num_copy = num
+    if 'x' in num:
+        num = num.split()[0]
+    else:
+        num = num.strip().replace(' ', '')
+
     decimal_separator = decimal_separator or get_decimal_separator(num)
     # NOTE: Keep supported separators in sync with _search_decimal_sep
     if decimal_separator is None:
@@ -298,7 +300,7 @@ def parse_number(num: str,
         assert decimal_separator == '€'
         num = num.replace('.', '').replace(',', '').replace('€', '.')
     try:
-        #return Decimal(num)
+        num = num+num_copy.split()[1]+num_copy.split()[2] if 'x' in num_copy else ''
         return num
     except InvalidOperation:
         return None
