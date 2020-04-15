@@ -42,7 +42,7 @@ class Price:
         if currency is not None:
             currency = currency.strip()
 
-        price_amount = extract_price_text(price, currency)
+        price_amount = _extract_price_amount(price, currency)
 
         amount_num = (
             parse_number(price_amount.text, decimal_separator, price_amount.negative)
@@ -160,7 +160,7 @@ def extract_currency_symbol(price: Optional[str],
     return None
 
 
-def extract_price_text(price: str, currency: Optional[str] = "") -> Optional[str]:
+def extract_price_text(price: str) -> Optional[str]:
     """
     Extract text of a price from a string which contains price and
     maybe some other text. If multiple price-looking substrings are present,
@@ -193,6 +193,16 @@ def extract_price_text(price: str, currency: Optional[str] = "") -> Optional[str
     >>> extract_price_text("50")
     '50'
     """
+    price_amount = _extract_price_amount(price, currency)
+    return price_amount.text
+
+
+def _extract_price_amount(price: str, currency: Optional[str] = "") -> Optional[str]:
+    """
+    Extract from a string the text of a price and a flag indicating
+    if this is a string of a negative price.
+    """
+
     PriceAmount = namedtuple('PriceAmount', ['text', 'negative'])
 
     if price is None:
