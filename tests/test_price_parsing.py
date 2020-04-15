@@ -86,7 +86,7 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, '12,000원',
             '원', '12,000', 12000),
     Example(None, '3,500円',
-            '円', '3,500', 3500)
+            '円', '3,500', 3500),
     Example(None, 'EUROPE',
             None, None, None),
     Example(None, 'NEUROLOGY PRICES',
