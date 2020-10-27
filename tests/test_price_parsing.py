@@ -20,7 +20,7 @@ from price_parser import Price
 
 
 class Example(Price):
-    """ a Price wrapper for tests """
+    """ A Price wrapper for tests """
     def __init__(self,
                  currency_raw: Optional[str],
                  price_raw: Optional[str],
