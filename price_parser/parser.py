@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+
 import re
 import string
-from typing import Callable, Optional, Pattern, List, Tuple
+from datetime import datetime
 from decimal import Decimal, InvalidOperation
+from typing import Callable, List, Optional, Pattern, Tuple
 
 import attr
+
 from ._currencies import (CURRENCY_CODES, CURRENCY_NATIONAL_SYMBOLS,
                           CURRENCY_SYMBOLS)
 
@@ -73,7 +76,7 @@ SAFE_CURRENCY_SYMBOLS = [
 
     # unique currency symbols
     '$', '€', '£', 'zł', 'Zł', 'Kč', '₽', '¥', '￥',
-    '฿', 'դր.', 'դր', '₦', '₴', '₱', '৳', '₭', '₪',  '﷼', '៛', '₩', '₫', '₡',
+    '฿', 'դր.', 'դր', '₦', '₴', '₱', '৳', '₭', '₪', '﷼', '៛', '₩', '₫', '₡',
     'টকা', 'ƒ', '₲', '؋', '₮', 'नेरू', '₨',
     '₶', '₾', '֏', 'ރ', '৲', '૱', '௹', '₠', '₢', '₣', '₤', '₧', '₯',
     '₰', '₳', '₷', '₸', '₹', '₺', '₼', '₾', '₿', 'ℳ',
@@ -86,7 +89,7 @@ SAFE_CURRENCY_SYMBOLS = [
 
     # other common symbols, which we consider unambiguous
     'EUR', 'euro', 'eur', 'CHF', 'DKK', 'Rp', 'lei',
-    'руб.', 'руб',  'грн.', 'грн', 'дин.', 'Dinara', 'динар', 'лв.', 'лв',
+    'руб.', 'руб', 'грн.', 'грн', 'дин.', 'Dinara', 'динар', 'лв.', 'лв',
     'р.', 'тңг', 'тңг.', 'ман.',
 ]
 
@@ -148,8 +151,8 @@ def extract_currency_symbol(price: Optional[str],
     if price and '$' in price:
         methods.insert(0, (_search_dollar_code, price))
 
-    for meth, attr in methods:
-        m = meth(attr) if attr else None
+    for meth, attrib in methods:
+        m = meth(attrib) if attrib else None
         if m:
             return m.group(0)
 
@@ -189,6 +192,12 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("50")
     '50'
     """
+
+    if date_format(price):
+        return None
+
+    price = strip_date(price)
+
     if price.count('€') == 1:
         m = re.search(r"""
         [\d\s.,]*?\d    # number, probably with thousand separators
@@ -297,3 +306,29 @@ def parse_number(num: str,
         return Decimal(num)
     except InvalidOperation:
         return None
+
+
+def date_format(price):
+    for fmt in ['%d.%m.%Y', '%B, %Y', '%b, %Y', '%Y-%m-%d']:
+        try:
+            return datetime.strptime(price, fmt)
+        except (ValueError, TypeError):
+            continue
+
+
+def strip_date(text):
+    # normalize whitspace
+    text = re.sub(r'\s+', ' ', text)
+
+    all_date_regexp = [
+        r'\d{1,4}-\d{1,2}-\d{2,4}',
+        r' \S{3,8},\s\d{4}',
+    ]
+
+    text_processed = text
+    for regexp in all_date_regexp:
+        for match in re.finditer(regexp, text):
+            if date_format(match.group(0).strip()):
+                text_processed = text_processed.replace(match.group(0), '')
+
+    return text_processed

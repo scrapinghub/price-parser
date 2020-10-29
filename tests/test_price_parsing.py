@@ -11,12 +11,14 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT are manually added examples for the bugs
 we've found in a wild; PRICE_PARSING_EXAMPLES_NEW is a list of tests for
 new features. New tests should probably go these two lists.
 """
-from typing import Optional, Union
+from datetime import datetime
 from decimal import Decimal
+from typing import Optional, Union
 
 import pytest
 
 from price_parser import Price
+from price_parser.parser import date_format, strip_date
 
 
 class Example(Price):
@@ -63,6 +65,22 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
             'GBP', '29.1583', 29.1583),
     Example(None, '1.11000000000000009770',
             None, '1.11000000000000009770', Decimal('1.11000000000000009770')),
+
+    # dates
+    Example(None, 'July, 2004',
+            None, None, None),
+    Example(None, '15.08.2017',
+            None, None, None),
+    Example(None, '0€ until May, 2005, 35€ afterwards',
+            '€', '0', 0),
+    Example(None, '2019-08-19: 22 USD',
+            'USD', '22', 22),
+    Example(None, '2105 EUR at July, 2004',
+            'EUR', '2105', 2105),
+    Example(None, '$10 EUR during March, 2016',
+            '$', '10', 10),
+    Example(None, '$10 EUR at March, 2016 or 2019-08-19',
+            '$', '10', 10),
 ]
 
 
@@ -1947,13 +1965,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     Example('Купить', 'Печная труба',
             None, None, None),
 
-    # dates
-    Example(None, 'July, 2004',
-            None, None, None),
-
-    Example(None, '15.08.2017',
-            None, None, None),
-
     # other incorrectly extracted prices
     Example('8.5', '25-09',
             None, None, None),
@@ -2026,3 +2037,36 @@ def test_price_decimal_separator(price_raw, decimal_separator, expected_result):
         decimal_separator=decimal_separator
     )
     assert parsed.amount == expected_result
+
+
+@pytest.mark.parametrize(
+    "price, result",
+    [
+        ('10.04.2004', datetime(2004, 4, 10, 0, 0)),
+        ('July, 2004', datetime(2004, 7, 1, 0, 0)),
+        ('Jul, 2004', datetime(2004, 7, 1, 0, 0)),
+        ('200', None),
+        ('2004', None),
+        (2004, None),
+        (10.2014, None),
+    ]
+)
+def test_date_format(price, result):
+    assert date_format(price) == result
+
+
+@pytest.mark.parametrize(
+    "price, result",
+    [
+        ('0€ until May, 2005, 35€ afterwards', '0€ until, 35€ afterwards'),
+        ('2019-08-19: 22 USD', ': 22 USD'),
+        ('105 EUR at July, 2004', '105 EUR at'),
+        ('$10 EUR during March, 2016', '$10 EUR during'),
+        ('$10 EUR during March, 2016 -- March, 2020', '$10 EUR during --'),
+        ('$10', '$10'),
+        ('sample text', 'sample text'),
+        ('$10 - 1-08-19', '$10 - 1-08-19'),
+    ]
+)
+def test_strip_date(price, result):
+    assert strip_date(price) == result
