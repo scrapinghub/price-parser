@@ -188,6 +188,8 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("50%")
     >>> extract_price_text("50")
     '50'
+    >>> extract_price_text("$.75")
+    '.75'
     """
     if price.count('€') == 1:
         m = re.search(r"""
@@ -198,14 +200,20 @@ def extract_price_text(price: str) -> Optional[str]:
         """, price, re.VERBOSE)
         if m:
             return m.group(0).replace(' ', '')
+
     m = re.search(r"""
-        (\d[\d\s.,]*)  # number, probably with thousand separators
-        \s*?           # skip whitespace
-        (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
+        ([.]?\d[\d\s.,]*)   # number, probably with thousand separators
+        \s*?                # skip whitespace
+        (?:[^%\d]|$)        # capture next symbol - it shouldn't be %
         """, price, re.VERBOSE)
 
     if m:
-        return m.group(1).strip(',.').strip()
+        price_text = m.group(1).rstrip(',.')
+        return (
+            price_text.strip()
+            if price_text.count('.') == 1
+            else price_text.lstrip(',.').strip()
+        )
     if 'free' in price.lower():
         return '0'
     return None
