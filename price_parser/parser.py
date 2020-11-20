@@ -221,7 +221,7 @@ def extract_price_text(price: str) -> Optional[str]:
 
 # NOTE: Keep supported separators in sync with parse_number()
 _search_decimal_sep = re.compile(r"""
-\d           # at least one digit (there can be more before it)
+\d*          # null or more digits (there can be more before it)
 ([.,€])      # decimal separator
 (?:          # 1,2 or 4+ digits. 3 digits is likely to be a thousand separator.
    \d{1,2}?|
@@ -245,6 +245,8 @@ def get_decimal_separator(price: str) -> Optional[str]:
     ','
     >>> get_decimal_separator("1,235€99")
     '€'
+    >>> get_decimal_separator(".75")
+    '.'
     """
     m = _search_decimal_sep(price)
     if m:
