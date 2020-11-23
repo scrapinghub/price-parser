@@ -188,9 +188,13 @@ def extract_price_text(price: str) -> Optional[str]:
     >>> extract_price_text("50%")
     >>> extract_price_text("50")
     '50'
+    >>> extract_price_text("$1\xa0298,00")
+    '1 298,00'
     >>> extract_price_text("$.75")
     '.75'
     """
+    price = re.sub(r'\s+', ' ', price)  # clean initial text from non-breaking and extra spaces
+
     if price.count('€') == 1:
         m = re.search(r"""
         [\d\s.,]*?\d    # number, probably with thousand separators
