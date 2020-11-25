@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.3.4 (2020-11-24)
+0.3.4 (2020-11-25)
 ------------------
 
 * Improved parsing of prices without digits before a decimal point ('.75'),
