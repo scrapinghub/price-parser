@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.3.4 (2020-11-24)
+------------------
+
+* Improved parsing of prices without digits before a decimal point ('.75'),
+  https://github.com/scrapinghub/price-parser/pull/42
+* Fix parsing of price with non-breaking spaces
+  https://github.com/scrapinghub/price-parser/pull/43
+
 0.3.3 (2020-02-05)
 ------------------
 
