@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import itertools
 import re
 import string
 from typing import Callable, Optional, Pattern, List, Tuple
@@ -56,8 +57,20 @@ parse_price = Price.fromstring
 
 
 def or_regex(symbols: List[str]) -> Pattern:
-    """ Return a regex which matches any of ``symbols`` """
-    return re.compile('|'.join(re.escape(s) for s in symbols))
+    """ Return a regex which matches any of ``symbols`` surrounded by some special characters """
+    left_tokens = [r"^", r"\s+?", r"\d+?"]
+    right_tokens = [r"$", r"\s+?", r"\d+?", r"[^a-zA-Z0-9]+?"]
+
+    return re.compile(
+        "|".join(
+            [
+                left + "({})".format(re.escape(s)) + right
+                for left, right in itertools.product(left_tokens, right_tokens)
+                for s in symbols
+            ]
+        )
+    )
+
 
 
 # If one of these symbols is found either in price or in currency,
@@ -96,16 +109,21 @@ SAFE_CURRENCY_SYMBOLS = [
 DOLLAR_CODES = [k for k in CURRENCY_CODES if k.endswith('D')]
 _DOLLAR_REGEX = re.compile(
     r'''
-        \b
+        (\b
         (?:{})  # currency code like NZD
         (?=
             \$?  # dollar sign to ignore if attached to the currency code
             (?:[\W\d]|$)  # not a letter
-        )
+        ))
     '''.format('|'.join(re.escape(k) for k in DOLLAR_CODES)),
     re.VERBOSE,
 )
 
+OTHER_PARTICULAR_REGEXES = [
+    # HT is the French abbreviation for "Hors Tax" (tax not added to the price)
+    # and it may appear after € currency symbol
+    r"(€)HT+?",
+]
 
 # Other common currency symbols: 3-letter codes, less safe abbreviations
 OTHER_CURRENCY_SYMBOLS_SET = (
@@ -115,7 +133,7 @@ OTHER_CURRENCY_SYMBOLS_SET = (
         CURRENCY_NATIONAL_SYMBOLS +
 
         # even if they appear in text, currency is likely to be rouble
-        ['р', 'Р']
+        ['р', 'Р'],
     )
     - set(SAFE_CURRENCY_SYMBOLS)   # already handled
     - {'-', 'XXX'}                 # placeholder values
@@ -125,6 +143,7 @@ OTHER_CURRENCY_SYMBOLS = sorted(OTHER_CURRENCY_SYMBOLS_SET,
                                 key=len, reverse=True)
 
 _search_dollar_code = _DOLLAR_REGEX.search
+_search_other_particular_regexes = re.compile("|".join(OTHER_PARTICULAR_REGEXES), re.VERBOSE).search
 _search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
 _search_unsafe_currency = or_regex(OTHER_CURRENCY_SYMBOLS).search
 
@@ -140,6 +159,7 @@ def extract_currency_symbol(price: Optional[str],
         (_search_safe_currency, currency_hint),
         (_search_unsafe_currency, price),
         (_search_unsafe_currency, currency_hint),
+        (_search_other_particular_regexes, price),
     ]
 
     if currency_hint and '$' in currency_hint:
@@ -151,7 +171,10 @@ def extract_currency_symbol(price: Optional[str],
     for meth, attr in methods:
         m = meth(attr) if attr else None
         if m:
-            return m.group(0)
+            groups = [match for match in m.groups() if match is not None]
+            assert groups
+
+            return groups.pop()
 
     return None
 

@@ -86,7 +86,21 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, '12,000원',
             '원', '12,000', 12000),
     Example(None, '3,500円',
-            '円', '3,500', 3500)
+            '円', '3,500', 3500),
+    Example(None, 'EUROPE',
+            None, None, None),
+    Example(None, 'NEUROLOGY PRICES',
+            None, None, None),
+    Example(None, 'Prices in EUR',
+            'EUR', None, None),
+    Example(None, 'Prices in EUR for all products',
+            'EUR', None, None),
+    Example(None, 'EUR is the selected currency',
+            'EUR', None, None),
+    Example(None, '  Prices   in   EUR  ',
+            'EUR', None, None),
+    Example(None, '13800   ₶  ',
+            '₶', '13800', 13800)
 ]
 
 
@@ -1935,6 +1949,10 @@ PRICE_PARSING_EXAMPLES_3 = [
             'CHF', '19.90', 19.90),
     Example('', '530,42 Zł',
             'Zł', '530,42', 530.42),
+    Example('>', 'См. цену в прайсе',
+            None, None, None),
+    Example('Купить', 'Печная труба',
+            None, None, None),
 ]
 
 
@@ -1956,12 +1974,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
             'R', '8,499', 8499),
     Example('Cuneo', '61.858 L',  # Romanian New Leu
             'L', '61.858', 61858),
-
-    # "р" / "руб" is detected as currency
-    Example('>', 'См. цену в прайсе',
-            None, None, None),
-    Example('Купить', 'Печная труба',
-            None, None, None),
 
     # dates
     Example(None, 'July, 2004',
