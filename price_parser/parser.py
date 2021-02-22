@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import string
-from typing import Callable, Optional, Pattern, List, Tuple
+from typing import Callable, Match, Optional, Pattern, List, Tuple
 from decimal import Decimal, InvalidOperation
 
 import attr
@@ -37,14 +37,20 @@ class Price:
         ``price`` string, it could be **preferred** over a value extracted
         from ``currency_hint`` string.
         """
-        amount_text = extract_price_text(price) if price is not None else None
+        currency_match, source = _extract_currency_symbol(price, currency_hint)
+        if price is not None:
+            _currency_match = currency_match if source == price else None
+            amount_text = extract_price_text(price, _currency_match)
+        else:
+            amount_text = None
         amount_num = (
             parse_number(amount_text, decimal_separator)
             if amount_text is not None else None
         )
-        currency = extract_currency_symbol(price, currency_hint)
-        if currency is not None:
-            currency = currency.strip()
+        if currency_match is not None:
+            currency = currency_match.group(0).strip()
+        else:
+            currency = None
         return Price(
             amount=amount_num,
             currency=currency,
@@ -129,11 +135,11 @@ _search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
 _search_unsafe_currency = or_regex(OTHER_CURRENCY_SYMBOLS).search
 
 
-def extract_currency_symbol(price: Optional[str],
-                            currency_hint: Optional[str]) -> Optional[str]:
+def _extract_currency_symbol(price: Optional[str], currency_hint: Optional[str]) -> Tuple[Optional[Match], Optional[str]]:
     """
-    Guess currency symbol from extracted price and currency strings.
-    Return an empty string if symbol is not found.
+    Guess the currency symbol from extracted price and currency strings.
+    Return a (`match object`_, source_string) tuple with the symbol found and
+    the string where it was found, or (None, None) if no symbol is found.
     """
     methods: List[Tuple[Callable, Optional[str]]] = [
         (_search_safe_currency, price),
@@ -151,17 +157,32 @@ def extract_currency_symbol(price: Optional[str],
     for meth, attr in methods:
         m = meth(attr) if attr else None
         if m:
-            return m.group(0)
+            return m, attr
 
+    return None, None
+
+
+def extract_currency_symbol(price: Optional[str],
+                            currency_hint: Optional[str]) -> Optional[str]:
+    """
+    Guess currency symbol from extracted price and currency strings.
+    Return the symbol as found as a string, or None if no symbol is found.
+    """
+    match, _ = _extract_currency_symbol(price, currency_hint)
+    if match:
+        return match.group(0)
     return None
 
 
-def extract_price_text(price: str) -> Optional[str]:
+def extract_price_text(price: str, currency_match: Optional[Match] = None) -> Optional[str]:
     """
     Extract text of a price from a string which contains price and
-    maybe some other text. If multiple price-looking substrings are present,
-    the first is returned (FIXME: it is better to return a number
-    which is near a currency symbol).
+    maybe some other text.
+
+    If a match object of the currency within the `price` string is provided,
+    amounts before or after the matched currency substring are prioritized.
+    Otherwise, if multiple price-looking substrings are present, the first is
+    returned.
 
     >>> extract_price_text("price: $12.99")
     '12.99'
@@ -205,21 +226,43 @@ def extract_price_text(price: str) -> Optional[str]:
         if m:
             return m.group(0).replace(' ', '')
 
-    m = re.search(r"""
-        ([.]?\d[\d\s.,]*)   # number, probably with thousand separators
-        \s*?                # skip whitespace
-        (?:[^%\d]|$)        # capture next symbol - it shouldn't be %
-        """, price, re.VERBOSE)
-
-    if m:
+    def number_from_match(m):
         price_text = m.group(1).rstrip(',.')
         return (
             price_text.strip()
             if price_text.count('.') == 1
             else price_text.lstrip(',.').strip()
         )
+
+    if currency_match is not None:
+
+        m = re.search(r"""
+            (\d[\d\s.,]*)  # number, probably with thousand separators
+            \s*$           # only match right before the currency symbol
+            """, price[:currency_match.start(0)], re.VERBOSE)
+        if m:
+            return number_from_match(m)
+
+        m = re.search(r"""
+        ^\s*           # only match right after the currency symbol
+        (\d[\d\s.,]*)  # number, probably with thousand separators
+        \s*            # skip whitespace
+        (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
+        """, price[currency_match.end(0):], re.VERBOSE)
+        if m:
+            return number_from_match(m)
+
+    m = re.search(r"""
+        ([.]?\d[\d\s.,]*)   # number, probably with thousand separators
+        \s*?                # skip whitespace
+        (?:[^%\d]|$)        # capture next symbol - it shouldn't be %
+        """, price, re.VERBOSE)
+    if m:
+        return number_from_match(m)
+
     if 'free' in price.lower():
         return '0'
+
     return None
 
 
