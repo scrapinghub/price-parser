@@ -1,6 +1,25 @@
 Changes
 =======
 
+0.3.4 (2020-11-25)
+------------------
+
+* Improved parsing of prices without digits before a decimal point ('.75'),
+  https://github.com/scrapinghub/price-parser/pull/42
+* Fix parsing of price with non-breaking spaces
+  https://github.com/scrapinghub/price-parser/pull/43
+
+0.3.3 (2020-02-05)
+------------------
+
+* Fixed installation issue on some Windows machines.
+
+0.3.2 (2020-01-28)
+------------------
+
+* Improved Korean and Japanese currency detection.
+* Declare Python 3.8 support.
+
 0.3.1 (2019-10-21)
 ------------------
 
@@ -28,7 +47,7 @@ Changes
 0.2.3 (2019-06-18)
 ------------------
 
-* Folow-up for 0.2.2 release: improved parsing of prices with 4+ digits
+* Follow-up for 0.2.2 release: improved parsing of prices with 4+ digits
   after a decimal separator.
 
 0.2.2 (2019-06-18)

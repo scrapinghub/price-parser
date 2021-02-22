@@ -209,7 +209,13 @@ def extract_price_text(price: str, currency_match: Optional[Match] = None) -> Op
     >>> extract_price_text("50%")
     >>> extract_price_text("50")
     '50'
+    >>> extract_price_text("$1\xa0298,00")
+    '1 298,00'
+    >>> extract_price_text("$.75")
+    '.75'
     """
+    price = re.sub(r'\s+', ' ', price)  # clean initial text from non-breaking and extra spaces
+
     if price.count('€') == 1:
         m = re.search(r"""
         [\d\s.,]*?\d    # number, probably with thousand separators
@@ -221,7 +227,12 @@ def extract_price_text(price: str, currency_match: Optional[Match] = None) -> Op
             return m.group(0).replace(' ', '')
 
     def number_from_match(m):
-        return m.group(1).strip(',.').strip()
+        price_text = m.group(1).rstrip(',.')
+        return (
+            price_text.strip()
+            if price_text.count('.') == 1
+            else price_text.lstrip(',.').strip()
+        )
 
     if currency_match is not None:
 
@@ -242,9 +253,9 @@ def extract_price_text(price: str, currency_match: Optional[Match] = None) -> Op
             return number_from_match(m)
 
     m = re.search(r"""
-        (\d[\d\s.,]*)  # number, probably with thousand separators
-        \s*?           # skip whitespace
-        (?:[^%\d]|$)   # capture next symbol - it shouldn't be %
+        ([.]?\d[\d\s.,]*)   # number, probably with thousand separators
+        \s*?                # skip whitespace
+        (?:[^%\d]|$)        # capture next symbol - it shouldn't be %
         """, price, re.VERBOSE)
     if m:
         return number_from_match(m)
@@ -257,7 +268,7 @@ def extract_price_text(price: str, currency_match: Optional[Match] = None) -> Op
 
 # NOTE: Keep supported separators in sync with parse_number()
 _search_decimal_sep = re.compile(r"""
-\d           # at least one digit (there can be more before it)
+\d*          # null or more digits (there can be more before it)
 ([.,€])      # decimal separator
 (?:          # 1,2 or 4+ digits. 3 digits is likely to be a thousand separator.
    \d{1,2}?|
@@ -281,6 +292,8 @@ def get_decimal_separator(price: str) -> Optional[str]:
     ','
     >>> get_decimal_separator("1,235€99")
     '€'
+    >>> get_decimal_separator(".75")
+    '.'
     """
     m = _search_decimal_sep(price)
     if m:
