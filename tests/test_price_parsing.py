@@ -20,7 +20,7 @@ from price_parser import Price
 
 
 class Example(Price):
-    """ a Price wrapper for tests """
+    """ A Price wrapper for tests """
     def __init__(self,
                  currency_raw: Optional[str],
                  price_raw: Optional[str],
@@ -82,7 +82,11 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, 'AED 8000 (USD 2179)',
             'AED', '8000', 8000),
     Example(None, '13800 ₶',
-            '₶', '13800', 13800)
+            '₶', '13800', 13800),
+    Example(None, '12,000원',
+            '원', '12,000', 12000),
+    Example(None, '3,500円',
+            '円', '3,500', 3500)
 ]
 
 
@@ -425,6 +429,22 @@ PRICE_PARSING_EXAMPLES = [
             '€', '11,76', 11.76),
     Example('$99.99', '$99.99',
             '$', '99.99', 99.99),
+    Example('1\xa0298,00 €', '1\xa0298,00 €',
+            '€', '1 298,00', 1298.00),
+    Example('$1\xa0298,00', '$1\xa0298,00',
+            '$', '1 298,00', 1298.00),
+    Example('1\xa0298,00', '1\xa0298,00',
+            None, '1 298,00', 1298.00),
+    Example(None, '.75 €',
+            '€', '.75', 0.75),
+    Example('$.75', '$.75',
+            '$', '.75', 0.75),
+    Example('$..75', '$..75',
+            '$', '.75', 0.75),
+    Example('$.75,333', '$.75,333',
+            '$', '.75,333', 75333),
+    Example('$.750.30', '$.750.30',
+            '$', '750.30', 750.30),
     Example('i', 'i',
             None, None, None),
 ]
@@ -1973,6 +1993,18 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
             '€', '1250€ 60', 1250.60, "€"),
     Example(None, '1250€600',
             '€', '1250€600', 1250.600, "€"),
+    Example(None, '.75 €',
+            '€', '.75', 0.75, '.'),
+    Example('$.75', '$.75',
+            '$', '.75', 0.75, '.'),
+    Example('$..75', '$..75',
+            '$', '.75', 0.75, '.'),
+    Example('$..75,333', '$..75,333',
+            '$', '.75,333', 0.75333, '.'),
+    Example('$..75,333', '$..75,333',
+            '$', '.75,333', 75.333, ','),
+    Example('$.750.30', '$.750.30',
+            '$', '750.30', 750.30, '.')
 ]
 
 

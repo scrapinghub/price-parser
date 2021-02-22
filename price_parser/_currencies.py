@@ -648,6 +648,7 @@ CURRENCIES: Dict[str, Dict] = {
         "s": "¥",
         "n": "Japanese Yen",
         "sn": "￥",
+        "sn2": ["円"],
         "d": 0,
         "r": 0,
         "np": "Japanese yen"
@@ -687,7 +688,7 @@ CURRENCIES: Dict[str, Dict] = {
     "KPW": {
         "s": "₩",
         "n": "North Korean Won",
-        "sn": "₩",
+        "sn": "원",
         "d": 0,
         "r": 0,
         "np": "North Korean Won"
@@ -695,7 +696,7 @@ CURRENCIES: Dict[str, Dict] = {
     "KRW": {
         "s": "₩",
         "n": "South Korean Won",
-        "sn": "₩",
+        "sn": "원",
         "d": 0,
         "r": 0,
         "np": "South Korean won"
