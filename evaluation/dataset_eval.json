@@ -1,0 +1,654 @@
+[
+  {
+    "string": "Was: $124.95 Now: $0.00",
+    "currency": "$"
+  },
+  {
+    "string": "R1290",
+    "currency": "R"
+  },
+  {
+    "string": "22000.00元/台",
+    "currency": "元"
+  },
+  {
+    "string": "Our Price 344.99 - 444.99",
+    "currency": null
+  },
+  {
+    "string": "3089.9 *",
+    "currency": "null"
+  },
+  {
+    "string": "2963yen",
+    "currency": "yen"
+  },
+  {
+    "string": "Free",
+    "currency": null
+  },
+  {
+    "string": "149.95",
+    "currency": null
+  },
+  {
+    "string": "40.00/each",
+    "currency": null
+  },
+  {
+    "string": "105. –",
+    "currency": null
+  },
+  {
+    "string": "1.899,-",
+    "currency": null
+  },
+  {
+    "string": "Sheet Set",
+    "currency": null
+  },
+  {
+    "string": "1.198,- Kr",
+    "currency": "Kr"
+  },
+  {
+    "string": "36. 24",
+    "currency": null
+  },
+  {
+    "string": "550 i",
+    "currency": null
+  },
+  {
+    "string": "32جن",
+    "currency": null
+  },
+  {
+    "string": "45 جنيه",
+    "currency": null
+  },
+  {
+    "string": "Price 29",
+    "currency": null
+  },
+  {
+    "string": "2000 zl",
+    "currency": "zl"
+  },
+  {
+    "string": "559. 99 undefined 559.99 inkl. MwSt. zzgl. Versand",
+    "currency": null
+  },
+  {
+    "string": "145,00 €",
+    "currency": "€"
+  },
+  {
+    "string": "£42.95*",
+    "currency": "£"
+  },
+  {
+    "string": "€240.15",
+    "currency": "€"
+  },
+  {
+    "string": "£ 1,895.00 – £ 2,195.00",
+    "currency": "£"
+  },
+  {
+    "string": "$36 /",
+    "currency": "$"
+  },
+  {
+    "string": "1.800.000₫",
+    "currency": "₫"
+  },
+  {
+    "string": "0,40 LEI",
+    "currency": "LEI"
+  },
+  {
+    "string": "R$ 1.500,00",
+    "currency": "R$"
+  },
+  {
+    "string": "$ 8. 94",
+    "currency": "$"
+  },
+  {
+    "string": "$30.56/Month",
+    "currency": "$"
+  },
+  {
+    "string": "from $742.50",
+    "currency": "$"
+  },
+  {
+    "string": "25,00 € *",
+    "currency": "€"
+  },
+  {
+    "string": "$3,690.00 (ea)",
+    "currency": "$"
+  },
+  {
+    "string": "AED 26.30",
+    "currency": "AED"
+  },
+  {
+    "string": "15,000 руб.",
+    "currency": "руб."
+  },
+  {
+    "string": "$5,246.58",
+    "currency": "$"
+  },
+  {
+    "string": "118, 99 TL",
+    "currency": "TL"
+  },
+  {
+    "string": "$575.00*",
+    "currency": "$"
+  },
+  {
+    "string": "150 kr",
+    "currency": "kr"
+  },
+  {
+    "string": "Estimate Price: $45,000 - $70,000",
+    "currency": "$"
+  },
+  {
+    "string": "Your Price: $7.99",
+    "currency": "$"
+  },
+  {
+    "string": "$80.00 U.S.",
+    "currency": "$"
+  },
+  {
+    "string": "253,89 lei",
+    "currency": "lei"
+  },
+  {
+    "string": "$1,190.00 AUD",
+    "currency": "AUD"
+  },
+  {
+    "string": "€6.56 + VAT",
+    "currency": "€"
+  },
+  {
+    "string": "4,35 € TTC",
+    "currency": "€"
+  },
+  {
+    "string": "14.00 SGD / Each",
+    "currency": "SGD"
+  },
+  {
+    "string": "1.890,00 DKK",
+    "currency": "DKK"
+  },
+  {
+    "string": "₹397.00",
+    "currency": "₹"
+  },
+  {
+    "string": "- $44.99",
+    "currency": "$"
+  },
+  {
+    "string": "AU $59.95",
+    "currency": "AU $"
+  },
+  {
+    "string": "AU$ 1,175",
+    "currency": "AU$"
+  },
+  {
+    "string": "130, 38 zł",
+    "currency": "zł"
+  },
+  {
+    "string": "USD 1.23",
+    "currency": "USD"
+  },
+  {
+    "string": "US$1.23",
+    "currency": "US$"
+  },
+  {
+    "string": "CAD$1.23",
+    "currency": "CAD$"
+  },
+  {
+    "string": "C$1.23",
+    "currency": "C$"
+  },
+  {
+    "string": "CA$1.23",
+    "currency": "CA$"
+  },
+  {
+    "string": "CAN$1.23",
+    "currency": "CAN$"
+  },
+  {
+    "string": "200q",
+    "currency": "q"
+  },
+  {
+    "string": "200Q",
+    "currency": "Q"
+  },
+  {
+    "string": "1 ؋",
+    "currency": "؋"
+  },
+  {
+    "string": "1 Lek",
+    "currency": "Lek"
+  },
+  {
+    "string": "1 دج",
+    "currency": "دج"
+  },
+  {
+    "string": "1 ֏",
+    "currency": "֏"
+  },
+  {
+    "string": "1 ƒ",
+    "currency": "ƒ"
+  },
+  {
+    "string": "1 ₼",
+    "currency": "₼"
+  },
+  {
+    "string": "1 .د.ب",
+    "currency": ".د.ب"
+  },
+  {
+    "string": "1 BD",
+    "currency": "BD"
+  },
+  {
+    "string": "1 ৳",
+    "currency": "৳"
+  },
+  {
+    "string": "1 Br",
+    "currency": "Br"
+  },
+  {
+    "string": "1 BZ$",
+    "currency": "BZ$"
+  },
+  {
+    "string": "1 Nu.",
+    "currency": "Nu."
+  },
+  {
+    "string": "1 $b",
+    "currency": "$b"
+  },
+  {
+    "string": "1 KM",
+    "currency": "KM"
+  },
+  {
+    "string": "1 P",
+    "currency": "P"
+  },
+  {
+    "string": "1 R$",
+    "currency": "R$"
+  },
+  {
+    "string": "1 лв",
+    "currency": "лв"
+  },
+  {
+    "string": "1 FBu",
+    "currency": "FBu"
+  },
+  {
+    "string": "1 ៛",
+    "currency": "៛"
+  },
+  {
+    "string": "1 CFA",
+    "currency": "CFA"
+  },
+  {
+    "string": "1 FCFA",
+    "currency": "FCFA"
+  },
+  {
+    "string": "1 KMF",
+    "currency": "KMF"
+  },
+  {
+    "string": "1 ₣",
+    "currency": "₣"
+  },
+  {
+    "string": "1 franc",
+    "currency": "franc"
+  },
+  {
+    "string": "2 francs",
+    "currency": "francs"
+  },
+  {
+    "string": "1 ₡",
+    "currency": "₡"
+  },
+  {
+    "string": "1 kn",
+    "currency": "kn"
+  },
+  {
+    "string": "1 CUC$",
+    "currency": "CUC$"
+  },
+  {
+    "string": "1 ₱",
+    "currency": "₱"
+  },
+  {
+    "string": "1 Kč",
+    "currency": "Kč"
+  },
+  {
+    "string": "1 Fdj",
+    "currency": "Fdj"
+  },
+  {
+    "string": "1 RD$",
+    "currency": "RD$"
+  },
+  {
+    "string": "1 Nfk",
+    "currency": "Nfk"
+  },
+  {
+    "string": "1 ናቕፋ",
+    "currency": "ናቕፋ"
+  },
+  {
+    "string": "1 نافكا",
+    "currency": "نافكا"
+  },
+  {
+    "string": "1 E",
+    "currency": "E"
+  },
+  {
+    "string": "1 Br",
+    "currency": "Br"
+  },
+  {
+    "string": "1 ብር",
+    "currency": "ብር"
+  },
+  {
+    "string": "1 D",
+    "currency": "D"
+  },
+  {
+    "string": "1 GEL",
+    "currency": "GEL"
+  },
+  {
+    "string": "1 ლ",
+    "currency": "ლ"
+  },
+  {
+    "string": "1 ¢",
+    "currency": "¢"
+  },
+  {
+    "string": "1 FG",
+    "currency": "FG"
+  },
+  {
+    "string": "1 G",
+    "currency": "G"
+  },
+  {
+    "string": "1 L",
+    "currency": "L"
+  },
+  {
+    "string": "1 Ft",
+    "currency": "Ft"
+  },
+  {
+    "string": "1 Rp",
+    "currency": "Rp"
+  },
+  {
+    "string": "1 ﷼",
+    "currency": "﷼"
+  },
+  {
+    "string": "1 ع.د",
+    "currency": "ع.د"
+  },
+  {
+    "string": "1 ₪",
+    "currency": "₪"
+  },
+  {
+    "string": "1 J$",
+    "currency": "J$"
+  },
+  {
+    "string": "1 د.",
+    "currency": "د."
+  },
+  {
+    "string": "1 KSh",
+    "currency": "KSh"
+  },
+  {
+    "string": "1 KD",
+    "currency": "KD"
+  },
+  {
+    "string": "1 د.ك",
+    "currency": "د.ك"
+  },
+  {
+    "string": "1 ₭",
+    "currency": "₭"
+  },
+  {
+    "string": "1 L",
+    "currency": "L"
+  },
+  {
+    "string": "1 LD",
+    "currency": "LD"
+  },
+  {
+    "string": "1 ل.د",
+    "currency": "ل.د"
+  },
+  {
+    "string": "1 MOP$",
+    "currency": "MOP$"
+  },
+  {
+    "string": "1 ден",
+    "currency": "ден"
+  },
+  {
+    "string": "1 Ar",
+    "currency": "Ar"
+  },
+  {
+    "string": "1 MK",
+    "currency": "MK"
+  },
+  {
+    "string": "1 RM",
+    "currency": "RM"
+  },
+  {
+    "string": "1 Rf",
+    "currency": "Rf"
+  },
+  {
+    "string": "1 UM",
+    "currency": "UM"
+  },
+  {
+    "string": "1 ₨",
+    "currency": "₨"
+  },
+  {
+    "string": "1 ₮",
+    "currency": "₮"
+  },
+  {
+    "string": "1 د.إ",
+    "currency": "د.إ"
+  },
+  {
+    "string": "1 MT",
+    "currency": "MT"
+  },
+  {
+    "string": "1 K",
+    "currency": "K"
+  },
+  {
+    "string": "1 ƒ",
+    "currency": "ƒ"
+  },
+  {
+    "string": "1 C$",
+    "currency": "C$"
+  },
+  {
+    "string": "1 ₦",
+    "currency": "₦"
+  },
+  {
+    "string": "1 B/.",
+    "currency": "B/."
+  },
+  {
+    "string": "1 Gs",
+    "currency": "Gs"
+  },
+  {
+    "string": "1 S/.",
+    "currency": "S/."
+  },
+  {
+    "string": "1 ₽",
+    "currency": "₽"
+  },
+  {
+    "string": "1 FRw",
+    "currency": "FRw"
+  },
+  {
+    "string": "1 RF",
+    "currency": "RF"
+  },
+  {
+    "string": "1 R₣",
+    "currency": "R₣"
+  },
+  {
+    "string": "1 Дин",
+    "currency": "Дин"
+  },
+  {
+    "string": "1 Db",
+    "currency": "Db"
+  },
+  {
+    "string": "1 SPL",
+    "currency": "SPL"
+  },
+  {
+    "string": "1 ج.س.",
+    "currency": "ج.س."
+  },
+  {
+    "string": "1 NT$",
+    "currency": "NT$"
+  },
+  {
+    "string": "1 ЅM",
+    "currency": "ЅM"
+  },
+  {
+    "string": "1 TSh",
+    "currency": "TSh"
+  },
+  {
+    "string": "1 T$",
+    "currency": "T$"
+  },
+  {
+    "string": "1 TT$",
+    "currency": "TT$"
+  },
+  {
+    "string": "1 DT",
+    "currency": "DT"
+  },
+  {
+    "string": "1 د.ت",
+    "currency": "د.ت"
+  },
+  {
+    "string": "1 ₺",
+    "currency": "₺"
+  },
+  {
+    "string": "1 USh",
+    "currency": "USh"
+  },
+  {
+    "string": "1 ₴",
+    "currency": "₴"
+  },
+  {
+    "string": "1 د.إ",
+    "currency": "د.إ"
+  },
+  {
+    "string": "1 $U",
+    "currency": "$U"
+  },
+  {
+    "string": "1 VT",
+    "currency": "VT"
+  },
+  {
+    "string": "1 Bs",
+    "currency": "Bs"
+  },
+  {
+    "string": "1 ZK",
+    "currency": "ZK"
+  },
+  {
+    "string": "1 Z$",
+    "currency": "Z$"
+  },
+  {
+    "string": "1 ₿",
+    "currency": "₿"
+  }
+]
