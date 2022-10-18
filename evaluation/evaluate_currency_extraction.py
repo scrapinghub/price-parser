@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 import json
 from collections import defaultdict
+from pathlib import Path
 from time import perf_counter
 
 from price_parser import Price
 
 
 # Read eval dataset
-with open('dataset_eval.json', 'rb') as f:
+with open(Path(__file__).parent / 'dataset_eval.json', 'rb') as f:
     dataset_eval = json.load(f)
 
 queries, y_true = list(zip(*[(d['string'], str(d['currency'])) for d in dataset_eval]))
