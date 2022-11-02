@@ -1961,7 +1961,7 @@ PRICE_PARSING_EXAMPLES_3 = [
             '$', '36', 36.0),
     Example(None, '1.800.000₫',  # Vietnamese dong (VND)
             '₫', '1.800.000', 1800000.0),
-    Example(None, '0,40 LEI',  # Vietnamese dong (VND)
+    Example(None, '0,40 LEI',  # Romanian Leu (RON)
             'LEI', '0,40', 0.4),
     Example(None, 'R$ 1.500,00',
             'R$', '1.500,00', 1500.0),
