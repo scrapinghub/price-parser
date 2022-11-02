@@ -54,6 +54,11 @@ class Example(Price):
         )
 
 
+def idfn(val):
+    if isinstance(val, Example):
+        return f"{val.currency_raw}, {val.price_raw!r}"
+
+
 PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
     Example(None, 'US$:12.99',
             'US$', '12.99', 12.99),
@@ -2340,10 +2345,11 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_PRICE] +
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_CURRENCY] +
     [[e] for e in PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES] +
-    [pytest.param(e, marks=pytest.mark.xfail())
+    [pytest.param(e, marks=pytest.mark.xfail(strict=True))
      for e in PRICE_PARSING_EXAMPLES_XFAIL +
               PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED
-    ]
+    ],
+    ids=idfn
 )
 def test_parsing(example: Example):
     parsed = Price.fromstring(example.price_raw, example.currency_raw, example.decimal_separator)
