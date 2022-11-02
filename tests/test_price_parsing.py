@@ -1935,6 +1935,216 @@ PRICE_PARSING_EXAMPLES_3 = [
             'CHF', '19.90', 19.90),
     Example('', '530,42 Zł',
             'Zł', '530,42', 530.42),
+    Example(None, 'Was: $124.95 Now: $0.00',
+            '$', '124.95', 124.95),
+    Example(None, 'Our Price 344.99 - 444.99',
+            None, '344.99', 344.99),
+    Example(None, '3089.9 *',
+            None, '3089.9', 3089.9),
+    Example(None, '40.00/each',
+            None, '40.00', 40.00),
+    Example(None, '105. –',
+            None, '105.', 105.0),
+    Example(None, '1.899,-',
+            None, '1.899', 1899.0),
+    Example(None, 'Sheet Set',
+            None, None, None),
+    Example(None, '36. 24',
+            None, '36. 24', 36.24),
+    Example(None, '32جن',  # جن is not a currency
+            None, '32', 32.0),
+    Example(None, 'Price 29',
+            None, '29', 29.0),
+    Example(None, '559. 99 undefined 559.99 inkl. MwSt. zzgl. Versand',
+            None, '559. 99', 559.99),
+    Example(None, '$36 /',
+            '$', '36', 36.0),
+    Example(None, '1.800.000₫',  # Vietnamese dong (VND)
+            '₫', '1.800.000', 1800000.0),
+    Example(None, '0,40 LEI',  # Vietnamese dong (VND)
+            'LEI', '0,40', 0.4),
+    Example(None, 'R$ 1.500,00',
+            'R$', '1.500,00', 1500.0),
+    Example(None, '$ 8. 94',
+            '$', '8. 94', 8.94),
+    Example(None, '$30.56/Month',
+            '$', '30.56', 30.56),
+    Example(None, 'from $742.50',
+            '$', '742.50', 742.5),
+    Example(None, '25,00 € *',
+            '€', '25,00', 25.0),
+    Example(None, '$3,690.00 (ea)',
+            '$', '3,690.00', 3690.0),
+    Example(None, 'AED 26.30',
+            'AED', '26.30', 26.3),
+    Example(None, '15,000 руб.',
+            'руб.', '15,000', 15000.0),
+    Example(None, '$5,246.58',
+            '$', '5,246.58', 5246.58),
+    Example(None, '118, 99 TL',
+            'TL', '118, 99', 118.99),
+    Example(None, '$575.00*',
+            '$', '575.00', 575.0),
+    Example(None, '150 kr',
+            'kr', '150', '150.0'),
+    Example(None, 'Estimate Price: $45,000 - $70,000',
+            '$', '45,000', 45000.0),
+    Example(None, 'Your Price: $7.99',
+            '$', '7.99', 7.99),
+    Example(None, '$80.00 U.S.',
+            '$', '80.00', 80.0),
+    Example(None, '253,89 lei',
+            'lei', '253,89', 253.89),
+    Example(None, '$1,190.00 AUD',
+            'AUD', '1,190.00', 1190.0),
+    Example(None, '€6.56 + VAT',
+            '€', '6.56', 6.56),
+    Example(None, '4,35 € TTC',
+            '€', '4,35', 4.35),
+    Example(None, '1.890,00 DKK',
+            'DKK', '1.890,00', 1890.0),
+    Example(None, '₹397.00',
+            '₹', '397.00', 397.0),
+    Example(None, '- $44.99',
+            '$', '44.99', 44.99),
+    Example(None, 'AU$ 1,175',
+            'AU$', '1,175', 1175.0),
+    Example(None, '130, 38 zł',
+            'zł', '130, 38', 130.38),
+    Example(None, 'C$1.23',
+            'C$', '1.23', 1.23),
+    Example(None, 'CA$1.23',
+            'CA$', '1.23', 1.23),
+    Example(None, '1 ؋',
+            '؋', '1', 1.0),
+    Example(None, '1 Lek',
+            'Lek', '1', 1.0),
+    Example(None, '1 ֏',
+            '֏', '1', 1.0),
+    Example(None, '1 ƒ',
+            'ƒ', '1', 1.0),
+    Example(None, '1 ₼',
+            '₼', '1', 1.0),
+    Example(None, '1 ৳',
+            '৳', '1', 1.0),
+    Example(None, '1 Br',
+            'Br', '1', 1.0),
+    Example(None, '1 BZ$',
+            'BZ$', '1', 1.0),
+    Example(None, '1 Nu.',
+            'Nu.', '1', 1.0),
+    Example(None, '1 KM',
+            'KM', '1', 1.0),
+    Example(None, '1 R$',
+            'R$', '1', 1.0),
+    Example(None, '1 лв',
+            'лв', '1', 1.0),
+    Example(None, '1 FBu',
+            'FBu', '1', 1.0),
+    Example(None, '1 BD',  # Bahraini Dinar
+            'BD', '1', 1.0),
+    Example(None, '1 ៛',
+            '៛', '1', 1.0),
+    Example(None, '1 CFA',
+            'CFA', '1', 1.0),
+    Example(None, '1 FCFA',
+            'FCFA', '1', 1.0),
+    Example(None, '1 KMF',
+            'KMF', '1', 1.0),
+    Example(None, '1 ₣',
+            '₣', '1', 1.0),
+    Example(None, '1 ₡',
+            '₡', '1', 1.0),
+    Example(None, '1 kn',
+            'kn', '1', 1.0),
+    Example(None, '1 CUC$',
+            'CUC$', '1', 1.0),
+    Example(None, '1 ₱',
+            '₱', '1', 1.0),
+    Example(None, '1 Kč',
+            'Kč', '1', 1.0),
+    Example(None, '1 Fdj',
+            'Fdj', '1', 1.0),
+    Example(None, '1 RD$',
+            'RD$', '1', 1.0),
+    Example(None, '1 Nfk',
+            'Nfk', '1', 1.0),
+    Example(None, '1 GH₵',  # Ghanaian cedi
+            'GH₵', '1', 1.0),
+    Example(None, '1 Ft',
+            'Ft', '1', 1.0),
+    Example(None, '1 Rp',
+            'Rp', '1', 1.0),
+    Example(None, '1 ﷼',  # Saudi riyal
+            '﷼', '1', 1.0),
+    Example(None, '1 ₪',
+            '₪', '1', 1.0),
+    Example(None, '1 J$',
+            'J$', '1', 1.0),
+    Example(None, '1 KD',  # Kuwaiti dinar
+            'KD', '1', 1.0),
+    Example(None, '1 ₭',  # Lao kip
+            '₭', '1', 1.0),
+    Example(None, '1 LD',
+            'LD', '1', 1.0),
+    Example(None, '1 MOP$',
+            'MOP$', '1', 1.0),
+    Example(None, '1 MK',
+            'MK', '1', 1.0),
+    Example(None, '1 RM',
+            'RM', '1', 1.0),
+    Example(None, '1 Rf',
+            'Rf', '1', 1.0),
+    Example(None, '1 UM',
+            'UM', '1', 1.0),
+    Example(None, '1 ₨',
+            '₨', '1', 1.0),
+    Example(None, '1 ₮',
+            '₮', '1', 1.0),
+    Example(None, '1 ƒ',
+            'ƒ', '1', 1.0),
+    Example(None, '1 C$',
+            'C$', '1', 1.0),
+    Example(None, '1 ₦',
+            '₦', '1', 1.0),
+    Example(None, '1 B/.',
+            'B/.', '1', 1.0),
+    Example(None, '1 S/.',
+            'S/.', '1', 1.0),
+    Example(None, '1 ₽',
+            '₽', '1', 1.0),
+    Example(None, '1 Db',
+            'Db', '1', 1.0),
+    Example(None, '1 NT$',
+            'NT$', '1', 1.0),
+    Example(None, '1 ЅM',  # It's not a currency
+            None, '1', 1.0),
+    Example(None, '1 TSh',
+            'TSh', '1', 1.0),
+    Example(None, '1 T$',
+            'T$', '1', 1.0),
+    Example(None, '1 TT$',
+            'TT$', '1', 1.0),
+    Example(None, '1 DT',
+            'DT', '1', 1.0),
+    Example(None, '1 ₺',
+            '₺', '1', 1.0),
+    Example(None, '1 USh',
+            'USh', '1', 1.0),
+    Example(None, '1 ₴',
+            '₴', '1', 1.0),
+    Example(None, '1 $U',
+            '$U', '1', 1.0),
+    Example(None, '1 VT',
+            'VT', '1', 1.0),
+    Example(None, '1 Bs',
+            'Bs', '1', 1.0),
+    Example(None, '1 ZK',
+            'ZK', '1', 1.0),
+    Example(None, '1 Z$',
+            'Z$', '1', 1.0),
+    Example(None, '1 ₿',
+            '₿', '1', 1.0),
 ]
 
 
@@ -1983,6 +2193,118 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     #         '¥', '132', 132),
     Example('Free Shipping on Orders $49+.', 'Free Shipping on Orders $49+.',
             '$', None, None),
+
+]
+
+# Valid currencies not detected by price-parser
+# Move to regular tests when added
+PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
+    Example(None, '22000.00元/台',  # 元 is yuan
+            '元', '22000.00', 22000.00),
+    Example(None, '2963yen',
+            'yen', '2963', 2963),
+    Example(None, '1 บาท',  # Thai baht
+            'บาท', '1', 1.0),
+    Example(None, '1 ر.س',  # Saudi riyal
+            'ر.س', '1', 1.0),
+    Example(None, '1.198,- Kr',
+            'Kr', '1.198', 1198.0),
+    Example(None, '45 جنيه',  # Egyptian Pound (EGP)
+            'جنيه', '45', 45.0),
+    Example(None, '45 ج.م',  # Egyptian Pound (EGP)
+            'ج.م', '45', 45.0),
+    Example(None, '45 E£',  # Egyptian Pound (EGP)
+            'E£', '45', 45.0),
+    Example(None, '2000 zl',  # Polish zloty (PLN)
+            'zl', '2000', 2000.0),
+    Example(None, '14.00 SGD / Each',  # Singapore Dollar
+            'SGD', '14.00', 14.0),
+    Example(None, 'CAN$1.23',
+            'CAN$', '1.23', 1.23),
+    Example(None, '200q',  # Guatemalan Quetzal
+            'q', '200', 200.0),
+    Example(None, '200Q',  # Guatemalan Quetzal
+            'Q', '200', 200.0),
+    Example(None, '1 دج',  # Algerian Dinar
+            'دج', '1', 1.0),
+    Example(None, '1 .د.ب',  # Bahraini Dinar
+            '.د.ب', '1', 1.0),
+    Example(None, '1 $b',  # Barbadian dollar
+            '$b', '1', 1.0),
+    Example(None, '1 P',  # Pound sterling, Botswana pula
+            'P', '1', 1.0),
+    Example(None, '1 franc',
+            'franc', '1', 1.0),
+    Example(None, '2 francs',
+            'francs', '2', '2.0'),
+    Example(None, '1 ናቕፋ',  # Eritrean Nakfa
+            'ናቕፋ', '1', 1.0),
+    Example(None, '1 نافكا',  # Arabic "نافكا" stands for "Navka", which can refer to Eritrean Nakfa
+            'نافكا', '1', 1.0),
+    Example(None, '1 E',  # Can refer to Egyptian pound
+            'E', '1', 1.0),
+    Example(None, '1 Br',  # Ethiopian birr, Belarusian ruble
+            'Br', '1', 1.0),
+    Example(None, '1 ብር',  # Ethiopian birr
+            'ብር', '1', 1.0),
+    Example(None, '1 D',  # Gambian dalasi
+            'D', '1', 1.0),
+    Example(None, '1 GEL',  # Georgian lari
+            'GEL', '1', 1.0),
+    Example(None, '1 ლ',  # Georgian lari
+            'ლ', '1', 1.0),
+    Example(None, '1 ¢',  # Ghanaian cedi, cents
+            '¢', '1', 1.0),
+    Example(None, '1 ₵',  # Ghanaian cedi
+            '₵', '1', 1.0),
+    Example(None, '1 GFr',  # Guinean franc
+            'GFr', '1', 1.0),
+    Example(None, '1 FG',  # Guinean franc
+            'FG', '1', 1.0),
+    Example(None, '1 G',  # Actually "G" is too ambiguous and it does not clearly mean any currency
+            None, '1', 1.0),
+    Example(None, '1 L',
+            'L', '1', 1.0),
+    Example(None, '1 ع.د',  # Iraqi dinar
+            'ع.د', '1', 1.0),
+    Example(None, '1 د.',  # Arabic "د." stands for dr. which can refer to "dinar" and "dirham": United Arab Emirates dirham (AED), Bahraini dinar (BHD), Algerian dinar (DZD), etc. 
+            'د.', '1', 1.0),
+    Example(None, '1 KSh',  # Kenyan shilling
+            'KSh', '1', 1.0),
+    Example(None, '1 د.ك',  # Kuwaiti dinar
+            'د.ك', '1', 1.0),
+    Example(None, '1 ل.د',  # Libyan dinar
+            'ل.د', '1', 1.0),
+    Example(None, '1 ден',  # Macedonian denar
+            'ден', '1', 1.0),
+    Example(None, '1 Ar',  # Malagasy ariary
+            'Ar', '1', 1.0),
+    Example(None, '1 د.إ',  # United Arab Emirates dirham
+            'د.إ', '1', 1.0),
+    Example(None, '1 MT',  # Mozambican metical
+            'MT', '1', 1.0),
+    Example(None, '1 K',  # Papua New Guinean kina
+            'K', '1', 1.0),
+    Example(None, '1 FRw',  # Rwandan Franc
+            'FRw', '1', 1.0),
+    Example(None, '1 RF',  # Rwandan Franc
+            'RF', '1', 1.0),
+    Example(None, '1 R₣',  # Rwandan Franc
+            '₣', '1', 1.0),
+    Example(None, '1 Дин',
+            'Дин', '1', 1.0),
+    Example(None, '1 SPL',  # Seborgan Luigino (SPL)
+            'SPL', '1', 1.0),
+    Example(None, '1 ج.س.',  # Sudanese pound
+            'ج.س.', '1', 1.0),
+    Example(None, '1 د.ت',  # Tunisian dinar
+            'د.ت', '1', 1.0),
+    Example(None, 'AU $59.95',
+            'AU $', '59.95', 59.95),
+    Example(None, 'US $1.23',
+            'US $', '1.23', 1.23),
+    Example(None, 'CAD$1.23',
+            'CAD$', '1.23', 1.23),
 ]
 
 
@@ -2019,7 +2341,9 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
     [[e] for e in PRICE_PARSING_EXAMPLES_NO_CURRENCY] +
     [[e] for e in PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES] +
     [pytest.param(e, marks=pytest.mark.xfail())
-     for e in PRICE_PARSING_EXAMPLES_XFAIL]
+     for e in PRICE_PARSING_EXAMPLES_XFAIL +
+              PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED
+    ]
 )
 def test_parsing(example: Example):
     parsed = Price.fromstring(example.price_raw, example.currency_raw, example.decimal_separator)
