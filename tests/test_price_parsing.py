@@ -2150,6 +2150,13 @@ PRICE_PARSING_EXAMPLES_3 = [
             'Z$', '1', 1.0),
     Example(None, '1 ₿',
             '₿', '1', 1.0),
+    Example(None, '1 Br',  # Ethiopian birr, Belarusian ruble
+            'Br', '1', 1.0),
+    Example(None, '1 G',  # "G" is likely a Guyanese dollar
+            'G', '1', 1.0),
+    Example(None, '1 美股',  # not a currency
+            None, '1', 1.0),
+            
 ]
 
 
@@ -2177,6 +2184,8 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
             None, None, None),
     Example('Купить', 'Печная труба',
             None, None, None),
+    Example(None, 'Код товара: 884',
+            None, '884', 884.0),
 
     # dates
     Example(None, 'July, 2004',
@@ -2198,7 +2207,7 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     #         '¥', '132', 132),
     Example('Free Shipping on Orders $49+.', 'Free Shipping on Orders $49+.',
             '$', None, None),
-
+	
 ]
 
 # Valid currencies not detected by price-parser
@@ -2248,8 +2257,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
             'نافكا', '1', 1.0),
     Example(None, '1 E',  # Can refer to Egyptian pound
             'E', '1', 1.0),
-    Example(None, '1 Br',  # Ethiopian birr, Belarusian ruble
-            'Br', '1', 1.0),
     Example(None, '1 ብር',  # Ethiopian birr
             'ብር', '1', 1.0),
     Example(None, '1 D',  # Gambian dalasi
@@ -2266,8 +2273,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
             'GFr', '1', 1.0),
     Example(None, '1 FG',  # Guinean franc
             'FG', '1', 1.0),
-    Example(None, '1 G',  # Actually "G" is too ambiguous and it does not clearly mean any currency
-            None, '1', 1.0),
     Example(None, '1 L',
             'L', '1', 1.0),
     Example(None, '1 ع.د',  # Iraqi dinar
@@ -2282,6 +2287,8 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
             'ل.د', '1', 1.0),
     Example(None, '1 ден',  # Macedonian denar
             'ден', '1', 1.0),
+    Example(None, '1 ДЕН',  # Macedonian denar
+            'ДЕН', '1', 1.0),
     Example(None, '1 Ar',  # Malagasy ariary
             'Ar', '1', 1.0),
     Example(None, '1 د.إ',  # United Arab Emirates dirham
@@ -2295,7 +2302,7 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, '1 RF',  # Rwandan Franc
             'RF', '1', 1.0),
     Example(None, '1 R₣',  # Rwandan Franc
-            '₣', '1', 1.0),
+            'R₣', '1', 1.0),
     Example(None, '1 Дин',
             'Дин', '1', 1.0),
     Example(None, '1 SPL',  # Seborgan Luigino (SPL)
@@ -2310,6 +2317,150 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
             'US $', '1.23', 1.23),
     Example(None, 'CAD$1.23',
             'CAD$', '1.23', 1.23),
+    Example(None, '1 G$',  # Guyanese dollar
+            'G$', '1', 1.0),
+    Example(None, '1 GY$',  # Guyanese dollar
+            'GY$', '1', 1.0),
+    Example(None, '1 BTC',  # Bitcoin
+            'BTC', '1', 1.0),
+    Example(None, '1 CHf',  # Swiss franc
+            'CHf', '1', 1.0),
+    Example(None, '1 Dh',  # United Arab Emirates dirham
+            'Dh', '1', 1.0),
+    Example(None, '1 Dhs',  # United Arab Emirates dirham
+            'Dhs', '1', 1.0),
+    Example(None, '1 Esc',  # Cape Verdean escudo
+            'Esc', '1', 1.0),
+    Example(None, '1 Fbu',  # Burundian franc
+            'Fbu', '1', 1.0),
+    Example(None, '1 ID',  # Iraqi dinar
+            'ID', '1', 1.0),
+    Example(None, '1 Ks',  # Burmese kyat
+            'Ks', '1', 1.0),
+    Example(None, '1 NT',  # New Taiwan dollar
+            'NT', '1', 1.0),
+    Example(None, '1 Nu',  # Bhutanese ngultrum
+            'Nu', '1', 1.0),
+    Example(None, '1 Rbl',  # Belarusian ruble, Russian ruble
+            'Rbl', '1', 1.0),
+    Example(None, '1 Re',  # Indian rupee, Sri Lankan rupee
+            'Re', '1', 1.0),
+    Example(None, '1 S/',  # Peruvian sol
+            'S/', '1', 1.0),
+    Example(None, '1 SFr',  # Swiss franc
+            'SFr', '1', 1.0),
+    Example(None, '1 Sl',  # Somaliland shilling
+            'Sl', '1', 1.0),
+    Example(None, '1 VNĐ',  # Vietnamese đồng
+            'VNĐ', '1', 1.0),
+    Example(None, '1 Vt',  # Vanuatu vatu
+            'Vt', '1', 1.0),
+    Example(None, '1 din',  # Serbian dinar
+            'din', '1', 1.0),
+    Example(None, '1 hrn',  # Ukrainian hryvnia
+            'hrn', '1', 1.0),
+    Example(None, '1 kwz',  # Angolan kwanza
+            'kwz', '1', 1.0),
+    Example(None, '1 lari',  # Georgian lari
+            'lari', '1', 1.0),
+    Example(None, '1 nis',  # Israeli new shekel
+            'nis', '1', 1.0),
+    Example(None, '1 pound',  # Pound sterling
+            'pound', '1', 1.0),
+    Example(None, '1 Sʻ',  # Uzbekistani soʻm
+            'Sʻ', '1', 1.0),
+    Example(None, "1 S'",  # Uzbekistani soʻm
+            "S'", '1', 1.0),
+    Example(None, "1 so'm",  # Uzbekistani soʻm
+            "so'm", '1', 1.0),
+    Example(None, "1 som",  # Uzbekistani soʻm
+            "som", '1', 1.0),
+    Example(None, '1 stg',  # Pound sterling
+            'stg', '1', 1.0),
+    Example(None, '1 yuan',  # Renminbi/Chinese yuan
+            'yuan', '1', 1.0),
+    Example(None, '1 Ƀ',  # Bitcoin
+            'Ƀ', '1', 1.0),
+    Example(None, '1 дин',  # Serbian dinar
+            'дин', '1', 1.0),
+    Example(None, '1 км',  # Bosnia and Herzegovina convertible mark
+            'км', '1', 1.0),
+    Example(None, '1 с',  # Kyrgyz som, Tajikistani somoni
+            'с', '1', 1.0),
+    Example(None, '1 ש״ח',  # Israeli new shekel
+            'ש״ח', '1', 1.0),
+    Example(None, '1 ج.س',  # Sudanese pound
+            'ج.س', '1', 1.0),
+    Example(None, '1 د.أ',  # Jordanian dinar
+            'د.أ', '1', 1.0),
+    Example(None, '1 د.ا',  # Jordanian dinar
+            'د.ا', '1', 1.0),
+    Example(None, '1 د.ج',  # Algerian dinar
+            'د.ج', '1', 1.0),
+    Example(None, '1 د.م',  # Moroccan dirham
+            'د.م', '1', 1.0),
+    Example(None, '1 دينار',  # Bahraini dinar, Algerian dinar, Iraqi dinar, Jordanian dinar, Kuwaiti dinar, Libyan dinar, Tunisian dinar
+            'دينار', '1', 1.0),
+    Example(None, '1 دينار أردني',  # Jordanian dinar
+            'دينار أردني', '1', 1.0),
+    Example(None, '1 دينار كويتي',  # Kuwaiti dinar
+            'دينار كويتي', '1', 1.0),
+    Example(None, '1 ر.ع',  # Omani rial
+            'ر.ع', '1', 1.0),
+    Example(None, '1 ر.ق',  # Qatari riyal
+            'ر.ق', '1', 1.0),
+    Example(None, '1 ريال',  # Saudi riyal
+            'ريال', '1', 1.0),
+    Example(None, '1 ش.ج',  # Israeli new shekel
+            'ش.ج', '1', 1.0),
+    Example(None, '1 ل.س',  # Syrian pound
+            'ل.س', '1', 1.0),
+    Example(None, '1 ل.ل',  # Lebanese pound
+            'ل.ل', '1', 1.0),
+    Example(None, '1 ரூ',  # Sri Lankan rupee
+            'ரூ', '1', 1.0),
+    Example(None, '1 රු',  # Sri Lankan rupee
+            'රු', '1', 1.0),
+    Example(None, '1 ლარი',  # Georgian lari
+            'ლარი', '1', 1.0),
+    Example(None, '1 人民币',  # Renminbi/Chinese yuan
+            '人民币', '1', 1.0),
+    Example(None, '1 圆',  # Renminbi/Chinese yuan
+            '圆', '1', 1.0),
+    Example(None, '1 圓',  # Renminbi/Chinese yuan
+            '圓', '1', 1.0),
+    Example(None, '1 GBp',  # British Pound
+            '圓', '1', 1.0),
+    Example(None, '1 ￡',  # British Pound
+            '￡', '1', 1.0),
+    Example(None, '1 nzd',  # New Zealand dollar
+            'nzd', '1', 1.0),
+    Example(None, '1 mkd',  # Macedonian denar
+            'mkd', '1', 1.0),
+    Example(None, 'CND',  # Canadian dollar
+            'CND', '1', 1.0),
+    Example(None, 'KShs',  # Kenyan shilling
+            'KShs', '1', 1.0),
+    Example(None, 'chf',  # Swiss franc
+            'chf', '1', 1.0),
+    Example(None, "so'm",  # Uzbekistani soʻm
+            "so'm", '1', 1.0),
+    Example(None, 'тг',  # Kazakhstani tenge
+            'тг', '1', 1.0),
+    Example(None, 'ש"ח',  # Israeli new shekel
+            'ש"ח', '1', 1.0),
+    Example(None, "ש'ח",  # Israeli new shekel
+            "ש'ח", '1', 1.0),
+    Example(None, 'د.ع',  # Iraqi dinar
+            'د.ع', '1', 1.0),
+    Example(None, 'د.ل',  # Libyan dinar
+            'د.ل', '1', 1.0),
+    Example(None, 'درهم',  # United Arab Emirates dirham, Moroccan dirham
+            'درهم', '1', 1.0),
+    Example(None, 'ر.ي',  # Yemeni rial
+            'ر.ي', '1', 1.0),
+    Example(None, 'ش.ص',  # Somali shilling
+            'ش.ص', '1', 1.0),
 ]
 
 
