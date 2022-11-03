@@ -2430,7 +2430,7 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, '1 圓',  # Renminbi/Chinese yuan
             '圓', '1', 1.0),
     Example(None, '1 GBp',  # British Pound
-            '圓', '1', 1.0),
+            'GBp', '1', 1.0),
     Example(None, '1 ￡',  # British Pound
             '￡', '1', 1.0),
     Example(None, '1 nzd',  # New Zealand dollar
