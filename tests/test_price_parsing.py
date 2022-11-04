@@ -1991,7 +1991,7 @@ PRICE_PARSING_EXAMPLES_3 = [
     Example(None, '$575.00*',
             '$', '575.00', 575.0),
     Example(None, '150 kr',
-            'kr', '150', '150.0'),
+            'kr', '150', 150.0),
     Example(None, 'Estimate Price: $45,000 - $70,000',
             '$', '45,000', 45000.0),
     Example(None, 'Your Price: $7.99',
@@ -2152,11 +2152,14 @@ PRICE_PARSING_EXAMPLES_3 = [
             '₿', '1', 1.0),
     Example(None, '1 Br',  # Ethiopian birr, Belarusian ruble
             'Br', '1', 1.0),
-    Example(None, '1 G',  # "G" is likely a Guyanese dollar
-            'G', '1', 1.0),
     Example(None, '1 美股',  # not a currency
             None, '1', 1.0),
-            
+    Example(None, '1 GEL',  # Georgian lari
+            'GEL', '1', 1.0),
+    Example(None, '1 FG',  # Guinean franc
+            'FG', '1', 1.0),
+    Example(None, '14.00 SGD / Each',  # Singapore Dollar
+            'SGD', '14.00', 14.0),
 ]
 
 
@@ -2207,7 +2210,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     #         '¥', '132', 132),
     Example('Free Shipping on Orders $49+.', 'Free Shipping on Orders $49+.',
             '$', None, None),
-	
 ]
 
 # Valid currencies not detected by price-parser
@@ -2231,8 +2233,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
             'E£', '45', 45.0),
     Example(None, '2000 zl',  # Polish zloty (PLN)
             'zl', '2000', 2000.0),
-    Example(None, '14.00 SGD / Each',  # Singapore Dollar
-            'SGD', '14.00', 14.0),
     Example(None, 'CAN$1.23',
             'CAN$', '1.23', 1.23),
     Example(None, '200q',  # Guatemalan Quetzal
@@ -2250,7 +2250,7 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, '1 franc',
             'franc', '1', 1.0),
     Example(None, '2 francs',
-            'francs', '2', '2.0'),
+            'francs', '2', 2.0),
     Example(None, '1 ናቕፋ',  # Eritrean Nakfa
             'ናቕፋ', '1', 1.0),
     Example(None, '1 نافكا',  # Arabic "نافكا" stands for "Navka", which can refer to Eritrean Nakfa
@@ -2261,8 +2261,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
             'ብር', '1', 1.0),
     Example(None, '1 D',  # Gambian dalasi
             'D', '1', 1.0),
-    Example(None, '1 GEL',  # Georgian lari
-            'GEL', '1', 1.0),
     Example(None, '1 ლ',  # Georgian lari
             'ლ', '1', 1.0),
     Example(None, '1 ¢',  # Ghanaian cedi, cents
@@ -2271,8 +2269,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
             '₵', '1', 1.0),
     Example(None, '1 GFr',  # Guinean franc
             'GFr', '1', 1.0),
-    Example(None, '1 FG',  # Guinean franc
-            'FG', '1', 1.0),
     Example(None, '1 L',
             'L', '1', 1.0),
     Example(None, '1 ع.د',  # Iraqi dinar
@@ -2461,6 +2457,8 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
             'ر.ي', '1', 1.0),
     Example(None, 'ش.ص',  # Somali shilling
             'ش.ص', '1', 1.0),
+    Example(None, '1 G',  # "G" may mean Guyanese dollar, but it is too ambiguous
+            'G', '1', 1.0),
 ]
 
 
