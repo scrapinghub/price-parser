@@ -2159,7 +2159,7 @@ PRICE_PARSING_EXAMPLES_3 = [
     Example(None, '1 FG',  # Guinean franc
             'FG', '1', 1.0),
     Example(None, '14.00 SGD / Each',  # Singapore Dollar
-            'SGD', '14.00', 14.0),
+            'SGDe', '14.00', 14.0),
 ]
 
 
