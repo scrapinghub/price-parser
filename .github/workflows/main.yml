@@ -41,11 +41,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-
     - name: Run tests
       env: ${{ matrix.env }}
       run: |
-        pip install -U tox
+        pip install -U tox codecov
         tox
-    - name: Upload coverage report
-      run: bash <(curl -s https://codecov.io/bash)
+        codecov
