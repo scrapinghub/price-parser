@@ -10,8 +10,8 @@ price-parser
    :target: https://pypi.python.org/pypi/price-parser
    :alt: Supported Python Versions
 
-.. image:: https://travis-ci.com/scrapinghub/price-parser.svg?branch=master
-   :target: https://travis-ci.com/scrapinghub/price-parser
+.. image:: https://github.com/scrapinghub/price-parser/actions/workflows/main.yml/badge.svg?branch=master
+   :target: https://travis-ci.com/scrapinghub/price-parser/actions?workflow=Tests
    :alt: Build Status
 
 .. image:: https://codecov.io/github/scrapinghub/price-parser/coverage.svg?branch=master
