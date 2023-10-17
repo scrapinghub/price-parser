@@ -27,7 +27,8 @@ class Example(Price):
                  currency: Optional[str],
                  amount_text: Optional[str],
                  amount_float: Optional[Union[float, Decimal]],
-                 decimal_separator: Optional[str] = None) -> None:
+                 decimal_separator: Optional[str] = None,
+                 digit_group_separator: Optional[str] = None) -> None:
         self.currency_raw = currency_raw
         self.price_raw = price_raw
         self.decimal_separator = decimal_separator
@@ -68,6 +69,11 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
             'GBP', '29.1583', 29.1583),
     Example(None, '1.11000000000000009770',
             None, '1.11000000000000009770', Decimal('1.11000000000000009770')),
+    Example(None, ' 423.923 KD',
+            'KD', '423.923', 423.923, decimal_separator='.'),
+    Example(None, ' 123,456.789 OMR',
+            'OMR', '123,456.789', 123456.789,
+            decimal_separator='.', digit_group_separator=','),
 ]
 
 

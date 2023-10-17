@@ -26,7 +26,8 @@ class Price:
     @classmethod
     def fromstring(cls, price: Optional[str],
                    currency_hint: Optional[str] = None,
-                   decimal_separator: Optional[str] = None) -> 'Price':
+                   decimal_separator: Optional[str] = None,
+                   digit_group_separator: Optional[str] = None) -> 'Price':
         """
         Given price and currency text extracted from HTML elements, return
         ``Price`` instance, which provides a clean currency symbol and
@@ -36,15 +37,29 @@ class Price:
         which may contain currency, as a hint. If currency is present in
         ``price`` string, it could be **preferred** over a value extracted
         from ``currency_hint`` string.
+
+        ``decimal_separator`` is optional; it is used to determine the
+        decimal separator in price. If ``decimal_separator`` is ``None``,
+        then it is guessed from ``price`` string. If ``decimal_separator``
+        is ``"."``, then ``1.000`` is parsed as ``1``. If it is ``,```,
+        then ``1.000`` is parsed as ``1000``.
+
+        ``digit_group_separator`` is optional; it is used to determine the
+        digit group separator in price. If ``digit_group_separator`` is
+        ``None``, then it is guessed from ``price`` string. If
+        ``digit_group_separator`` is ``"."``, then ``1.000`` is parsed as
+        ``1000``. If it is ``,``, then ``1.000`` is parsed as ``1``.
         """
+        currency = extract_currency_symbol(price, currency_hint)
+        if currency is not None:
+            currency = currency.strip()
+        if digit_group_separator:
+            price = price.replace(digit_group_separator, '')
         amount_text = extract_price_text(price) if price is not None else None
         amount_num = (
             parse_number(amount_text, decimal_separator)
             if amount_text is not None else None
         )
-        currency = extract_currency_symbol(price, currency_hint)
-        if currency is not None:
-            currency = currency.strip()
         return Price(
             amount=amount_num,
             currency=currency,
