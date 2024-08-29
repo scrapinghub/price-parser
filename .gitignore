@@ -16,3 +16,9 @@
 .tox/
 .pytest_cache/
 .coverage
+
+# python virtual env
+.venv/
+venv/
+.env/
+env/

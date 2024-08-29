@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-from .parser import Price, parse_price
+from .parser import Price, parse_price  # noqa F401
