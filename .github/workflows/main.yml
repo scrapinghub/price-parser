@@ -25,10 +25,19 @@ jobs:
         - python-version: "3.10"
           env:
             TOXENV: py
+        - python-version: "3.11"
+          env:
+            TOXENV: py311
+        - python-version: "3.12"
+          env:
+            TOXENV: py312
+        - python-version: "3.13"
+          env:
+            TOXENV: py313
         - python-version: "3.10"
           env:
             TOXENV: mypy
-
+        
     steps:
     - uses: actions/checkout@v3
 
