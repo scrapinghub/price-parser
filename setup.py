@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="price-parser",
-    version="0.3.4",
+    version="0.4.0",
     description="Extract price and currency from a raw string",
     long_description=open("README.rst", encoding="utf8").read()
     + "\n\n"

@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.4.0 (unreleased)
+0.4.0 (2025-02-05)
 ------------------
 
 * Dropped support for Python 3.8 and lower, added support for Python 3.11 and
