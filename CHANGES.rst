@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.4.0 (unreleased)
+------------------
+
+* Dropped support for Python 3.8 and lower, added support for Python 3.11 and
+  higher.
+
+* Added a ``digit_group_separator`` parameter to ``Price.fromstring()``.
+
 0.3.4 (2020-11-25)
 ------------------
 
