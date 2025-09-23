@@ -323,7 +323,7 @@ def extract_price_text(price: str) -> Optional[str]:
     if price.count("€") == 1:
         m = re.search(
             r"""
-        [\d\s.,]*?\d    # number, probably with thousand separators
+        [\d\s.,']*?\d    # number, probably with thousand separators
         \s*?€(\s*?)?    # euro, probably separated by whitespace
         \d(?(1)\d|\d*?)  # if separated by whitespace - search one digit,
                          # multiple digits otherwise
@@ -337,7 +337,7 @@ def extract_price_text(price: str) -> Optional[str]:
 
     m = re.search(
         r"""
-        ([.]?\d[\d\s.,]*)   # number, probably with thousand separators
+        ([.]?\d[\d\s.,']*)   # number, probably with thousand separators
         \s*?                # skip whitespace
         (?:[^%\d]|$)        # capture next symbol - it shouldn't be %
         """,
@@ -347,6 +347,7 @@ def extract_price_text(price: str) -> Optional[str]:
 
     if m:
         price_text = m.group(1).rstrip(",.")
+        price_text = price_text.replace("'", "")
         return (
             price_text.strip()
             if price_text.count(".") == 1
