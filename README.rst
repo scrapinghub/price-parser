@@ -179,4 +179,3 @@ Use tox_ to run tests with different Python versions::
 The command above also runs type checks; we use mypy.
 
 .. _tox: https://tox.readthedocs.io
-
