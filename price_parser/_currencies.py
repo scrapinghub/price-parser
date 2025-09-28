@@ -23,9 +23,27 @@ Some extra abbreviations are added to the list (they are set below
 ``CURRENCIES`` variable, scroll to the bottom).
 """
 
-from itertools import chain
+from __future__ import annotations
 
-CURRENCIES: dict[str, dict] = {
+from itertools import chain
+from typing import TYPE_CHECKING, TypedDict
+
+if TYPE_CHECKING:
+    # typing.NotRequired requires Python 3.11
+    from typing_extensions import NotRequired
+
+
+class CurrencyInfo(TypedDict):
+    s: str
+    n: str
+    sn: str
+    d: int
+    r: float
+    np: str
+    sn2: NotRequired[list[str]]
+
+
+CURRENCIES: dict[str, CurrencyInfo] = {
     "AED": {
         "s": "AED",
         "n": "United Arab Emirates Dirham",
@@ -1541,7 +1559,7 @@ CURRENCIES["NTD"] = CURRENCIES["TWD"]
 CURRENCIES["RMB"] = CURRENCIES["CNY"]
 
 
-REPLACED_BY_EURO = {
+REPLACED_BY_EURO: dict[str, CurrencyInfo] = {
     "ATS": {
         "s": "öS",
         "n": "Austrian schilling",

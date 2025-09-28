@@ -49,7 +49,7 @@ class Example(Price):  # noqa: PLW1641
             amount_text=amount_text,
         )
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, Price):
             return super().__eq__(other)
         return (
@@ -59,7 +59,7 @@ class Example(Price):  # noqa: PLW1641
         )
 
 
-def idfn(val):
+def idfn(val: object) -> str | None:
     if isinstance(val, Example):
         return f"{val.currency_raw}, {val.price_raw!r}"
     return None
@@ -1456,7 +1456,7 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
     ],
     ids=idfn,
 )
-def test_parsing(example: Example):
+def test_parsing(example: Example) -> None:
     parsed = Price.fromstring(
         example.price_raw, example.currency_raw, example.decimal_separator
     )
@@ -1473,7 +1473,7 @@ def test_parsing(example: Example):
         (Decimal("1.23"), 1.23),
     ],
 )
-def test_price_amount_float(amount, amount_float):
+def test_price_amount_float(amount: Decimal | None, amount_float: float | None) -> None:
     assert Price(amount, None, None).amount_float == amount_float
 
 
@@ -1488,6 +1488,8 @@ def test_price_amount_float(amount, amount_float):
         ("140.000€33", "€", Decimal("140000.33")),
     ],
 )
-def test_price_decimal_separator(price_raw, decimal_separator, expected_result):
+def test_price_decimal_separator(
+    price_raw: str, decimal_separator: str | None, expected_result: Decimal
+) -> None:
     parsed = Price.fromstring(price_raw, decimal_separator=decimal_separator)
     assert parsed.amount == expected_result

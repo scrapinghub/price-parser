@@ -75,7 +75,7 @@ class Price:
 parse_price = Price.fromstring
 
 
-def or_regex(symbols: list[str]) -> Pattern:
+def or_regex(symbols: list[str]) -> Pattern[str]:
     """Return a regex which matches any of ``symbols``"""
     return re.compile("|".join(re.escape(s) for s in symbols))
 
@@ -257,7 +257,7 @@ def extract_currency_symbol(
     Guess currency symbol from extracted price and currency strings.
     Return an empty string if symbol is not found.
     """
-    methods: list[tuple[Callable, Optional[str]]] = [
+    methods: list[tuple[Callable[[str], Optional[re.Match[str]]], Optional[str]]] = [
         (_search_safe_currency, price),
         (_search_safe_currency, currency_hint),
         (_search_unsafe_currency, price),

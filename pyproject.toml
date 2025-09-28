@@ -58,7 +58,7 @@ include = [
 ]
 
 [tool.mypy]
-implicit_reexport = false
+strict = true
 
 [tool.ruff.lint]
 extend-select = [
