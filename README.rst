@@ -41,7 +41,7 @@ Installation
 
     pip install price-parser
 
-price-parser requires Python 3.6+.
+price-parser requires Python 3.9+.
 
 Usage
 =====

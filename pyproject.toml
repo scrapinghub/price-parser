@@ -23,6 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
     "attrs >= 17.3.0",
@@ -44,6 +45,9 @@ filename = 'CHANGES.rst'
 search = "\\(unreleased\\)$"
 replace = "({now:%Y-%m-%d})"
 regex = true
+
+[tool.coverage.run]
+branch = true
 
 [tool.hatch.build.targets.sdist]
 include = [
