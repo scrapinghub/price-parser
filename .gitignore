@@ -10,12 +10,14 @@
 
 # IDE
 /.idea/
+/.vscode/
 
 .mypy_cache/
 .cache/
 .tox/
 .pytest_cache/
 .coverage
+coverage.xml
 
 # python virtual env
 .venv/

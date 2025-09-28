@@ -1,5 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "price-parser"
+version = "0.4.0"
+description = "Extract price and currency from a raw string"
+readme = "README.rst"
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Mikhail Korobov", email = "kmike84@gmail.com" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "attrs >= 17.3.0",
+]
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "https://github.com/scrapinghub/price-parser"
+Source = "https://github.com/scrapinghub/price-parser"
+Tracker = "https://github.com/scrapinghub/price-parser/issues"
+
 [tool.bumpversion]
-current_version = "0.4.0"
 commit = true
 tag = true
 tag_name = "{new_version}"
@@ -10,8 +45,13 @@ search = "\\(unreleased\\)$"
 replace = "({now:%Y-%m-%d})"
 regex = true
 
-[[tool.bumpversion.files]]
-filename = "setup.py"
+[tool.hatch.build.targets.sdist]
+include = [
+    "/price_parser",
+    "/tests",
+    "/CHANGES.rst",
+    "/tox.ini",
+]
 
 [tool.mypy]
 implicit_reexport = false
