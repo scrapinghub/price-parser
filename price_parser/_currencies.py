@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Currency information.
 
@@ -23,10 +22,28 @@ Field meaning:
 Some extra abbreviations are added to the list (they are set below
 ``CURRENCIES`` variable, scroll to the bottom).
 """
-from itertools import chain
-from typing import Dict, List
 
-CURRENCIES: Dict[str, Dict] = {
+from __future__ import annotations
+
+from itertools import chain
+from typing import TYPE_CHECKING, TypedDict
+
+if TYPE_CHECKING:
+    # typing.NotRequired requires Python 3.11
+    from typing_extensions import NotRequired
+
+
+class CurrencyInfo(TypedDict):
+    s: str
+    n: str
+    sn: str
+    d: int
+    r: float
+    np: str
+    sn2: NotRequired[list[str]]
+
+
+CURRENCIES: dict[str, CurrencyInfo] = {
     "AED": {
         "s": "AED",
         "n": "United Arab Emirates Dirham",
@@ -1542,7 +1559,7 @@ CURRENCIES["NTD"] = CURRENCIES["TWD"]
 CURRENCIES["RMB"] = CURRENCIES["CNY"]
 
 
-REPLACED_BY_EURO = {
+REPLACED_BY_EURO: dict[str, CurrencyInfo] = {
     "ATS": {
         "s": "öS",
         "n": "Austrian schilling",
@@ -1719,9 +1736,9 @@ CURRENCIES["INR"]["sn2"] = ["₹", "र"]
 CURRENCIES["IRR"]["sn2"] = ["ریال"]
 
 
-CURRENCY_CODES: List[str] = list(CURRENCIES.keys())
-CURRENCY_SYMBOLS: List[str] = list({c["s"] for c in CURRENCIES.values()})
-CURRENCY_NATIONAL_SYMBOLS: List[str] = list(
+CURRENCY_CODES: list[str] = list(CURRENCIES.keys())
+CURRENCY_SYMBOLS: list[str] = list({c["s"] for c in CURRENCIES.values()})
+CURRENCY_NATIONAL_SYMBOLS: list[str] = list(
     {c["sn"] for c in CURRENCIES.values()}
     | set(chain.from_iterable(c["sn2"] for c in CURRENCIES.values() if "sn2" in c))
 )

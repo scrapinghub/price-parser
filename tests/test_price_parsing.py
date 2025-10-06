@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Price extractor was developed mostly using PRICE_PARSING_EXAMPLES,
 then evaluated on PRICE_PARSING_EXAMPLES_2, then improved to work better on
@@ -11,31 +10,33 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT are manually added examples for the bugs
 we've found in a wild; PRICE_PARSING_EXAMPLES_NEW is a list of tests for
 new features. New tests should probably go these two lists.
 """
+
+from __future__ import annotations
+
 from decimal import Decimal
-from typing import Optional, Union
 
 import pytest
 
 from price_parser import Price
 
 
-class Example(Price):
+class Example(Price):  # noqa: PLW1641
     """A Price wrapper for tests"""
 
     def __init__(
         self,
-        currency_raw: Optional[str],
-        price_raw: Optional[str],
-        currency: Optional[str],
-        amount_text: Optional[str],
-        amount_float: Optional[Union[float, Decimal]],
-        decimal_separator: Optional[str] = None,
-        digit_group_separator: Optional[str] = None,
+        currency_raw: str | None,
+        price_raw: str | None,
+        currency: str | None,
+        amount_text: str | None,
+        amount_float: float | Decimal | None,
+        decimal_separator: str | None = None,
+        digit_group_separator: str | None = None,
     ) -> None:
         self.currency_raw = currency_raw
         self.price_raw = price_raw
         self.decimal_separator = decimal_separator
-        amount_decimal = None  # type: Optional[Decimal]
+        amount_decimal: Decimal | None = None
         if isinstance(amount_float, Decimal):
             amount_decimal = amount_float
         elif amount_float is not None:
@@ -48,7 +49,7 @@ class Example(Price):
             amount_text=amount_text,
         )
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         if not isinstance(other, Price):
             return super().__eq__(other)
         return (
@@ -58,9 +59,10 @@ class Example(Price):
         )
 
 
-def idfn(val):
+def idfn(val: object) -> str | None:
     if isinstance(val, Example):
         return f"{val.currency_raw}, {val.price_raw!r}"
+    return None
 
 
 PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
@@ -1406,7 +1408,11 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, "د.ع", "د.ع", "1", 1.0),  # Iraqi dinar
     Example(None, "د.ل", "د.ل", "1", 1.0),  # Libyan dinar
     Example(
-        None, "درهم", "درهم", "1", 1.0  # United Arab Emirates dirham, Moroccan dirham
+        None,
+        "درهم",  # United Arab Emirates dirham, Moroccan dirham
+        "درهم",
+        "1",
+        1.0,
     ),
     Example(None, "ر.ي", "ر.ي", "1", 1.0),  # Yemeni rial
     Example(None, "ش.ص", "ش.ص", "1", 1.0),  # Somali shilling
@@ -1434,15 +1440,15 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
 
 
 @pytest.mark.parametrize(
-    ["example"],
-    [[e] for e in PRICE_PARSING_EXAMPLES_BUGS_CAUGHT]
-    + [[e] for e in PRICE_PARSING_EXAMPLES_NEW]
-    + [[e] for e in PRICE_PARSING_EXAMPLES]
-    + [[e] for e in PRICE_PARSING_EXAMPLES_2]
-    + [[e] for e in PRICE_PARSING_EXAMPLES_3]
-    + [[e] for e in PRICE_PARSING_EXAMPLES_NO_PRICE]
-    + [[e] for e in PRICE_PARSING_EXAMPLES_NO_CURRENCY]
-    + [[e] for e in PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES]
+    "example",
+    PRICE_PARSING_EXAMPLES_BUGS_CAUGHT
+    + PRICE_PARSING_EXAMPLES_NEW
+    + PRICE_PARSING_EXAMPLES
+    + PRICE_PARSING_EXAMPLES_2
+    + PRICE_PARSING_EXAMPLES_3
+    + PRICE_PARSING_EXAMPLES_NO_PRICE
+    + PRICE_PARSING_EXAMPLES_NO_CURRENCY
+    + PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES
     + [
         pytest.param(e, marks=pytest.mark.xfail(strict=True))
         for e in PRICE_PARSING_EXAMPLES_XFAIL
@@ -1450,7 +1456,7 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
     ],
     ids=idfn,
 )
-def test_parsing(example: Example):
+def test_parsing(example: Example) -> None:
     parsed = Price.fromstring(
         example.price_raw, example.currency_raw, example.decimal_separator
     )
@@ -1461,27 +1467,29 @@ def test_parsing(example: Example):
 
 
 @pytest.mark.parametrize(
-    "amount,amount_float",
-    (
+    ("amount", "amount_float"),
+    [
         (None, None),
         (Decimal("1.23"), 1.23),
-    ),
+    ],
 )
-def test_price_amount_float(amount, amount_float):
+def test_price_amount_float(amount: Decimal | None, amount_float: float | None) -> None:
     assert Price(amount, None, None).amount_float == amount_float
 
 
 @pytest.mark.parametrize(
-    "price_raw,decimal_separator,expected_result",
-    (
-        ("140.000", None, Decimal("140000")),
-        ("140.000", ",", Decimal("140000")),
+    ("price_raw", "decimal_separator", "expected_result"),
+    [
+        ("140.000", None, Decimal(140000)),
+        ("140.000", ",", Decimal(140000)),
         ("140.000", ".", Decimal("140.000")),
         ("140€33", "€", Decimal("140.33")),
         ("140,000€33", "€", Decimal("140000.33")),
         ("140.000€33", "€", Decimal("140000.33")),
-    ),
+    ],
 )
-def test_price_decimal_separator(price_raw, decimal_separator, expected_result):
+def test_price_decimal_separator(
+    price_raw: str, decimal_separator: str | None, expected_result: Decimal
+) -> None:
     parsed = Price.fromstring(price_raw, decimal_separator=decimal_separator)
     assert parsed.amount == expected_result

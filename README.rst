@@ -41,7 +41,7 @@ Installation
 
     pip install price-parser
 
-price-parser requires Python 3.6+.
+price-parser requires Python 3.9+.
 
 Usage
 =====
@@ -179,4 +179,3 @@ Use tox_ to run tests with different Python versions::
 The command above also runs type checks; we use mypy.
 
 .. _tox: https://tox.readthedocs.io
-
