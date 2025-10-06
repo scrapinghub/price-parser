@@ -1,12 +1,19 @@
 Changes
 =======
 
+0.5.0 (unreleased)
+------------------
+
+* Added support for Python 3.14.
+* Added support for ``'`` as a thousands separator.
+* Migrated the build system to ``hatchling``.
+* Improved type hints.
+* CI improvements.
+
 0.4.0 (2025-02-05)
 ------------------
 
-* Dropped support for Python 3.8 and lower, added support for Python 3.11 and
-  higher.
-
+* Dropped support for Python 3.8 and lower, added support for Python 3.11-3.13.
 * Added a ``digit_group_separator`` parameter to ``Price.fromstring()``.
 
 0.3.4 (2020-11-25)
