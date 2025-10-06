@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "price-parser"
-version = "0.4.0"
+version = "0.5.0"
 description = "Extract price and currency from a raw string"
 readme = "README.rst"
 license = "BSD-3-Clause"

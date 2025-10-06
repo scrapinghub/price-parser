@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.5.0 (unreleased)
+0.5.0 (2025-10-06)
 ------------------
 
 * Added support for Python 3.14.
