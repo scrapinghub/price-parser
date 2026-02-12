@@ -102,6 +102,9 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, "3,500円", "円", "3,500", 3500),
     Example(None, "CHF 1'049,95", "CHF", "1049,95", 1049.95),
     Example(None, "€1'049,95", "€", "1049,95", 1049.95),
+    Example(None, "644.00 جنيه", "جنيه", "644.00", 644.0),  # Egyptian pound (EGP)
+    Example(None, "3,439.00 درهم", "درهم", "3,439.00", 3439.0),  # UAE dirham (AED)
+    Example(None, "106.61 ريال", "ريال", "106.61", 106.61),  # Saudi riyal (SAR)
 ]
 
 
@@ -1271,7 +1274,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, "1 บาท", "บาท", "1", 1.0),  # Thai baht
     Example(None, "1 ر.س", "ر.س", "1", 1.0),  # Saudi riyal
     Example(None, "1.198,- Kr", "Kr", "1.198", 1198.0),
-    Example(None, "45 جنيه", "جنيه", "45", 45.0),  # Egyptian Pound (EGP)
     Example(None, "45 ج.م", "ج.م", "45", 45.0),  # Egyptian Pound (EGP)
     Example(None, "45 E£", "E£", "45", 45.0),  # Egyptian Pound (EGP)
     Example(None, "2000 zl", "zl", "2000", 2000.0),  # Polish zloty (PLN)
@@ -1384,7 +1386,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, "1 دينار كويتي", "دينار كويتي", "1", 1.0),  # Kuwaiti dinar
     Example(None, "1 ر.ع", "ر.ع", "1", 1.0),  # Omani rial
     Example(None, "1 ر.ق", "ر.ق", "1", 1.0),  # Qatari riyal
-    Example(None, "1 ريال", "ريال", "1", 1.0),  # Saudi riyal
     Example(None, "1 ش.ج", "ش.ج", "1", 1.0),  # Israeli new shekel
     Example(None, "1 ل.س", "ل.س", "1", 1.0),  # Syrian pound
     Example(None, "1 ل.ل", "ل.ل", "1", 1.0),  # Lebanese pound
@@ -1407,13 +1408,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, "ש'ח", "ש'ח", "1", 1.0),  # Israeli new shekel
     Example(None, "د.ع", "د.ع", "1", 1.0),  # Iraqi dinar
     Example(None, "د.ل", "د.ل", "1", 1.0),  # Libyan dinar
-    Example(
-        None,
-        "درهم",  # United Arab Emirates dirham, Moroccan dirham
-        "درهم",
-        "1",
-        1.0,
-    ),
     Example(None, "ر.ي", "ر.ي", "1", 1.0),  # Yemeni rial
     Example(None, "ش.ص", "ش.ص", "1", 1.0),  # Somali shilling
     Example(

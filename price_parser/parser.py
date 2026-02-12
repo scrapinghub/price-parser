@@ -189,6 +189,9 @@ SAFE_CURRENCY_SYMBOLS = [
     "ل.ل.\u200f",
     " تومان",
     "تومان",
+    "درهم",
+    "ريال",
+    "جنيه",
     # other common symbols, which we consider unambiguous
     "EUR",
     "euro",
