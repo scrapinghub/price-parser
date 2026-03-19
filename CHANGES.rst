@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.5.1 (unreleased)
+0.5.1 (2026-03-19)
 ------------------
 
 * Added support for additional currencies: Egyptian pound (EGP), UAE dirham
