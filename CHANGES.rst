@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.5.1 (unreleased)
+------------------
+
+* Added support for additional currencies: Egyptian pound (EGP), UAE dirham
+  (AED) and Saudi riyal (SAR).
+
 0.5.0 (2025-10-06)
 ------------------
 
