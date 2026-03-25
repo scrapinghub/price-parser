@@ -125,9 +125,9 @@ CURRENCIES: dict[str, CurrencyInfo] = {
         "np": "Aruban Florins",
     },
     "AZN": {
-        "s": "man.",
+        "s": "₼",
         "n": "Azerbaijani Manat",
-        "sn": "ман.",
+        "sn": "₼",
         "d": 2,
         "r": 0,
         "np": "Azerbaijani manats",
