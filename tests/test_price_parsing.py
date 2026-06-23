@@ -1487,3 +1487,22 @@ def test_price_decimal_separator(
 ) -> None:
     parsed = Price.fromstring(price_raw, decimal_separator=decimal_separator)
     assert parsed.amount == expected_result
+
+
+@pytest.mark.parametrize(
+    ("price_raw", "digit_group_separator", "expected_result"),
+    [
+        ("140.000", None, Decimal(140000)),
+        ("140.000", ".", Decimal(140000)),
+        # Declaring "," as the group separator makes "." the decimal separator.
+        ("140.000", ",", Decimal("140.000")),
+        ("140,000", ",", Decimal(140000)),
+        ("140,000.50", ",", Decimal("140000.50")),
+        ("140.000,50", ".", Decimal("140000.50")),
+    ],
+)
+def test_price_digit_group_separator(
+    price_raw: str, digit_group_separator: str | None, expected_result: Decimal
+) -> None:
+    parsed = Price.fromstring(price_raw, digit_group_separator=digit_group_separator)
+    assert parsed.amount == expected_result

@@ -59,6 +59,10 @@ class Price:
             currency = currency.strip()
         if digit_group_separator is not None and price is not None:
             price = price.replace(digit_group_separator, "")
+            # The remaining "." or "," must be the decimal separator, since the
+            # caller declared the other symbol to be the digit group separator.
+            if decimal_separator is None and digit_group_separator in (".", ","):
+                decimal_separator = "," if digit_group_separator == "." else "."
         amount_text = extract_price_text(price) if price is not None else None
         amount_num = (
             parse_number(amount_text, decimal_separator)
