@@ -249,24 +249,34 @@ OTHER_CURRENCY_SYMBOLS_SET = (
 OTHER_CURRENCY_SYMBOLS = sorted(OTHER_CURRENCY_SYMBOLS_SET, key=len, reverse=True)
 
 
-def _make_unsafe_currency_regex(symbols: list[str]) -> Pattern[str]:
-    """Return a regex matching any of ``symbols``, with letter-only symbols
-    constrained to not match inside longer words."""
-    parts = []
-    for s in symbols:
-        escaped = re.escape(s)
-        if s.isalpha():
-            # Require non-letter (or start/end) on each side so that e.g.
-            # "ALL" does not match inside "ANNUALLY".
-            parts.append(r"(?<![a-zA-Z])" + escaped + r"(?![a-zA-Z])")
-        else:
-            parts.append(escaped)
-    return re.compile("|".join(parts))
+_UNICODE_LETTER = r"[^\W\d_]"
+_CURRENCY_SUFFIX_LOOKAHEADS = {
+    "руб": rf"(?=(?:л{_UNICODE_LETTER}*)?(?!{_UNICODE_LETTER}))",
+}
+
+
+def _currency_symbol_pattern(symbol: str) -> str:
+    escaped = re.escape(symbol)
+    if not symbol.isalpha():
+        return escaped
+
+    if symbol in _CURRENCY_SUFFIX_LOOKAHEADS:
+        right_boundary = _CURRENCY_SUFFIX_LOOKAHEADS[symbol]
+    elif symbol not in CURRENCY_CODES and len(symbol) > 3:
+        right_boundary = rf"(?=s?(?!{_UNICODE_LETTER}))"
+    else:
+        right_boundary = rf"(?!{_UNICODE_LETTER})"
+
+    return rf"(?<!{_UNICODE_LETTER}){escaped}{right_boundary}"
+
+
+def _make_currency_regex(symbols: list[str]) -> Pattern[str]:
+    return re.compile("|".join(_currency_symbol_pattern(s) for s in symbols))
 
 
 _search_dollar_code = _DOLLAR_REGEX.search
-_search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
-_search_unsafe_currency = _make_unsafe_currency_regex(OTHER_CURRENCY_SYMBOLS).search
+_search_safe_currency = _make_currency_regex(SAFE_CURRENCY_SYMBOLS).search
+_search_unsafe_currency = _make_currency_regex(OTHER_CURRENCY_SYMBOLS).search
 
 
 def extract_currency_symbol(
