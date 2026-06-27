@@ -67,6 +67,8 @@ def idfn(val: object) -> str | None:
 
 PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
     Example(None, "US$:12.99", "US$", "12.99", 12.99),
+    Example(None, ",89", None, ",89", 0.89),
+    Example(None, ",89 €", "€", ",89", 0.89),
     Example("GBP", "34.992001", "GBP", "34.992001", 34.992001),
     Example("GBP", "29.1583", "GBP", "29.1583", 29.1583),
     Example(
