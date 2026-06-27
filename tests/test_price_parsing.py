@@ -1486,9 +1486,7 @@ def test_currency_not_matched_inside_words(
         ("1000р", "р"),
     ],
 )
-def test_currency_boundaries_keep_valid_matches(
-    price_raw: str, currency: str
-) -> None:
+def test_currency_boundaries_keep_valid_matches(price_raw: str, currency: str) -> None:
     assert Price.fromstring(price_raw).currency == currency
 
 
