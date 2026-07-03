@@ -86,6 +86,10 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
         decimal_separator=".",
         digit_group_separator=",",
     ),
+    # "тңг." (Kazakhstani tenge) must keep its trailing dot, like other dotted
+    # national abbreviations (руб., грн., лв.); it was previously listed after
+    # the dot-less "тңг" in SAFE_CURRENCY_SYMBOLS, so the shorter form shadowed it.
+    Example(None, "1000 тңг.", "тңг.", "1000", 1000),
 ]
 
 
