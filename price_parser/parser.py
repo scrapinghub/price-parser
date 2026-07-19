@@ -339,7 +339,7 @@ def extract_price_text(price: str) -> Optional[str]:
 
     m = re.search(
         r"""
-        ([.]?\d[\d\s.,']*)   # number, probably with thousand separators
+        ([.]?\d(?>[\d\s.,']*))   # number, probably with thousand separators
         \s*?                # skip whitespace
         (?:[^%\d]|$)        # capture next symbol - it shouldn't be %
         """,
