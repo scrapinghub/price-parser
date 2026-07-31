@@ -1506,3 +1506,12 @@ def test_price_digit_group_separator(
 ) -> None:
     parsed = Price.fromstring(price_raw, digit_group_separator=digit_group_separator)
     assert parsed.amount == expected_result
+
+
+def test_price_digit_group_separator_both_explicit() -> None:
+    # An explicit decimal separator must not be overridden by the group
+    # separator inference.
+    parsed = Price.fromstring(
+        "140.000,50", digit_group_separator=".", decimal_separator=","
+    )
+    assert parsed.amount == Decimal("140000.50")
