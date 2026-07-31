@@ -18,6 +18,7 @@ from decimal import Decimal
 import pytest
 
 from price_parser import Price
+from price_parser.parser import extract_currency_symbol
 
 
 class Example(Price):  # noqa: PLW1641
@@ -421,7 +422,6 @@ PRICE_PARSING_EXAMPLES_2 = [
     Example("€ 9,90", "€ 13,50", "€", "13,50", 13.50),
     Example("Р", "30 Р", "Р", "30", 30),
     Example("€", "€ 139.00", "€", "139.00", 139),
-    Example("There are 163 products.", "From 26 to 50 €", "€", "26", 26),
     Example("Pris NOK 1 999,00", "139,00", "NOK", "139,00", 139),
     Example("/sqft", "1.52", None, "1.52", 1.52),
     Example("$4.95", "$4.95", "$", "4.95", 4.95),
@@ -1210,11 +1210,7 @@ PRICE_PARSING_EXAMPLES_3 = [
     Example(None, "1 GEL", "GEL", "1", 1.0),  # Georgian lari
     Example(None, "1 FG", "FG", "1", 1.0),  # Guinean franc
     Example(None, "14.00 SGD / Each", "SGD", "14.00", 14.0),  # Singapore Dollar
-]
-
-
-PRICE_PARSING_EXAMPLES_XFAIL = [
-    # amount is picked as a price
+    # Prefer values next to currency symbols
     Example(
         "3 Ausgaben für nur 14,85 EUR",
         "3 Ausgaben für nur 14,85 EUR",
@@ -1222,7 +1218,31 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
         "14,85",
         14.85,
     ),
-    Example(None, "Buy Now - 2 Litre Was $120.00 Now $60.00", "$", "60.00", 60),
+    Example(None, "2 items at 24,00€", "€", "24,00", 24.00),
+    Example(None, "2 items at 24,00 €", "€", "24,00", 24.00),
+    Example(None, "2 items at €24,00", "€", "24,00", 24.00),
+    Example(None, "2 items at € 24,00", "€", "24,00", 24.00),
+    Example(None, "2 items at 24,00€ or 30,00€", "€", "24,00", 24.00),
+    Example(None, "2 items at 24,00€ or 30,00 €", "€", "24,00", 24.00),
+    Example(None, "2 items at 24,00€ or €30,00", "€", "24,00", 24.00),
+    Example(None, "2 items at 24,00€ or € 30,00", "€", "24,00", 24.00),
+    Example(None, "2 items at 24,00 € or 30,00€", "€", "24,00", 24.00),
+    Example(None, "2 items at 24,00 € or 30,00 €", "€", "24,00", 24.00),
+    Example(None, "2 items at 24,00 € or €30,00", "€", "24,00", 24.00),
+    Example(None, "2 items at 24,00 € or € 30,00", "€", "24,00", 24.00),
+    Example(None, "2 items at €24,00 or 30,00€", "€", "24,00", 24.00),
+    Example(None, "2 items at €24,00 or 30,00 €", "€", "24,00", 24.00),
+    Example(None, "2 items at €24,00 or €30,00", "€", "24,00", 24.00),
+    Example(None, "2 items at €24,00 or € 30,00", "€", "24,00", 24.00),
+    Example(None, "2 items at € 24,00 or 30,00€", "€", "24,00", 24.00),
+    Example(None, "2 items at € 24,00 or 30,00 €", "€", "24,00", 24.00),
+    Example(None, "2 items at € 24,00 or €30,00", "€", "24,00", 24.00),
+    Example(None, "2 items at € 24,00 or € 30,00", "€", "24,00", 24.00),
+]
+
+
+PRICE_PARSING_EXAMPLES_XFAIL = [
+    # amount is picked as a price
     Example(
         "Цена: уточняйте (мин. заказ: 1 )",
         "Цена: уточняйте (мин. заказ: 1 )",
@@ -1242,6 +1262,10 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     Example("R273.00", "R273.00", "R", "273.00", 273),
     Example("R8,499", "R8,499", "R", "8,499", 8499),
     Example("Cuneo", "61.858 L", "L", "61.858", 61858),  # Romanian New Leu
+    # no handling of price ranges
+    Example("There are 163 products.", "From 26 to 50 €", "€", "26", 26),
+    # no handling of old-vs-new prices
+    Example(None, "Buy Now - 2 Litre Was $120.00 Now $60.00", "$", "60.00", 60),
     # "р" / "руб" is detected as currency
     Example(">", "См. цену в прайсе", None, None, None),
     Example("Купить", "Печная труба", None, None, None),
@@ -1458,6 +1482,26 @@ def test_parsing(example: Example) -> None:
         f"Failed scenario: price={example.price_raw}, "
         f"currency_hint={example.currency_raw}"
     )
+
+
+@pytest.mark.parametrize(
+    ("input_string", "symbol"),
+    [
+        # no currency
+        ("", None),
+        ("1", None),
+        # fictional currency
+        ("10 eddies", None),
+        # currency code
+        ("5 CNY", "CNY"),
+        # currency name
+        ("5 euros", "euro"),
+        # currency symbol
+        ("$4", "$"),
+    ],
+)
+def test_extract_currency_symbol(input_string: str, symbol: str | None) -> None:
+    assert extract_currency_symbol(input_string, None) == symbol
 
 
 @pytest.mark.parametrize(
