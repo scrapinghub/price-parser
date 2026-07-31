@@ -1492,7 +1492,7 @@ def test_currency_boundaries_keep_valid_matches(price_raw: str, currency: str) -
 
 
 def test_or_regex_deprecated() -> None:
-    with pytest.warns(DeprecationWarning):
+    with pytest.warns(DeprecationWarning, match="or_regex is deprecated"):
         pattern = or_regex(["USD"])
     assert pattern.search("100 USD")
 
