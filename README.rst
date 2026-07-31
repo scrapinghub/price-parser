@@ -10,8 +10,8 @@ price-parser
    :target: https://pypi.python.org/pypi/price-parser
    :alt: Supported Python Versions
 
-.. image:: https://travis-ci.com/scrapinghub/price-parser.svg?branch=master
-   :target: https://travis-ci.com/scrapinghub/price-parser
+.. image:: https://github.com/scrapinghub/price-parser/actions/workflows/main.yml/badge.svg?branch=master
+   :target: https://github.com/scrapinghub/price-parser/actions?workflow=Tests
    :alt: Build Status
 
 .. image:: https://codecov.io/github/scrapinghub/price-parser/coverage.svg?branch=master
@@ -41,7 +41,7 @@ Installation
 
     pip install price-parser
 
-price-parser requires Python 3.6+.
+price-parser requires Python 3.9+.
 
 Usage
 =====
@@ -179,4 +179,3 @@ Use tox_ to run tests with different Python versions::
 The command above also runs type checks; we use mypy.
 
 .. _tox: https://tox.readthedocs.io
-

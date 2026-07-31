@@ -1,6 +1,27 @@
 Changes
 =======
 
+0.5.1 (2026-03-19)
+------------------
+
+* Added support for additional currencies: Egyptian pound (EGP), UAE dirham
+  (AED) and Saudi riyal (SAR).
+
+0.5.0 (2025-10-06)
+------------------
+
+* Added support for Python 3.14.
+* Added support for ``'`` as a thousands separator.
+* Migrated the build system to ``hatchling``.
+* Improved type hints.
+* CI improvements.
+
+0.4.0 (2025-02-05)
+------------------
+
+* Dropped support for Python 3.8 and lower, added support for Python 3.11-3.13.
+* Added a ``digit_group_separator`` parameter to ``Price.fromstring()``.
+
 0.3.4 (2020-11-25)
 ------------------
 
