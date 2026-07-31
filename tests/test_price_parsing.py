@@ -18,6 +18,7 @@ from decimal import Decimal
 import pytest
 
 from price_parser import Price
+from price_parser.parser import or_regex
 
 
 class Example(Price):  # noqa: PLW1641
@@ -1488,6 +1489,12 @@ def test_currency_not_matched_inside_words(
 )
 def test_currency_boundaries_keep_valid_matches(price_raw: str, currency: str) -> None:
     assert Price.fromstring(price_raw).currency == currency
+
+
+def test_or_regex_deprecated() -> None:
+    with pytest.warns(DeprecationWarning):
+        pattern = or_regex(["USD"])
+    assert pattern.search("100 USD")
 
 
 @pytest.mark.parametrize(
