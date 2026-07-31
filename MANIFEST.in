@@ -1,5 +1,0 @@
-include CHANGES.rst
-include LICENSE
-include README.rst
-
-recursive-include tests *
