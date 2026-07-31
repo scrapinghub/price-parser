@@ -1,5 +1,6 @@
 import re
 import string
+import warnings
 from decimal import Decimal, InvalidOperation
 from re import Pattern
 from typing import Callable, Optional
@@ -76,7 +77,15 @@ parse_price = Price.fromstring
 
 
 def or_regex(symbols: list[str]) -> Pattern[str]:
-    """Return a regex which matches any of ``symbols``"""
+    """Return a regex which matches any of ``symbols``.
+
+    Deprecated: use :func:`_make_currency_regex` for currency patterns.
+    """
+    warnings.warn(
+        "or_regex is deprecated; use _make_currency_regex instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return re.compile("|".join(re.escape(s) for s in symbols))
 
 
