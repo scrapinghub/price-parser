@@ -634,6 +634,11 @@ PRICE_PARSING_EXAMPLES_NO_CURRENCY = [
     Example(None, "$5.11", "$", "5.11", 5.11),
     Example(None, "EUR 6,99", "EUR", "6,99", 6.99),
     Example(None, "40% OFF", None, None, None),
+    # Percentages with a separator must be rejected too, like bare "50%".
+    Example(None, "12,5%", None, None, None),
+    Example(None, "12.5%", None, None, None),
+    Example(None, "-30,00%", None, None, None),
+    Example(None, "99.99%", None, None, None),
     Example(None, "29.99", None, "29.99", 29.99),
     Example(None, "14.00€", "€", "14.00", 14.00),
     Example(None, "22.00", None, "22.00", 22.00),
