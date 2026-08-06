@@ -1,5 +1,6 @@
 import re
 import string
+import unicodedata
 from decimal import Decimal, InvalidOperation
 from re import Pattern
 from typing import Callable, Optional
@@ -281,6 +282,32 @@ def extract_currency_symbol(
     return None
 
 
+_NON_ASCII_SEPARATORS = str.maketrans(
+    {
+        "٬": ",",  # Arabic thousands separator
+        "٫": ".",  # Arabic decimal separator
+        "，": ",",  # fullwidth comma
+        "．": ".",  # fullwidth full stop
+    }
+)
+
+
+def _to_ascii_numerals(price: str) -> str:
+    """Return *price* with its digits and separators written in ASCII.
+
+    >>> _to_ascii_numerals("۱٬۰۱۲٬۲۳۴٫۵۶")
+    '1,012,234.56'
+    """
+    if price.isascii():
+        return price
+    return "".join(
+        str(unicodedata.decimal(char))
+        if not char.isascii() and char.isdecimal()
+        else char
+        for char in price.translate(_NON_ASCII_SEPARATORS)
+    )
+
+
 def extract_price_text(price: str) -> Optional[str]:
     r"""
     Extract text of a price from a string which contains price and
@@ -321,6 +348,7 @@ def extract_price_text(price: str) -> Optional[str]:
     price = re.sub(
         r"\s+", " ", price
     )  # clean initial text from non-breaking and extra spaces
+    price = _to_ascii_numerals(price)
 
     if price.count("€") == 1:
         m = re.search(

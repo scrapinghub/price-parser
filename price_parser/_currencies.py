@@ -1734,6 +1734,17 @@ CURRENCIES["CHF"]["sn2"] = ["Fr."]
 CURRENCIES["PLN"]["sn2"] = ["pln"]
 CURRENCIES["INR"]["sn2"] = ["₹", "र"]
 CURRENCIES["IRR"]["sn2"] = ["ریال"]
+CURRENCIES["CNY"]["sn2"] = ["元", "圆", "圓", "人民币", "人民幣"]
+# In Chinese, 元 and 圓 on their own are the yuan, but they are also the unit of
+# many foreign currencies. Those must be listed to win over 元 and 圓 alone.
+CURRENCIES["USD"]["sn2"] = ["美元", "美圓"]
+CURRENCIES["EUR"]["sn2"] = ["欧元", "歐元"]
+CURRENCIES["JPY"]["sn2"] += ["日元", "日圓"]
+CURRENCIES["HKD"]["sn2"] = ["港元", "港圓"]
+CURRENCIES["AUD"]["sn2"] = ["澳元"]
+CURRENCIES["CAD"]["sn2"] = ["加元"]
+CURRENCIES["KRW"]["sn2"] = ["韩元", "韓元"]
+CURRENCIES["SGD"]["sn2"] = ["新元", "新加坡元"]
 
 
 CURRENCY_CODES: list[str] = list(CURRENCIES.keys())
