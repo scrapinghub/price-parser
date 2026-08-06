@@ -105,6 +105,16 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, "644.00 جنيه", "جنيه", "644.00", 644.0),  # Egyptian pound (EGP)
     Example(None, "3,439.00 درهم", "درهم", "3,439.00", 3439.0),  # UAE dirham (AED)
     Example(None, "106.61 ريال", "ريال", "106.61", 106.61),  # Saudi riyal (SAR)
+    # Right-to-left symbols, with and without a right-to-left mark
+    Example(None, "12,999.00 ر.س.", "ر.س.", "12,999.00", 12999.0),  # SAR
+    Example(
+        None,
+        "12,999.00 ر.س.\u200f",
+        "ر.س.\u200f",
+        "12,999.00",
+        12999.0,
+    ),  # SAR
+    Example(None, "45 ج.م.", "ج.م.", "45", 45.0),  # Egyptian pound (EGP)
 ]
 
 
