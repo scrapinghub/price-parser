@@ -1731,9 +1731,26 @@ CURRENCIES.update(REPLACED_BY_EURO)
 CURRENCIES["VND"]["sn2"] = ["đ"]
 CURRENCIES["RON"]["sn2"] = ["lei", "leu", "Lei", "LEI"]
 CURRENCIES["CHF"]["sn2"] = ["Fr."]
-CURRENCIES["PLN"]["sn2"] = ["pln"]
+CURRENCIES["PLN"]["sn2"] = ["pln", "Zł"]
 CURRENCIES["INR"]["sn2"] = ["₹", "र"]
-CURRENCIES["IRR"]["sn2"] = ["ریال"]
+CURRENCIES["IRR"]["sn2"] = ["ریال", "تومان", " تومان"]
+CURRENCIES["USD"]["sn2"] = ["US$"]
+CURRENCIES["AUD"]["sn2"] = ["A$"]
+CURRENCIES["CAD"]["sn2"] = ["C$"]
+CURRENCIES["RUB"]["sn2"] = ["₽", "руб", "р.", "р", "Р"]
+CURRENCIES["AMD"]["sn2"] = ["֏", "դր"]
+CURRENCIES["GEL"]["sn2"] = ["₾"]
+CURRENCIES["MVR"]["sn2"] = ["ރ"]
+CURRENCIES["TRY"]["sn2"] = ["₺"]
+CURRENCIES["AZN"]["sn2"] = ["₼"]
+CURRENCIES["KZT"]["sn2"] = ["₸", "тңг"]
+CURRENCIES["BDT"]["sn2"] = ["৲"]
+CURRENCIES["AED"]["sn2"] = ["درهم"]
+CURRENCIES["SAR"]["sn2"] = ["ريال"]
+CURRENCIES["EGP"]["sn2"] = ["جنيه"]
+CURRENCIES["EUR"]["sn2"] = ["euro", "eur"]
+CURRENCIES["UAH"]["sn2"] = ["грн", "грн."]
+CURRENCIES["RSD"]["sn2"] = ["динар", "Dinara"]
 
 
 CURRENCY_CODES: list[str] = list(CURRENCIES.keys())
@@ -1742,3 +1759,38 @@ CURRENCY_NATIONAL_SYMBOLS: list[str] = list(
     {c["sn"] for c in CURRENCIES.values()}
     | set(chain.from_iterable(c["sn2"] for c in CURRENCIES.values() if "sn2" in c))
 )
+
+
+# For symbols shared by several currencies, the codes to report first. Codes
+# left out keep the order in which they appear in CURRENCIES.
+_MAIN_CODES: dict[str, list[str]] = {
+    "$": ["USD", "CAD", "AUD", "NZD", "HKD", "SGD", "MXN"],
+    "C$": ["CAD"],
+    "£": ["GBP"],
+    "kr": ["SEK", "NOK", "DKK", "ISK"],
+    "₩": ["KRW"],
+    "원": ["KRW"],
+    "₱": ["PHP"],
+    "ZK": ["ZMW"],
+}
+
+_OBSOLETE_CODES = frozenset(REPLACED_BY_EURO)
+
+_CURRENCY_CODES_BY_SYMBOL: dict[str, list[str]] = {}
+for _code, _currency in CURRENCIES.items():
+    for _symbol in chain(
+        (_code, _currency["s"], _currency["sn"]), _currency.get("sn2", ())
+    ):
+        _codes = _CURRENCY_CODES_BY_SYMBOL.setdefault(_symbol, [])
+        if _code not in _codes:
+            _codes.append(_code)
+
+for _symbol, _codes in _CURRENCY_CODES_BY_SYMBOL.items():
+    _main = _MAIN_CODES.get(_symbol, [])
+    # Currencies no longer in use are a poor guess for a shared symbol.
+    _codes.sort(
+        key=lambda code, main=_main: (  # type: ignore[misc]
+            main.index(code) if code in main else len(main),
+            code in _OBSOLETE_CODES,
+        )
+    )
