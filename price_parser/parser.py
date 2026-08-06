@@ -6,7 +6,12 @@ from typing import Callable, Optional
 
 import attr
 
-from ._currencies import CURRENCY_CODES, CURRENCY_NATIONAL_SYMBOLS, CURRENCY_SYMBOLS
+from ._currencies import (
+    _CURRENCY_CODES_BY_SYMBOL,
+    CURRENCY_CODES,
+    CURRENCY_NATIONAL_SYMBOLS,
+    CURRENCY_SYMBOLS,
+)
 
 
 @attr.s(auto_attribs=True)
@@ -23,6 +28,29 @@ class Price:
         if self.amount is not None:
             return float(self.amount)
         return None
+
+    @property
+    def currency_codes(self) -> list[str]:
+        """ISO 4217 codes of the currencies that :attr:`currency` may be,
+        most likely first.
+
+        .. versionadded:: VERSION
+
+        Many symbols are shared by several currencies, e.g. ``$`` is used by
+        the US dollar and by 30 other currencies. Use the surrounding context,
+        such as the country of the website being parsed, to pick one.
+        """
+        return _CURRENCY_CODES_BY_SYMBOL.get(self.currency, [])  # type: ignore[arg-type]
+
+    @property
+    def currency_code(self) -> Optional[str]:
+        """The single entry of :attr:`currency_codes`, or ``None`` if
+        :attr:`currency` is missing or maps to more than one currency.
+
+        .. versionadded:: VERSION
+        """
+        codes = self.currency_codes
+        return codes[0] if len(codes) == 1 else None
 
     @classmethod
     def fromstring(
