@@ -86,6 +86,15 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
         decimal_separator=".",
         digit_group_separator=",",
     ),
+    # currency symbols within a longer word
+    Example(None, "EUROPE", None, None, None),
+    Example(None, "leisure activities", None, None, None),
+    Example(None, "Печная труба", None, None, None),
+    Example(">", "См. цену в прайсе", None, None, None),
+    Example(None, "Код товара: 884", None, "884", 884.0),
+    Example(None, "EUR 1", "EUR", "1", 1.0),
+    Example(None, "1EUR", "EUR", "1", 1.0),
+    Example(None, "1128240 рублей", "руб", "1128240", 1128240.0),
 ]
 
 
@@ -1242,10 +1251,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     Example("R273.00", "R273.00", "R", "273.00", 273),
     Example("R8,499", "R8,499", "R", "8,499", 8499),
     Example("Cuneo", "61.858 L", "L", "61.858", 61858),  # Romanian New Leu
-    # "р" / "руб" is detected as currency
-    Example(">", "См. цену в прайсе", None, None, None),
-    Example("Купить", "Печная труба", None, None, None),
-    Example(None, "Код товара: 884", None, "884", 884.0),
     # dates
     Example(None, "July, 2004", None, None, None),
     Example(None, "15.08.2017", None, None, None),
