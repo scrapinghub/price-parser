@@ -14,6 +14,7 @@ new features. New tests should probably go these two lists.
 from __future__ import annotations
 
 from decimal import Decimal
+from time import perf_counter
 
 import pytest
 
@@ -1487,3 +1488,12 @@ def test_price_decimal_separator(
 ) -> None:
     parsed = Price.fromstring(price_raw, decimal_separator=decimal_separator)
     assert parsed.amount == expected_result
+
+
+def test_long_digit_run() -> None:
+    """A long run of digits without a decimal separator must not make
+    separator detection backtrack quadratically."""
+    digits = "1" * 100_000
+    start = perf_counter()
+    assert Price.fromstring(digits).amount == Decimal(digits)
+    assert perf_counter() - start < 1
