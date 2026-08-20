@@ -106,6 +106,20 @@ Price(amount=Decimal('99'), currency='€')
 Price(amount=Decimal('35'), currency='€')
 
 
+A minus sign makes the amount negative, either before it or, in the accounting
+style, after it. The sign must touch the amount or its currency symbol, so that
+a dash used as a bullet or a separator is not mistaken for one:
+
+>>> Price.fromstring("-€22,90")
+Price(amount=Decimal('-22.90'), currency='€')
+
+>>> Price.fromstring("22,90-")
+Price(amount=Decimal('-22.90'), currency=None)
+
+>>> Price.fromstring("- €22,90")
+Price(amount=Decimal('22.90'), currency='€')
+
+
 Some special cases are handled:
 
 >>> Price.fromstring("Free")
