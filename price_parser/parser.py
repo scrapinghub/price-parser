@@ -5,8 +5,27 @@ from re import Pattern
 from typing import Callable, Optional
 
 import attr
+from number_parser import parse as _parse_number_words
 
 from ._currencies import CURRENCY_CODES, CURRENCY_NATIONAL_SYMBOLS, CURRENCY_SYMBOLS
+
+# number-parser tokenizes and checks every supported language on every call,
+# so skip it for strings that cannot contain a number word in any language.
+_search_word_char = re.compile(r"[^\d\W]").search
+
+
+def _convert_number_words(price: str) -> str:
+    """Convert numbers spelled out in words, in any language supported by
+    number-parser, to digits; leave the rest of ``price`` unchanged.
+
+    >>> _convert_number_words("four million dollars")
+    '4000000 dollars'
+    >>> _convert_number_words("$12.99")
+    '$12.99'
+    """
+    if not _search_word_char(price):
+        return price
+    return str(_parse_number_words(price))
 
 
 @attr.s(auto_attribs=True)
@@ -54,6 +73,8 @@ class Price:
         ``digit_group_separator`` is ``"."``, then ``1.000`` is parsed as
         ``1000``. If it is ``,``, then ``1.000`` is parsed as ``1``.
         """
+        if price is not None:
+            price = _convert_number_words(price)
         currency = extract_currency_symbol(price, currency_hint)
         if currency is not None:
             currency = currency.strip()

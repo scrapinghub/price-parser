@@ -105,6 +105,10 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, "644.00 جنيه", "جنيه", "644.00", 644.0),  # Egyptian pound (EGP)
     Example(None, "3,439.00 درهم", "درهم", "3,439.00", 3439.0),  # UAE dirham (AED)
     Example(None, "106.61 ريال", "ريال", "106.61", 106.61),  # Saudi riyal (SAR)
+    Example(None, "four million dollars", None, "4000000", 4000000),
+    Example(None, "cuatro millones", None, "4000000", 4000000),
+    Example(None, "one hundred and fifty EUR", "EUR", "150", 150),
+    Example(None, "twenty three USD", "USD", "23", 23),
 ]
 
 
