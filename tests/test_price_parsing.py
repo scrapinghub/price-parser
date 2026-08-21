@@ -201,6 +201,7 @@ PRICE_PARSING_EXAMPLES = [
     Example("€", "180", "€", "180", 180),
     Example("Savings: $0.90", "2.85", "$", "2.85", 2.85),
     Example("฿ 3.3900", "฿ 3.3900", "฿", "3.3900", 3.39),
+    Example(None, "1 ¢", "¢", "1", 1.0),  # Ghanaian cedi, cents
     Example("5,90 €", "5,90 €", "€", "5,90", 5.90),
     Example("1 930 р.", "1 030 р.", "р.", "1 030", 1030),
     Example("$", "$ 22.00", "$", "22.00", 22),
@@ -1299,7 +1300,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, "1 ብር", "ብር", "1", 1.0),  # Ethiopian birr
     Example(None, "1 D", "D", "1", 1.0),  # Gambian dalasi
     Example(None, "1 ლ", "ლ", "1", 1.0),  # Georgian lari
-    Example(None, "1 ¢", "¢", "1", 1.0),  # Ghanaian cedi, cents
     Example(None, "1 ₵", "₵", "1", 1.0),  # Ghanaian cedi
     Example(None, "1 GFr", "GFr", "1", 1.0),  # Guinean franc
     Example(None, "1 L", "L", "1", 1.0),
