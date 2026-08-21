@@ -105,6 +105,9 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, "644.00 جنيه", "جنيه", "644.00", 644.0),  # Egyptian pound (EGP)
     Example(None, "3,439.00 درهم", "درهم", "3,439.00", 3439.0),  # UAE dirham (AED)
     Example(None, "106.61 ريال", "ريال", "106.61", 106.61),  # Saudi riyal (SAR)
+    # dates, not prices
+    Example(None, "July, 2004", None, None, None),
+    Example(None, "15.08.2017", None, None, None),
 ]
 
 
@@ -1246,9 +1249,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     Example(">", "См. цену в прайсе", None, None, None),
     Example("Купить", "Печная труба", None, None, None),
     Example(None, "Код товара: 884", None, "884", 884.0),
-    # dates
-    Example(None, "July, 2004", None, None, None),
-    Example(None, "15.08.2017", None, None, None),
     # other incorrectly extracted prices
     Example("8.5", "25-09", None, None, None),
     # misc
