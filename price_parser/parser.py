@@ -13,6 +13,28 @@ from ._currencies import CURRENCY_CODES, CURRENCY_NATIONAL_SYMBOLS, CURRENCY_SYM
 # so skip it for strings that cannot contain a number word in any language.
 _search_word_char = re.compile(r"[^\d\W]").search
 
+# A digit group directly followed by a single word that number-parser
+# resolves to a scale (e.g. "million", "millones", "mil"), such as
+# "4 millones". number-parser converts that word to a digit on its own,
+# without multiplying it into the preceding digit group, so this case
+# is handled separately.
+_search_digits_and_word = re.compile(r"(\d[\d\s.,]*)\s+([^\d\W]+)\b").sub
+_is_scale_word_value = re.compile(r"10+").fullmatch
+
+
+def _multiply_scale_words(price: str) -> str:
+    def replace(match: "re.Match[str]") -> str:
+        digits, word = match.group(1), match.group(2)
+        word_value = _parse_number_words(word)
+        if not _is_scale_word_value(word_value):
+            return match.group(0)
+        amount = parse_number(digits)
+        if amount is None:
+            return match.group(0)
+        return str(amount * int(word_value))
+
+    return _search_digits_and_word(replace, price)
+
 
 def _convert_number_words(price: str) -> str:
     """Convert numbers spelled out in words, in any language supported by
@@ -20,11 +42,14 @@ def _convert_number_words(price: str) -> str:
 
     >>> _convert_number_words("four million dollars")
     '4000000 dollars'
+    >>> _convert_number_words("4 millones")
+    '4000000'
     >>> _convert_number_words("$12.99")
     '$12.99'
     """
     if not _search_word_char(price):
         return price
+    price = _multiply_scale_words(price)
     return str(_parse_number_words(price))
 
 

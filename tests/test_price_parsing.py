@@ -109,6 +109,8 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, "cuatro millones", None, "4000000", 4000000),
     Example(None, "one hundred and fifty EUR", "EUR", "150", 150),
     Example(None, "twenty three USD", "USD", "23", 23),
+    Example(None, "$ 4 millones", "$", "4000000", 4000000),
+    Example(None, "$ 400 mil", "$", "400000", 400000),
 ]
 
 
