@@ -105,6 +105,10 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, "644.00 جنيه", "جنيه", "644.00", 644.0),  # Egyptian pound (EGP)
     Example(None, "3,439.00 درهم", "درهم", "3,439.00", 3439.0),  # UAE dirham (AED)
     Example(None, "106.61 ريال", "ريال", "106.61", 106.61),  # Saudi riyal (SAR)
+    Example("R273.00", "R273.00", "R", "273.00", 273),  # South African rand
+    Example("R8,499", "R8,499", "R", "8,499", 8499),  # South African rand
+    Example("Cuneo", "61.858 L", "L", "61.858", 61858),  # Romanian New Leu
+    Example(None, "1 L", "L", "1", 1.0),
 ]
 
 
@@ -1238,10 +1242,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
         "2.00",
         2,
     ),
-    # no detection of such single-letter currencies
-    Example("R273.00", "R273.00", "R", "273.00", 273),
-    Example("R8,499", "R8,499", "R", "8,499", 8499),
-    Example("Cuneo", "61.858 L", "L", "61.858", 61858),  # Romanian New Leu
     # "р" / "руб" is detected as currency
     Example(">", "См. цену в прайсе", None, None, None),
     Example("Купить", "Печная труба", None, None, None),
@@ -1302,7 +1302,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, "1 ¢", "¢", "1", 1.0),  # Ghanaian cedi, cents
     Example(None, "1 ₵", "₵", "1", 1.0),  # Ghanaian cedi
     Example(None, "1 GFr", "GFr", "1", 1.0),  # Guinean franc
-    Example(None, "1 L", "L", "1", 1.0),
     Example(None, "1 ع.د", "ع.د", "1", 1.0),  # Iraqi dinar
     Example(
         None,
