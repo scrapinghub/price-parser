@@ -170,6 +170,8 @@ ignore = [
     "PLR0912",
     # Too many arguments in function definition
     "PLR0913",
+    # Too many positional arguments
+    "PLR0917",
     # Too many statements
     "PLR0915",
     # Magic value used in comparison
