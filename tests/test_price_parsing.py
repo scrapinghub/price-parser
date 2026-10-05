@@ -86,6 +86,16 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
         decimal_separator=".",
         digit_group_separator=",",
     ),
+    # The Swiss digit group separator as its typographic variant
+    # (U+2019), as found on pages whose CMS auto-corrects apostrophes.
+    Example(
+        None,
+        "CHF 1\u2019049,95",
+        "CHF",
+        "1049,95",
+        1049.95,
+    ),
+    Example(None, "5\u2019299.00", None, "5299.00", 5299.00),
 ]
 
 

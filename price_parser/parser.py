@@ -321,6 +321,11 @@ def extract_price_text(price: str) -> Optional[str]:
     price = re.sub(
         r"\s+", " ", price
     )  # clean initial text from non-breaking and extra spaces
+    # Swiss prices use an apostrophe as the digit group separator, and
+    # text scraped from the wild often carries its typographic variant
+    # (U+2019, e.g. from CMS auto-correction); normalize it so it is
+    # handled like the ASCII apostrophe.
+    price = price.replace("\u2019", "'")
 
     if price.count("€") == 1:
         m = re.search(
