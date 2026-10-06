@@ -54,12 +54,19 @@ class Price:
         ``digit_group_separator`` is ``"."``, then ``1.000`` is parsed as
         ``1000``. If it is ``,``, then ``1.000`` is parsed as ``1``.
         """
-        currency = extract_currency_symbol(price, currency_hint)
-        if currency is not None:
-            currency = currency.strip()
         if digit_group_separator is not None and price is not None:
             price = price.replace(digit_group_separator, "")
-        amount_text = extract_price_text(price) if price is not None else None
+        currency_match, currency_source = _extract_currency_symbol(price, currency_hint)
+        currency = (
+            currency_match.group(0).strip() if currency_match is not None else None
+        )
+        amount_text = (
+            extract_price_text(
+                price, currency_match if currency_source == price else None
+            )
+            if price is not None
+            else None
+        )
         amount_num = (
             parse_number(amount_text, decimal_separator)
             if amount_text is not None
@@ -253,12 +260,13 @@ _search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
 _search_unsafe_currency = or_regex(OTHER_CURRENCY_SYMBOLS).search
 
 
-def extract_currency_symbol(
+def _extract_currency_symbol(
     price: Optional[str], currency_hint: Optional[str]
-) -> Optional[str]:
+) -> tuple[Optional[re.Match[str]], Optional[str]]:
     """
-    Guess currency symbol from extracted price and currency strings.
-    Return an empty string if symbol is not found.
+    Guess the currency symbol from extracted price and currency strings.
+    Return a (match object, source string) tuple with the symbol found and the
+    string where it was found, or (None, None) if no symbol is found.
     """
     methods: list[tuple[Callable[[str], Optional[re.Match[str]]], Optional[str]]] = [
         (_search_safe_currency, price),
@@ -276,17 +284,44 @@ def extract_currency_symbol(
     for meth, value in methods:
         m = meth(value) if value else None
         if m:
-            return m.group(0)
+            return m, value
 
+    return None, None
+
+
+def extract_currency_symbol(
+    price: Optional[str], currency_hint: Optional[str]
+) -> Optional[str]:
+    """
+    Guess currency symbol from extracted price and currency strings.
+    Return the symbol as found as a string, or None if no symbol is found.
+    """
+    match, _ = _extract_currency_symbol(price, currency_hint)
+    if match:
+        return match.group(0)
     return None
 
 
-def extract_price_text(price: str) -> Optional[str]:
+def _number_from_match(m: re.Match[str]) -> str:
+    price_text = m.group(1).rstrip(",.").replace("'", "")
+    return (
+        price_text.strip()
+        if price_text.count(".") == 1
+        else price_text.lstrip(",.").strip()
+    )
+
+
+def extract_price_text(
+    price: str, currency_match: Optional[re.Match[str]] = None
+) -> Optional[str]:
     r"""
     Extract text of a price from a string which contains price and
-    maybe some other text. If multiple price-looking substrings are present,
-    the first is returned (FIXME: it is better to return a number
-    which is near a currency symbol).
+    maybe some other text.
+
+    If a match object of the currency within the ``price`` string is provided,
+    amounts before or after the matched currency substring are prioritized.
+    Otherwise, if multiple price-looking substrings are present, the first is
+    returned.
 
     >>> extract_price_text("price: $12.99")
     '12.99'
@@ -337,6 +372,31 @@ def extract_price_text(price: str) -> Optional[str]:
         if m:
             return m.group(0).replace(" ", "")
 
+    if currency_match is not None:
+        m = re.search(
+            r"""
+            ([.]?\d[\d\s.,']*)  # number, probably with thousand separators
+            \s*$                # only match right before the currency symbol
+            """,
+            price[: currency_match.start(0)],
+            re.VERBOSE,
+        )
+        if m:
+            return _number_from_match(m)
+
+        m = re.search(
+            r"""
+            ^\s*               # only match right after the currency symbol
+            ([.]?\d[\d\s.,']*)  # number, probably with thousand separators
+            \s*                # skip whitespace
+            (?:[^%\d]|$)       # capture next symbol - it shouldn't be %
+            """,
+            price[currency_match.end(0) :],
+            re.VERBOSE,
+        )
+        if m:
+            return _number_from_match(m)
+
     m = re.search(
         r"""
         ([.]?\d[\d\s.,']*)   # number, probably with thousand separators
@@ -346,15 +406,8 @@ def extract_price_text(price: str) -> Optional[str]:
         price,
         re.VERBOSE,
     )
-
     if m:
-        price_text = m.group(1).rstrip(",.")
-        price_text = price_text.replace("'", "")
-        return (
-            price_text.strip()
-            if price_text.count(".") == 1
-            else price_text.lstrip(",.").strip()
-        )
+        return _number_from_match(m)
     if "free" in price.lower():
         return "0"
     return None
