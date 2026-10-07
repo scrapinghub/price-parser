@@ -75,9 +75,24 @@ class Price:
 parse_price = Price.fromstring
 
 
+_LETTER = r"[^\W\d_]"
+
+# Written as a prefix of a longer, inflected word ("руб" in "рублей").
+_PREFIX_SYMBOLS = {"руб", "грн", "лв", "тңг"}
+
+
+def _bounded(symbol: str) -> str:
+    pattern = re.escape(symbol)
+    if re.match(_LETTER, symbol):
+        pattern = f"(?<!{_LETTER}){pattern}"
+    if symbol not in _PREFIX_SYMBOLS and re.match(_LETTER, symbol[-1]):
+        pattern = f"{pattern}(?!{_LETTER})"
+    return pattern
+
+
 def or_regex(symbols: list[str]) -> Pattern[str]:
     """Return a regex which matches any of ``symbols``"""
-    return re.compile("|".join(re.escape(s) for s in symbols))
+    return re.compile("|".join(_bounded(s) for s in symbols))
 
 
 # If one of these symbols is found either in price or in currency,
