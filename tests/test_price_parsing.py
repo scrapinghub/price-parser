@@ -105,6 +105,16 @@ PRICE_PARSING_EXAMPLES_NEW = [
     Example(None, "644.00 جنيه", "جنيه", "644.00", 644.0),  # Egyptian pound (EGP)
     Example(None, "3,439.00 درهم", "درهم", "3,439.00", 3439.0),  # UAE dirham (AED)
     Example(None, "106.61 ريال", "ريال", "106.61", 106.61),  # Saudi riyal (SAR)
+    Example(None, "22000.00元/台", "元", "22000.00", 22000.00),  # yuan (CNY)
+    Example(None, "36元人民币", "元", "36", 36),
+    Example(None, "36人民币", "人民币", "36", 36),
+    Example(None, "36美元", "美元", "36", 36),  # US dollar
+    Example(None, "36日元", "日元", "36", 36),  # Japanese yen
+    # non-ASCII digits and separators
+    Example(None, "US$ ۱٬۰۱۲٬۲۳۴٫۵۶", "US$", "1,012,234.56", 1012234.56),
+    Example(None, "￥１２，３４５", "￥", "12,345", 12345),
+    Example(None, "₹१,२३४.५६", "₹", "1,234.56", 1234.56),
+    Example(None, "12 €/m²", "€", "12", 12),
 ]
 
 
@@ -1269,7 +1279,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
 # Valid currencies not detected by price-parser
 # Move to regular tests when added
 PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
-    Example(None, "22000.00元/台", "元", "22000.00", 22000.00),  # 元 is yuan
     Example(None, "2963yen", "yen", "2963", 2963),
     Example(None, "1 บาท", "บาท", "1", 1.0),  # Thai baht
     Example(None, "1 ر.س", "ر.س", "1", 1.0),  # Saudi riyal
@@ -1392,9 +1401,6 @@ PRICE_PARSING_EXAMPLES_XFAIL_CURRENCIES_TO_BE_ADDED = [
     Example(None, "1 ரூ", "ரூ", "1", 1.0),  # Sri Lankan rupee
     Example(None, "1 රු", "රු", "1", 1.0),  # Sri Lankan rupee
     Example(None, "1 ლარი", "ლარი", "1", 1.0),  # Georgian lari
-    Example(None, "1 人民币", "人民币", "1", 1.0),  # Renminbi/Chinese yuan
-    Example(None, "1 圆", "圆", "1", 1.0),  # Renminbi/Chinese yuan
-    Example(None, "1 圓", "圓", "1", 1.0),  # Renminbi/Chinese yuan
     Example(None, "1 GBp", "GBp", "1", 1.0),  # British Pound
     Example(None, "1 ￡", "￡", "1", 1.0),  # British Pound
     Example(None, "1 nzd", "nzd", "1", 1.0),  # New Zealand dollar
