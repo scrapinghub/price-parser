@@ -281,6 +281,55 @@ def extract_currency_symbol(
     return None
 
 
+# Hyphen-minus, minus sign and en dash; the last two are common in scraped text.
+_MINUS_SIGNS = "-\u2212\u2013"
+
+_ALL_CURRENCY_SYMBOLS = sorted(
+    SAFE_CURRENCY_SYMBOLS + OTHER_CURRENCY_SYMBOLS, key=len, reverse=True
+)
+
+# Matches the text right before an amount when the amount is negative. The sign
+# must touch the amount, or a currency symbol next to it, so that a leading dash
+# used as a bullet ("- $44.99") does not turn the amount negative. It only counts
+# as a sign at a word boundary, so that "COVID-19" or "2019-2020" do not either.
+_search_leading_sign = re.compile(
+    r"""
+    (?:^|[^\w])
+    (?:{currencies})?          # currency before the sign, as in "kr-1,00"
+    [{signs}]
+    (?:(?:{currencies})\s*)?   # currency after the sign, as in "-kr 1,00"
+    $
+    """.format(
+        # The first alternative covers most currency symbols without going
+        # through the long list; separators are excluded from it so that
+        # "-,59" is not read as a negative amount.
+        currencies="[^\\w\\s.,]{{1,4}}|{}".format(
+            "|".join(re.escape(s) for s in _ALL_CURRENCY_SYMBOLS)
+        ),
+        signs=re.escape(_MINUS_SIGNS),
+    ),
+    re.VERBOSE,
+).search
+
+# Matches the text right after an amount written in the accounting style, where
+# the sign trails the number, as in "1,00-". The sign must be adjacent to the
+# number and not followed by one, so that ranges such as "10 - 20" or "10-20"
+# keep their first amount positive.
+_search_trailing_sign = re.compile(
+    r"^[{signs}](?:$|[^\w{signs}])".format(signs=re.escape(_MINUS_SIGNS))
+).search
+
+_search_sign = re.compile(f"[{re.escape(_MINUS_SIGNS)}]").search
+
+
+def _is_negative(price: str, start: int, end: int) -> bool:
+    """Return whether the amount found in *price* between *start* and *end*
+    carries a minus sign."""
+    return bool(
+        _search_leading_sign(price, 0, start) or _search_trailing_sign(price[end:])
+    )
+
+
 def extract_price_text(price: str) -> Optional[str]:
     r"""
     Extract text of a price from a string which contains price and
@@ -317,6 +366,13 @@ def extract_price_text(price: str) -> Optional[str]:
     '1 298,00'
     >>> extract_price_text("$.75")
     '.75'
+
+    A minus sign, before the amount or after it, is kept:
+
+    >>> extract_price_text("-$12.99")
+    '-12.99'
+    >>> extract_price_text("12.99-")
+    '-12.99'
     """
     price = re.sub(
         r"\s+", " ", price
@@ -329,13 +385,16 @@ def extract_price_text(price: str) -> Optional[str]:
         \s*?€(\s*?)?    # euro, probably separated by whitespace
         \d(?(1)\d|\d*?)  # if separated by whitespace - search one digit,
                          # multiple digits otherwise
-        (?:$|[^\d])     # something which is not a digit
+        (?=$|[^\d])     # something which is not a digit
         """,
             price,
             re.VERBOSE,
         )
         if m:
-            return m.group(0).replace(" ", "")
+            amount = m.group(0).replace(" ", "")
+            if _search_sign(price) and _is_negative(price, m.start(), m.end()):
+                return "-" + amount
+            return amount
 
     m = re.search(
         r"""
@@ -350,11 +409,17 @@ def extract_price_text(price: str) -> Optional[str]:
     if m:
         price_text = m.group(1).rstrip(",.")
         price_text = price_text.replace("'", "")
-        return (
+        price_text = (
             price_text.strip()
             if price_text.count(".") == 1
             else price_text.lstrip(",.").strip()
         )
+        if _search_sign(price):
+            start = m.start(1)
+            end = start + len(m.group(1).rstrip(" ,.'"))
+            if _is_negative(price, start, end):
+                return "-" + price_text
+        return price_text
     if "free" in price.lower():
         return "0"
     return None
