@@ -53,12 +53,17 @@ class Price:
         ``None``, then it is guessed from ``price`` string. If
         ``digit_group_separator`` is ``"."``, then ``1.000`` is parsed as
         ``1000``. If it is ``,``, then ``1.000`` is parsed as ``1``.
+        Passing ``digit_group_separator`` as ``"."`` or ``","`` without a
+        ``decimal_separator`` also sets ``decimal_separator`` to the other
+        of the two, so ``1.000,5`` is parsed as ``1000.5``.
         """
         currency = extract_currency_symbol(price, currency_hint)
         if currency is not None:
             currency = currency.strip()
         if digit_group_separator is not None and price is not None:
             price = price.replace(digit_group_separator, "")
+            if decimal_separator is None and digit_group_separator in (".", ","):
+                decimal_separator = "," if digit_group_separator == "." else "."
         amount_text = extract_price_text(price) if price is not None else None
         amount_num = (
             parse_number(amount_text, decimal_separator)
