@@ -1,5 +1,6 @@
 import re
 import string
+from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from re import Pattern
 from typing import Callable, Optional
@@ -7,6 +8,24 @@ from typing import Callable, Optional
 import attr
 
 from ._currencies import CURRENCY_CODES, CURRENCY_NATIONAL_SYMBOLS, CURRENCY_SYMBOLS
+
+# Formats of standalone dates that should not be mistaken for prices.
+_DATE_FORMATS = ("%d.%m.%Y", "%B, %Y", "%b, %Y")
+
+
+def _matches_date_format(price: str, fmt: str) -> bool:
+    try:
+        datetime.strptime(price, fmt)
+        return True
+    except ValueError:
+        return False
+
+
+def _is_date(price: str) -> bool:
+    """Return True if ``price`` is fully made of a date, in one of
+    ``_DATE_FORMATS``, rather than of a price."""
+    price = price.strip()
+    return any(_matches_date_format(price, fmt) for fmt in _DATE_FORMATS)
 
 
 @attr.s(auto_attribs=True)
@@ -54,6 +73,9 @@ class Price:
         ``digit_group_separator`` is ``"."``, then ``1.000`` is parsed as
         ``1000``. If it is ``,``, then ``1.000`` is parsed as ``1``.
         """
+        if price is not None and _is_date(price):
+            return cls(amount=None, currency=None, amount_text=None)
+
         currency = extract_currency_symbol(price, currency_hint)
         if currency is not None:
             currency = currency.strip()
