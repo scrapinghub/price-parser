@@ -1,5 +1,6 @@
 import re
 import string
+import warnings
 from decimal import Decimal, InvalidOperation
 from re import Pattern
 from typing import Callable, Optional
@@ -76,7 +77,15 @@ parse_price = Price.fromstring
 
 
 def or_regex(symbols: list[str]) -> Pattern[str]:
-    """Return a regex which matches any of ``symbols``"""
+    """Return a regex which matches any of ``symbols``.
+
+    Deprecated: use :func:`_make_currency_regex` for currency patterns.
+    """
+    warnings.warn(
+        "or_regex is deprecated; use _make_currency_regex instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     return re.compile("|".join(re.escape(s) for s in symbols))
 
 
@@ -248,9 +257,35 @@ OTHER_CURRENCY_SYMBOLS_SET = (
 )
 OTHER_CURRENCY_SYMBOLS = sorted(OTHER_CURRENCY_SYMBOLS_SET, key=len, reverse=True)
 
+
+_UNICODE_LETTER = r"[^\W\d_]"
+_CURRENCY_SUFFIX_LOOKAHEADS = {
+    "руб": rf"(?=(?:л{_UNICODE_LETTER}*)?(?!{_UNICODE_LETTER}))",
+}
+
+
+def _currency_symbol_pattern(symbol: str) -> str:
+    escaped = re.escape(symbol)
+    if not symbol.isalpha():
+        return escaped
+
+    if symbol in _CURRENCY_SUFFIX_LOOKAHEADS:
+        right_boundary = _CURRENCY_SUFFIX_LOOKAHEADS[symbol]
+    elif symbol not in CURRENCY_CODES and len(symbol) > 3:
+        right_boundary = rf"(?=s?(?!{_UNICODE_LETTER}))"
+    else:
+        right_boundary = rf"(?!{_UNICODE_LETTER})"
+
+    return rf"(?<!{_UNICODE_LETTER}){escaped}{right_boundary}"
+
+
+def _make_currency_regex(symbols: list[str]) -> Pattern[str]:
+    return re.compile("|".join(_currency_symbol_pattern(s) for s in symbols))
+
+
 _search_dollar_code = _DOLLAR_REGEX.search
-_search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
-_search_unsafe_currency = or_regex(OTHER_CURRENCY_SYMBOLS).search
+_search_safe_currency = _make_currency_regex(SAFE_CURRENCY_SYMBOLS).search
+_search_unsafe_currency = _make_currency_regex(OTHER_CURRENCY_SYMBOLS).search
 
 
 def extract_currency_symbol(
