@@ -1,13 +1,14 @@
 name: Tests
 
-permissions:
-  contents: read
+permissions: {}
 
 on: [push, pull_request]
 
 jobs:
   tests:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
     strategy:
       fail-fast: false
@@ -34,6 +35,9 @@ jobs:
         - python-version: "3.13"
           env:
             TOXENV: mypy
+        - python-version: "3.14"
+          env:
+            TOXENV: twinecheck
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       with:
@@ -56,6 +60,8 @@ jobs:
 
   pre-commit:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       with:
