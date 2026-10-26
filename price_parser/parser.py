@@ -311,6 +311,8 @@ def extract_price_text(price: str) -> Optional[str]:
     '1,235€99'
     >>> extract_price_text("50% OFF")
     >>> extract_price_text("50%")
+    >>> extract_price_text("40.5% OFF")
+    >>> extract_price_text("50.5%")
     >>> extract_price_text("50")
     '50'
     >>> extract_price_text("$1\xa0298,00")
@@ -339,7 +341,10 @@ def extract_price_text(price: str) -> Optional[str]:
 
     m = re.search(
         r"""
-        ([.]?\d[\d\s.,']*)   # number, probably with thousand separators
+        (?=([.]?\d[\d\s.,']*))\1  # number, probably with thousand separators;
+                                   # (?=(...))\1 makes the group atomic, so a
+                                   # trailing % can't make it backtrack into
+                                   # matching a truncated number instead
         \s*?                # skip whitespace
         (?:[^%\d]|$)        # capture next symbol - it shouldn't be %
         """,
