@@ -252,6 +252,20 @@ _search_dollar_code = _DOLLAR_REGEX.search
 _search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
 _search_unsafe_currency = or_regex(OTHER_CURRENCY_SYMBOLS).search
 
+# Single-letter currency symbols (e.g. "R" for South African rand, "L" for
+# Romanian leu / Lesotho loti / Swazi lilangeni) are too ambiguous to match
+# anywhere in text, but safe when they sit right next to the amount, with
+# at most one separating space.
+_SINGLE_LETTER_CURRENCIES = ["R", "L"]
+_search_single_letter_currency = re.compile(
+    r"""
+    (?<![A-Za-z])(?:{0})(?=[ ]?\d)
+    |
+    (?:(?<=\d)|(?<=\d[ ]))(?:{0})(?![A-Za-z])
+    """.format("|".join(_SINGLE_LETTER_CURRENCIES)),
+    re.VERBOSE,
+).search
+
 
 def extract_currency_symbol(
     price: Optional[str], currency_hint: Optional[str]
@@ -265,6 +279,8 @@ def extract_currency_symbol(
         (_search_safe_currency, currency_hint),
         (_search_unsafe_currency, price),
         (_search_unsafe_currency, currency_hint),
+        (_search_single_letter_currency, price),
+        (_search_single_letter_currency, currency_hint),
     ]
 
     if currency_hint and "$" in currency_hint:
