@@ -77,7 +77,11 @@ parse_price = Price.fromstring
 
 def or_regex(symbols: list[str]) -> Pattern[str]:
     """Return a regex which matches any of ``symbols``"""
-    return re.compile("|".join(re.escape(s) for s in symbols))
+    # Right-to-left symbols are spelled with a trailing right-to-left mark that
+    # real-world text often omits, so any directional mark is made optional.
+    return re.compile(
+        "|".join(re.escape(s).replace("\u200f", "[\u200e\u200f]?") for s in symbols)
+    )
 
 
 # If one of these symbols is found either in price or in currency,
