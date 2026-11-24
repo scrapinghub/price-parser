@@ -281,6 +281,10 @@ def extract_currency_symbol(
     return None
 
 
+# Characters used in place of ' as a thousands separator, e.g. in Swiss prices.
+_APOSTROPHES = re.compile("[’ʼ‘´`′]")
+
+
 def extract_price_text(price: str) -> Optional[str]:
     r"""
     Extract text of a price from a string which contains price and
@@ -317,10 +321,13 @@ def extract_price_text(price: str) -> Optional[str]:
     '1 298,00'
     >>> extract_price_text("$.75")
     '.75'
+    >>> extract_price_text("1’234.56")
+    '1234.56'
     """
     price = re.sub(
         r"\s+", " ", price
     )  # clean initial text from non-breaking and extra spaces
+    price = _APOSTROPHES.sub("'", price)
 
     if price.count("€") == 1:
         m = re.search(
