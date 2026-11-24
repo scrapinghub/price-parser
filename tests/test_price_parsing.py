@@ -18,6 +18,7 @@ from decimal import Decimal
 import pytest
 
 from price_parser import Price
+from price_parser.parser import or_regex
 
 
 class Example(Price):  # noqa: PLW1641
@@ -548,6 +549,8 @@ PRICE_PARSING_EXAMPLES_NO_PRICE = [
     Example("Kč", None, "Kč", None, None),
     Example("50", None, None, None, None),
     Example(">", None, None, None, None),
+    Example(">", "См. цену в прайсе", None, None, None),
+    Example("Купить", "Печная труба", None, None, None),
     Example("REI", None, None, None, None),
     Example("rate", None, None, None, None),
 ]
@@ -1207,6 +1210,7 @@ PRICE_PARSING_EXAMPLES_3 = [
     Example(None, "1 ₿", "₿", "1", 1.0),
     Example(None, "1 Br", "Br", "1", 1.0),  # Ethiopian birr, Belarusian ruble
     Example(None, "1 美股", None, "1", 1.0),  # not a currency
+    Example(None, "Код товара: 884", None, "884", 884.0),
     Example(None, "1 GEL", "GEL", "1", 1.0),  # Georgian lari
     Example(None, "1 FG", "FG", "1", 1.0),  # Guinean franc
     Example(None, "14.00 SGD / Each", "SGD", "14.00", 14.0),  # Singapore Dollar
@@ -1242,10 +1246,6 @@ PRICE_PARSING_EXAMPLES_XFAIL = [
     Example("R273.00", "R273.00", "R", "273.00", 273),
     Example("R8,499", "R8,499", "R", "8,499", 8499),
     Example("Cuneo", "61.858 L", "L", "61.858", 61858),  # Romanian New Leu
-    # "р" / "руб" is detected as currency
-    Example(">", "См. цену в прайсе", None, None, None),
-    Example("Купить", "Печная труба", None, None, None),
-    Example(None, "Код товара: 884", None, "884", 884.0),
     # dates
     Example(None, "July, 2004", None, None, None),
     Example(None, "15.08.2017", None, None, None),
@@ -1458,6 +1458,43 @@ def test_parsing(example: Example) -> None:
         f"Failed scenario: price={example.price_raw}, "
         f"currency_hint={example.currency_raw}"
     )
+
+
+@pytest.mark.parametrize(
+    ("price_raw", "currency_raw"),
+    [
+        ("1000 ANNUALLY", None),
+        ("1000 DAILY", None),
+        ("10.00", "leiden"),
+        ("15.99", "european"),
+        ("1000рруб", None),
+    ],
+)
+def test_currency_not_matched_inside_words(
+    price_raw: str, currency_raw: str | None
+) -> None:
+    assert Price.fromstring(price_raw, currency_raw).currency is None
+
+
+@pytest.mark.parametrize(
+    ("price_raw", "currency"),
+    [
+        ("1000USD", "USD"),
+        ("100 euro", "euro"),
+        ("100 euros", "euro"),
+        ("100 kroons", "kroon"),
+        ("100 Sucres", "Sucre"),
+        ("1000р", "р"),
+    ],
+)
+def test_currency_boundaries_keep_valid_matches(price_raw: str, currency: str) -> None:
+    assert Price.fromstring(price_raw).currency == currency
+
+
+def test_or_regex_deprecated() -> None:
+    with pytest.warns(DeprecationWarning, match="or_regex is deprecated"):
+        pattern = or_regex(["USD"])
+    assert pattern.search("100 USD")
 
 
 @pytest.mark.parametrize(
