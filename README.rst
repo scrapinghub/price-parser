@@ -26,6 +26,7 @@ Features:
 
 * robust price amount and currency symbol extraction
 * zero-effort handling of thousand and decimal separators
+* ISO 4217 currency codes for the extracted currency symbol
 
 The main use case is parsing prices extracted from web pages.
 For example, you can write a CSS/XPath selector which targets an element
@@ -71,6 +72,27 @@ Price(amount=Decimal('22.90'), currency='€')
 
 The library has extensive tests (900+ real-world examples of price strings).
 Some of the supported cases are described below.
+
+Currency codes
+--------------
+
+``currency_code`` is the ISO 4217 code of the extracted currency symbol:
+
+>>> Price.fromstring("22,90 €").currency_code
+'EUR'
+
+Most symbols are shared by several currencies, though, and then
+``currency_code`` is ``None``. Use ``currency_codes`` to see the candidates,
+ordered from most to least likely, and pick one using context that the library
+does not have, such as the country of the website being parsed:
+
+>>> Price.fromstring("Price: $119.00").currency_codes
+['USD', 'CAD', 'AUD', 'NZD', 'HKD', ...]
+
+A more specific symbol in the source text narrows the candidates down:
+
+>>> Price.fromstring("Price: CA$119.00").currency_code
+'CAD'
 
 Supported cases
 ---------------

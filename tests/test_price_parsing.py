@@ -18,6 +18,7 @@ from decimal import Decimal
 import pytest
 
 from price_parser import Price
+from price_parser._currencies import _OBSOLETE_CODES
 
 
 class Example(Price):  # noqa: PLW1641
@@ -1487,3 +1488,48 @@ def test_price_decimal_separator(
 ) -> None:
     parsed = Price.fromstring(price_raw, decimal_separator=decimal_separator)
     assert parsed.amount == expected_result
+
+
+@pytest.mark.parametrize(
+    ("price_raw", "currency_codes", "currency_code"),
+    [
+        ("1200", [], None),
+        ("1200 €", ["EUR"], "EUR"),
+        ("1200 eur", ["EUR"], "EUR"),
+        ("1200 US$", ["USD"], "USD"),
+        ("1200 A$", ["AUD"], "AUD"),
+        ("1200 MX$", ["MXN"], "MXN"),
+        ("1200 ₽", ["RUB"], "RUB"),
+        ("1200 Zł", ["PLN"], "PLN"),
+        # Historical codes are still reported when unambiguous.
+        ("1200 ITL", ["ITL"], "ITL"),
+        # Shared symbols list every match, most likely first.
+        ("1200 C$", ["CAD", "NIO"], None),
+        ("1200 ₩", ["KRW", "KPW"], None),
+        ("1200 ZK", ["ZMW", "ZMK"], None),
+    ],
+)
+def test_currency_codes(
+    price_raw: str, currency_codes: list[str], currency_code: str | None
+) -> None:
+    parsed = Price.fromstring(price_raw)
+    assert parsed.currency_codes == currency_codes
+    assert parsed.currency_code == currency_code
+
+
+@pytest.mark.parametrize(
+    ("price_raw", "expected_first"),
+    [
+        ("1200 $", "USD"),
+        ("1200 £", "GBP"),
+        ("1200 kr", "SEK"),
+    ],
+)
+def test_currency_codes_ambiguous(price_raw: str, expected_first: str) -> None:
+    """Symbols shared by many currencies lead with the most likely one and
+    keep obsolete currencies last."""
+    codes = Price.fromstring(price_raw).currency_codes
+    assert codes[0] == expected_first
+    assert len(codes) > 1
+    obsolete = [code in _OBSOLETE_CODES for code in codes]
+    assert obsolete == sorted(obsolete)
