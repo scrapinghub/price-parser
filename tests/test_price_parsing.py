@@ -108,6 +108,32 @@ PRICE_PARSING_EXAMPLES_NEW = [
 ]
 
 
+PRICE_PARSING_EXAMPLES_NEGATIVE = [
+    Example(None, "-3,95", None, "-3,95", -3.95),
+    Example(None, "-2,525,077.54", None, "-2,525,077.54", -2525077.54),
+    Example(None, "R$ -2,00", "R$", "-2,00", -2.0),
+    Example(None, "-£127.54", "£", "-127.54", -127.54),
+    Example(None, "-$100,000.00", "$", "-100,000.00", -100000.0),
+    Example(None, "-35€99", "€", "-35€99", -35.99),
+    Example(None, "kr-127,54", "kr", "-127,54", -127.54),
+    Example(None, "-kr 6.645", "kr", "-6.645", -6645),
+    Example(None, "kr -6.645", "kr", "-6.645", -6645),
+    # accounting style, with the sign after the amount
+    Example(None, "€ 127,54-", "€", "-127,54", -127.54),
+    Example(None, "35€99-", "€", "-35€99", -35.99),
+    # minus sign and en dash, instead of a hyphen
+    Example(None, "−127.54 $", "$", "-127.54", -127.54),
+    Example(None, "–12.00 $", "$", "-12.00", -12.00),
+    # a dash which is not a sign
+    Example(None, "- $44.99", "$", "44.99", 44.99),
+    Example(None, "- 2 items at 24,00 €", "€", "2", 2),
+    Example(None, "$50, ships in 3-5 days", "$", "50,", 50),
+    Example(None, "Price $50 - sizes 8-10", "$", "50", 50),
+    Example(None, "COVID-19 sale, $50", "$", "19", 19),
+    Example(None, "e-book 12.99", None, "12.99", 12.99),
+]
+
+
 PRICE_PARSING_EXAMPLES = [
     Example(
         "90 728.00 руб 103 100.00 руб",
@@ -1437,6 +1463,7 @@ PRICE_PARSING_DECIMAL_SEPARATOR_EXAMPLES = [
     "example",
     PRICE_PARSING_EXAMPLES_BUGS_CAUGHT
     + PRICE_PARSING_EXAMPLES_NEW
+    + PRICE_PARSING_EXAMPLES_NEGATIVE
     + PRICE_PARSING_EXAMPLES
     + PRICE_PARSING_EXAMPLES_2
     + PRICE_PARSING_EXAMPLES_3
