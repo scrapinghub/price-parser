@@ -76,6 +76,9 @@ PRICE_PARSING_EXAMPLES_BUGS_CAUGHT = [
         "1.11000000000000009770",
         Decimal("1.11000000000000009770"),
     ),
+    Example(None, ",89", None, ",89", 0.89),
+    Example(None, ",89 €", "€", ",89", 0.89),
+    Example(None, ",89,99", None, "89,99", 89.99),
     Example(None, " 423.923 KD", "KD", "423.923", 423.923, decimal_separator="."),
     Example(
         None,

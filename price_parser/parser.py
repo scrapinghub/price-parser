@@ -339,7 +339,7 @@ def extract_price_text(price: str) -> Optional[str]:
 
     m = re.search(
         r"""
-        ([.]?\d[\d\s.,']*)   # number, probably with thousand separators
+        ([.,]?\d[\d\s.,']*)  # number, probably with thousand separators
         \s*?                # skip whitespace
         (?:[^%\d]|$)        # capture next symbol - it shouldn't be %
         """,
@@ -348,13 +348,10 @@ def extract_price_text(price: str) -> Optional[str]:
     )
 
     if m:
-        price_text = m.group(1).rstrip(",.")
-        price_text = price_text.replace("'", "")
-        return (
-            price_text.strip()
-            if price_text.count(".") == 1
-            else price_text.lstrip(",.").strip()
-        )
+        price_text = m.group(1).rstrip(",.").replace("'", "")
+        if price_text[0] in ".," and price_text.count(price_text[0]) > 1:
+            price_text = price_text.lstrip(",.")
+        return price_text.strip()
     if "free" in price.lower():
         return "0"
     return None
