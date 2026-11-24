@@ -119,6 +119,7 @@ SAFE_CURRENCY_SYMBOLS = [
     "GH₵",
     # unique currency symbols
     "$",
+    "¢",
     "€",
     "£",
     "zł",
