@@ -2,23 +2,26 @@ import re
 import string
 from decimal import Decimal, InvalidOperation
 from re import Pattern
-from typing import Callable, Optional
+from typing import TYPE_CHECKING
 
 import attr
 
 from ._currencies import CURRENCY_CODES, CURRENCY_NATIONAL_SYMBOLS, CURRENCY_SYMBOLS
 
+if TYPE_CHECKING:
+    from collections.abc import Callable
+
 
 @attr.s(auto_attribs=True)
 class Price:
-    amount: Optional[Decimal]  # price numeric value, as Decimal
-    currency: Optional[str]  # currency symbol (as appeared in text)
+    amount: Decimal | None  # price numeric value, as Decimal
+    currency: str | None  # currency symbol (as appeared in text)
 
     # price value, as a raw string
-    amount_text: Optional[str] = attr.ib(repr=False)
+    amount_text: str | None = attr.ib(repr=False)
 
     @property
-    def amount_float(self) -> Optional[float]:
+    def amount_float(self) -> float | None:
         """price numeric value, as float"""
         if self.amount is not None:
             return float(self.amount)
@@ -27,10 +30,10 @@ class Price:
     @classmethod
     def fromstring(
         cls,
-        price: Optional[str],
-        currency_hint: Optional[str] = None,
-        decimal_separator: Optional[str] = None,
-        digit_group_separator: Optional[str] = None,
+        price: str | None,
+        currency_hint: str | None = None,
+        decimal_separator: str | None = None,
+        digit_group_separator: str | None = None,
     ) -> "Price":
         """
         Given price and currency text extracted from HTML elements, return
@@ -253,14 +256,12 @@ _search_safe_currency = or_regex(SAFE_CURRENCY_SYMBOLS).search
 _search_unsafe_currency = or_regex(OTHER_CURRENCY_SYMBOLS).search
 
 
-def extract_currency_symbol(
-    price: Optional[str], currency_hint: Optional[str]
-) -> Optional[str]:
+def extract_currency_symbol(price: str | None, currency_hint: str | None) -> str | None:
     """
     Guess currency symbol from extracted price and currency strings.
     Return an empty string if symbol is not found.
     """
-    methods: list[tuple[Callable[[str], Optional[re.Match[str]]], Optional[str]]] = [
+    methods: list[tuple[Callable[[str], re.Match[str] | None], str | None]] = [
         (_search_safe_currency, price),
         (_search_safe_currency, currency_hint),
         (_search_unsafe_currency, price),
@@ -281,7 +282,7 @@ def extract_currency_symbol(
     return None
 
 
-def extract_price_text(price: str) -> Optional[str]:
+def extract_price_text(price: str) -> str | None:
     r"""
     Extract text of a price from a string which contains price and
     maybe some other text. If multiple price-looking substrings are present,
@@ -375,7 +376,7 @@ $
 ).search
 
 
-def get_decimal_separator(price: str) -> Optional[str]:
+def get_decimal_separator(price: str) -> str | None:
     """Return decimal separator symbol or None if there
     is no decimal separator.
 
@@ -398,9 +399,7 @@ def get_decimal_separator(price: str) -> Optional[str]:
     return None
 
 
-def parse_number(
-    num: str, decimal_separator: Optional[str] = None
-) -> Optional[Decimal]:
+def parse_number(num: str, decimal_separator: str | None = None) -> Decimal | None:
     """Parse a string with a number to a Decimal, guessing its format:
     decimal separator, thousand separator. Return None if parsing fails.
 

@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.6.0 (unreleased)
+------------------
+
+* Dropped support for Python 3.9 and 3.10, added support for Python 3.15.
+* Added the ``Typing :: Typed`` classifier.
+
 0.5.1 (2026-03-19)
 ------------------
 

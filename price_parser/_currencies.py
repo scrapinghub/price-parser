@@ -26,11 +26,7 @@ Some extra abbreviations are added to the list (they are set below
 from __future__ import annotations
 
 from itertools import chain
-from typing import TYPE_CHECKING, TypedDict
-
-if TYPE_CHECKING:
-    # typing.NotRequired requires Python 3.11
-    from typing_extensions import NotRequired
+from typing import NotRequired, TypedDict
 
 
 class CurrencyInfo(TypedDict):

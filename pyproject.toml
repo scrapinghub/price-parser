@@ -18,17 +18,17 @@ classifiers = [
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Typing :: Typed",
 ]
 dependencies = [
     "attrs >= 17.3.0",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 
 [project.urls]
 Homepage = "https://github.com/scrapinghub/price-parser"
@@ -191,10 +191,6 @@ runtime-evaluated-decorators = ["attr.s"]
 
 [tool.ruff.lint.isort]
 split-on-trailing-comma = false
-
-[tool.ruff.lint.per-file-ignores]
-# To not introduce annotations potentially not resolvable at the run time
-"price_parser/parser.py" = ["FA100"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "pep257"
